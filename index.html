@@ -1,0 +1,215 @@
+<!doctype html>
+<html manifest="APP.appcache">
+<head>
+    <meta charset="utf-8">
+    <title>MDH by @soyjavi</title>
+    <meta name="description" content="">
+    <meta name="author" content="Javier Jiménez Villar (@soyjavi)">
+    <!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background: black;
+            font-family: monospace;
+            font-size: 12px;
+            color: white;
+            line-height: 32px;
+        }
+        .red { color: red; }
+        .black { color: black; }
+        .grey { color: grey ; }
+        .green { color: green !important; }
+        .blue { color: blue; }
+
+        h1 {
+            background: white;
+            color: green;
+            font-size: 16px;
+            line-height: 28px;
+            padding-left: 8px;
+        }
+
+        label {float: left;}
+        input {float:right;}
+    </style>
+</head>
+
+<body id="identificador-body">
+    <h1>Query:</h1>
+    <ul id="list-1">
+        <li>first</li>
+        <li class="red">second</li>
+        <li>third</li>
+        <li>fourth</li>
+        <li>last</li>
+    </ul>
+
+    <h1>Output:</h1>
+
+    <h1>Style:</h1>
+
+    <h1>Element:</h1>
+        <ul>
+            <li>
+                <label class="placeholder"><strong>Set placeholder</strong></label>
+                <input type="text" id="txt-placeholder">
+            </li>
+        </ul>
+
+
+    <h1 id="prueba">Events:</h1>
+
+
+    <header id="title-2">b</header>
+
+
+    <!-- Instance of MDH -->
+    <script src="lib/zepto.js"></script>
+
+    <script src="src/quo.js"></script>
+    <script src="src/quo.core.js"></script>
+    <script src="src/quo.query.js"></script>
+    <script src="src/quo.style.js"></script>
+    <script src="src/quo.element.js"></script>
+    <script src="src/quo.output.js"></script>
+    <script src="src/quo.ajax.js"></script>
+    <script src="src/quo.events.js"></script>
+
+    <!-- ELEMENT -->
+    <script>
+        /*
+        var placeholder =  $$('#txt-placeholder');
+
+        placeholder.attr('placeholder', 'Setted placeholder by attr');
+        //$$('.placeholder').append(' is ' + placeholder.attr('placeholder'));
+        */
+
+    </script>
+
+    <!-- EVENTS -->
+    <script>
+        var selector = '#list-1 li:last-child';
+
+
+        /*
+        $$('h1').bind('click', function(event){
+            console.error('ha pulsado en h1');
+        }, false);
+
+
+        */
+
+        var a = function(event){
+            console.error('pulsa');
+        }
+
+        $$('#list-1 li:last-child').bind('click', function(event) {
+            console.error('ha pulsado en list');
+        }, false);
+
+        $$('h1').bind('click', a, false);
+        //$$('h1').unbind('click', a, false);
+
+
+        $$('h1#prueba').bind('click', function(event) {
+            console.error('ha pulsado en el ultimo h1');
+        }, false);
+
+        $$('#list-1').append('<li>uno</li>');
+        $$('#list-1').append('<li>tres</li>');
+
+        $$('body').append('<h1>aslkdjakldj</h1>');
+
+
+
+
+
+        /*
+        $$(selector).bind('click', function(event){
+            console.error(event)
+        });
+        */
+    </script>
+
+    <!-- AJAX -->
+    <script>
+    /*
+        $$.ajaxSettings.timeout = 1500;
+        $$.ajaxSettings.error = function(){
+            console.error('Error General:', arguments);
+        }
+
+        $$.ajax({
+            url: 'http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=3&minx=-180&miny=-90&maxx=180&maxy=90&size=medium&mapfilter=true',
+            timeout: 1000,
+            success: function(response) {
+                console.error(response);
+            }
+        });
+    */
+
+    $$.ajaxSettings.timeout = 1300;
+    $$.ajaxSettings.error = function(){
+        console.error('Error General:', arguments);
+    }
+    /*
+    $$.json('http://appstapquo.appspot.com/iparkutxa/login',
+        {
+            user: 'a',
+            password: 'b',
+            jsonp: '?'
+        }, function(result){
+            console.error(result);
+        }
+    );
+    */
+    </script>
+
+    <script>
+        //$('#title').html('<h1>alksdajdj</h1>').append('pepe').prepend('yohan').style('height', 'auto').style('width','12px').style('width', '50%');
+
+        //$('#title-1').toggleClass('blue').html('class red').toggleClass('red').toggleClass('blue');
+
+        //var selector = '#list-1 li';
+
+        /*
+        console.error('================================================');
+        var zep = $(selector);
+        console.error('get(1):', zep.get(1));
+        console.error('first():', zep.first());
+        console.error('================================================');
+        */
+
+        console.error('================================================');
+        //var quo = $$(selector);
+        //console.error('id:', quo.attr('id'));
+        //console.error('------------------------------------------------');
+        //console.error('parent():', quo.parent());
+        //console.error('------------------------------------------------');
+        //console.error('parent().attr("id"):', quo.parent().addClass('blue').attr('id'));
+        //console.error('------------------------------------------------');
+        //console.error('------------------------------------------------');
+        //console.error('children():', quo.children().addClass('blue'));
+        //console.error('------------------------------------------------');
+        //console.error('sibbling():', quo.siblings().addClass('blue'));
+        //console.error('------------------------------------------------');
+        //var a = $$('#list-1 li').get(1);
+        //var second = $$(a);
+        //console.error('get(1):', $$('#list-1 li').get(1));
+        //console.error('first():', $$('#list-1 li').first().addClass('blue').append(' >> added .blue'));
+        //console.error('first():', $$('#list-1 li').last().addClass('green').append(' >> added .green'));
+        //console.error('================================================');
+
+
+
+        //$('#title-3').data('search', 'pepito').attr('style','jajaja').val('papa');
+    </script>
+</body>
+</html>
