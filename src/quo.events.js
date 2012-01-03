@@ -1,70 +1,51 @@
+//     Quo.js
+//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
+//     Quo.js may be freely distributed under the MIT license.
+
 (function($$) {
 
-    var ELEMENT_ID = 1;
-    var HANDLERS = {};
+    var SHORTCUTS = [
+        'touch',
+        'tap'
+    ];
 
-    $$.fn.listener = function(action, callback) {
-        return this.each(function() {
-            _subscribeEvent(this, action, callback);
-        });
+    var SHORTCUTS_EVENTS = {
+        touch: 'touchstart',
+        tap: 'tap'
     };
 
-    $$.fn.removeListener = function(action, callback) {
-        return this.each(function() {
-            _unsubscribeEvent(this, action, callback);
-        });
-    }
+    var READY_EXPRESSION = /complete|loaded|interactive/;
 
-    $$.fn.bind = function(action, callback) {
-        return this.each(function() {
-            _subscribeEvent(this, action, callback);
-        });
+    SHORTCUTS.forEach(function(event) {
+        $$.fn[event] = function(callback) {
+            $$(document.body).delegate(this.selector, SHORTCUTS_EVENTS[event], callback);
+            return this;
+        };
+    });
+
+    $$.fn.on = function(event, selector, callback) {
+        return (selector === undefined || toType(selector) === 'function') ?
+            this.bind(event, selector)
+            :
+            this.delegate(selector, event, callback);
     };
 
-    $$.fn.unbind = function(action, callback){
-        return this.each(function() {
-            _unsubscribeEvent(this, action, callback);
-        });
+    $$.fn.off = function(event, selector, callback){
+        return (selector === undefined || toType(selector) === 'function') ?
+            this.unbind(event, selector)
+            :
+            this.undelegate(selector, event, callback);
     };
 
-    function _subscribeEvent(element, action, callback, selector, getDelegate) {
-        //TODO : Manager
-        element.addEventListener(action, callback, false);
-    }
+    $$.fn.ready =function(callback) {
+        if (READY_EXPRESSION.test(document.readyState)) {
+            callback($$);
+        }
+        else {
+            document.addEventListener('DOMContentLoaded', function(){ callback($$) }, false);
+        }
+      return this;
 
-    function _unsubscribeEvent(element, action, callback, selector) {
-        //TODO : Manager
-        element.removeEventListener(action, callback, type);
-    }
-
-    function _generateElementId(element) {
-        return element._id || (element._id = ELEMENT_ID++);
-    }
-
-    /* Special Events */
-
-    $$.fn.tap = function(callback) {
-        return this.each(function() {
-
-        });
-    }
-
-    $$.fn.touch = function(callback) {
-        return this.each(function() {
-
-        });
-    }
-
-    $$.fn.tap = function(callback) {
-        return this.each(function() {
-
-        });
-    }
-
-    $$.fn.swipe = function(callback) {
-        return this.each(function() {
-
-        });
-    }
+    };
 
 })(Quo);
