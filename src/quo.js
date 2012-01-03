@@ -1,6 +1,7 @@
-//     QuoJS
-//     (c) 2011, 2012 Javier Jiménez Villar
-//     QuoJS may be freely distributed under the MIT license.
+//     Quo.js
+//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
+//     Quo.js may be freely distributed under the MIT license.
+
 
 var Quo = (function() {
     var undefined, key, $$, classList, emptyArray = [], slice = emptyArray.slice, document = window.document;
@@ -15,7 +16,6 @@ var Quo = (function() {
 
     /* ---------------------------------------------------------- */
     /* ---------------------------------------------------------- */
-
     function Q(dom, selector) {
         dom = dom || emptyArray;
         dom.__proto__ = Q.prototype;
@@ -71,7 +71,7 @@ var Quo = (function() {
 
     $$.fn = {
         forEach: emptyArray.forEach,
-
+        indexOf: emptyArray.indexOf,
         map: function(fn) {
             return $$.map(this, function(el, i){ return fn.call(el, i, el) });
         },
