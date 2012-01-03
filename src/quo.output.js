@@ -1,3 +1,7 @@
+//     Quo.js
+//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
+//     Quo.js may be freely distributed under the MIT license.
+
 (function($) {
 
     $.fn.text = function(value) {

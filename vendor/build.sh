@@ -19,7 +19,7 @@ FILES_TO_JOIN=""
 #Main
 DIR=$LUNGO_SOURCES$LUNGO_NAMESPACE
 echo -e "\033[33m  [DIR]: "$LUNGO_SOURCES
-FILES=(js core.js query.js style.js element.js ajax.js events.js)
+FILES=(js core.js environment.js query.js style.js element.js ajax.js events.js events.manager.js events.gestures.js)
 for file in "${FILES[@]}"
 do
     FILES_TO_COMPILE=$FILES_TO_COMPILE" --js "$DIR$file

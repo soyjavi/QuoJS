@@ -1,6 +1,6 @@
-//     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
+//     Quo.js
+//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
+//     Quo.js may be freely distributed under the MIT license.
 
 (function($){
 
