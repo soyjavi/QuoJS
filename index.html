@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
     <style>
         body {
             margin: 0px;
@@ -42,91 +43,146 @@
 </head>
 
 <body id="identificador-body">
-    <h1>Query:</h1>
-    <ul id="list-1">
-        <li>first</li>
-        <li class="red">second</li>
-        <li>third</li>
-        <li>fourth</li>
-        <li>last</li>
-    </ul>
-
-    <h1>Output:</h1>
-
-    <h1>Style:</h1>
-
-    <h1>Element:</h1>
-        <ul>
-            <li>
-                <label class="placeholder"><strong>Set placeholder</strong></label>
-                <input type="text" id="txt-placeholder">
-            </li>
+    <section id="primary" style="background:red;">
+        <h1  class="first" id="papapa">Query:</h1>
+        <ul id="list-1">
+            <li>first</li>
+            <li class="red">second</li>
+            <li>third</li>
+            <li>fourth</li>
+            <li>last</li>
         </ul>
 
+        <h1>Output:</h1>
 
-    <h1 id="prueba">Events:</h1>
+        <h1 class="last">.last</h1>
+        <h1>Style:</h1>
+    </section>
+
+    <section id="secondary" style="background:blue;">
+        <h1>Element:</h1>
+            <ul>
+                <li>
+                    <label class="placeholder"><strong>Set placeholder</strong></label>
+                    <input type="text" id="txt-placeholder">
+                </li>
+            </ul>
 
 
-    <header id="title-2">b</header>
+        <h1 class="last">.last</h1>
+
+
+        <header id="title-2">b</header>
+    </section>
 
 
     <!-- Instance of MDH -->
-    <script src="lib/zepto.js"></script>
+    <script src="lib/zeptowxw.js"></script>
 
     <script src="src/quo.js"></script>
     <script src="src/quo.core.js"></script>
+    <script src="src/quo.environment.js"></script>
     <script src="src/quo.query.js"></script>
     <script src="src/quo.style.js"></script>
     <script src="src/quo.element.js"></script>
     <script src="src/quo.output.js"></script>
     <script src="src/quo.ajax.js"></script>
     <script src="src/quo.events.js"></script>
+    <script src="src/quo.events.manager.js"></script>
+    <script src="src/quo.events.gestures.js"></script>
 
     <!-- ELEMENT -->
     <script>
-        /*
         var placeholder =  $$('#txt-placeholder');
-
         placeholder.attr('placeholder', 'Setted placeholder by attr');
-        //$$('.placeholder').append(' is ' + placeholder.attr('placeholder'));
-        */
-
+        $$('.placeholder').append(' is ' + placeholder.attr('placeholder'));
     </script>
+
 
     <!-- EVENTS -->
     <script>
-        var selector = '#list-1 li:last-child';
+
+        $$(document).ready(function() {
+            //GESTURES
+            $$('h1').swipeLeft(function(){ alert('ha hecho swipe'); });
+
+            $$('h1').doubleTap(function(){ alert('ha hecho doubletap'); });
+
+            $$('h1').longTap(function(){ alert('ha hecho longTap'); });
+        });
+
+
+        $$('h1').bind('touchstart', function(){ console.error('bind touchstart'); });
+        $$('h1').bind('tap', function(){ console.error('bind tap'); });
+        $$('h1').tap(function() { console.error('live tap'); });
+
+        $$('h1').last().unbind('touchstart');
+        $$('h1.last').unbind('touchstart');
 
 
         /*
-        $$('h1').bind('click', function(event){
-            console.error('ha pulsado en h1');
-        }, false);
+        $$('h1:first-child').touch(function() {
+            console.error('h1:first-child - touch');
+        });
+        $$('h1:first-child').tap(function() {
+            console.error('h1:first-child - tap');
+        });
 
+        $$('#primary').on('touchstart', 'h1.last', function() {
+            console.error('h1.last - touch');
+        });
 
+        $$('h1.last').touch(function() {
+            console.error('h1 - all touch');
+        });
         */
 
-        var a = function(event){
-            console.error('pulsa');
-        }
 
-        $$('#list-1 li:last-child').bind('click', function(event) {
-            console.error('ha pulsado en list');
-        }, false);
-
-        $$('h1').bind('click', a, false);
-        //$$('h1').unbind('click', a, false);
+        //$$('#secondary').append('<h1>Añadido dinamicamente</h1>');
+        //$$(document.body).append('<h1 class="pepe">Añadido dinamicamente 2</h1>');
 
 
-        $$('h1#prueba').bind('click', function(event) {
-            console.error('ha pulsado en el ultimo h1');
-        }, false);
 
-        $$('#list-1').append('<li>uno</li>');
-        $$('#list-1').append('<li>tres</li>');
+        //FUNCIONA
+        //$$('h1').bind('tap', function(event) { console.error(event) });
+        //$$('h1').last().unbind('tap');
+        //NO FUNCIONA
+        //$$('h1').delegate('li', 'click', function() { alert('siii'); });
 
-        $$('body').append('<h1>aslkdjakldj</h1>');
+        /*
 
+
+
+        $$('h1').on('click', function(){
+            console.error('h1.click');
+        });
+
+
+        $$('h1').last().off('click');
+        */
+
+        //$$('h1').unbind('tap', null);
+
+        /*
+        $$('#list-1 li:last-child').live('click', function(event) {
+            console.error(event, 'li:last-child.click()');
+        });
+
+        $$('h1').bind('click', function() {
+            console.error(event, 'h1.click()')
+        });
+        $$('h1.first').unbind('click', null);
+
+
+        $$('h1.last').bind('click', function(event) {
+            console.error(event, 'h1.last.click())');
+        });
+
+        //Dinamics
+        $$('#list-1').append('<li>six</li>');
+        $$('#list-1').append('<li>seven</li>');
+        $$('body').append('<h1>Ultimo dinámcos</h1>');
+        */
 
 
 
@@ -186,8 +242,6 @@
         console.error('first():', zep.first());
         console.error('================================================');
         */
-
-        console.error('================================================');
         //var quo = $$(selector);
         //console.error('id:', quo.attr('id'));
         //console.error('------------------------------------------------');
