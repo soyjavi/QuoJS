@@ -16,22 +16,24 @@
     });
 
     $$(document).ready(function() {
-        _listenTouches();
+        if ($$.isMobile()) {
+            _listenTouches();
+        }
     });
 
     function _listenTouches() {
-        var ent = $$(document.body);
+        var environment = $$(document.body);
 
-        ent.bind('touchstart', _onTouchStart);
-        ent.bind('touchmove', _onTouchMove);
-        ent.bind('touchend', _onTouchEnd);
-        ent.bind('touchcancel', _onTouchCancel);
+        environment.bind('touchstart', _onTouchStart);
+        environment.bind('touchmove', _onTouchMove);
+        environment.bind('touchend', _onTouchEnd);
+        environment.bind('touchcancel', _onTouchCancel);
     }
 
     function _onTouchStart(event) {
         var now = Date.now();
         var delta = now - (TOUCH.last || now);
-        var first_touch = ($$.isMobile()) ? event.touches[0] : event;
+        var first_touch = event.touches[0];
 
         TOUCH_TIMEOUT && clearTimeout(TOUCH_TIMEOUT);
 
@@ -46,7 +48,7 @@
     };
 
     function _onTouchMove(event) {
-        var move_touch = ($$.isMobile()) ? event.touches[0] : event;
+        var move_touch = event.touches[0];
         TOUCH.x2 = move_touch.pageX;
         TOUCH.y2 = move_touch.pageY;
     };
