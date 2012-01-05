@@ -1,6 +1,8 @@
-//     Quo.js
-//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
-//     Quo.js may be freely distributed under the MIT license.
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$){
 
@@ -10,9 +12,6 @@
      * ?
      */
     $$.query = queryDOM = function(domain, selector) {
-        //var method = QUERY_ALL;
-
-        //var dom_elements = document[method].call(document, selector);
         var dom_elements = document.querySelectorAll(selector);
         dom_elements = Array.prototype.slice.call(dom_elements);
 
@@ -87,6 +86,16 @@
         }
 
         return $$(node);
+    }
+
+    /**
+     * ?
+     */
+    $$.fn.each = function(callback) {
+        this.forEach( function(el, idx) {
+            callback.call(el, idx, el)
+        });
+        return this;
     }
 
     var _filtered = function(nodes, selector) {

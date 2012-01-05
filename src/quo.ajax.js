@@ -1,6 +1,8 @@
-//     Quo.js
-//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
-//     Quo.js may be freely distributed under the MIT license.
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -14,6 +16,9 @@
     };
     var JSONP_ID = 0;
 
+    /**
+     * ?
+     */
     $$.ajaxSettings = {
         type: DEFAULT.TYPE,
         async: true,
@@ -29,12 +34,11 @@
         timeout: 0
     };
 
-    $$.isOnline = isOnline = function(selector) {
-        return (navigator.onLine) ? true : false;
-    }
-
+    /**
+     * ?
+     */
     $$.ajax = function(options) {
-        var settings = mix($$.ajaxSettings, options);
+        var settings = $$.mix($$.ajaxSettings, options);
 
         if (_isJsonP(settings.url)) return $$.jsonp(settings);
 
@@ -60,6 +64,9 @@
         return (settings.async) ? xhr : _parseResponse(xhr, settings);
     };
 
+    /**
+     * ?
+     */
     $$.jsonp = function(settings) {
         var callbackName = 'jsonp' + (++JSONP_ID);
         var script = document.createElement('script');
@@ -91,6 +98,9 @@
         return xhr;
     };
 
+    /**
+     * ?
+     */
     $$.get = function(url, data, success, dataType) {
         url += _serializeParameters(data);
 
@@ -101,6 +111,9 @@
         });
     };
 
+    /**
+     * ?
+     */
     $$.post = function(url, data, success, dataType) {
         return $$.ajax({
             type: 'POST',
@@ -112,6 +125,9 @@
         });
     };
 
+    /**
+     * ?
+     */
     $$.json = function(url, data, success) {
         url += _serializeParameters(data);
         console.error('json ', url);

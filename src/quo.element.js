@@ -1,11 +1,16 @@
-//     Quo.js
-//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
-//     Quo.js may be freely distributed under the MIT license.
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
+    /**
+     * ?
+     */
     $$.fn.attr = function(name, value) {
-        if (toType(name) === 'string' && value === undefined) {
+        if ($$.toType(name) === 'string' && value === undefined) {
             return this[0].getAttribute(name);
         } else {
             return this.each(function() {
@@ -14,10 +19,16 @@
         }
     }
 
+    /**
+     * ?
+     */
     $$.fn.data = function(name, value) {
         return this.attr('data-' + name, value);
     }
 
+    /**
+     * ?
+     */
     $$.fn.val = function(value) {
         if (value) {
             return this.each(function() {
@@ -28,14 +39,23 @@
         }
     }
 
+    /**
+     * ?
+     */
     $$.fn.height = function() {
 
     }
 
+    /**
+     * ?
+     */
     $$.fn.width = function() {
 
     }
 
+    /**
+     * ?
+     */
     $$.fn.offset = function() {
         var bounding = this[0].getBoundingClientRect();
 
@@ -47,6 +67,9 @@
         };
     }
 
+    /**
+     * ?
+     */
     $$.fn.remove = function() {
         return this.each(function() {
             if (this.parentNode != null) {

@@ -1,20 +1,28 @@
-//     Quo.js
-//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
-//     Quo.js may be freely distributed under the MIT license.
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
     var TOUCH = {};
     var TOUCH_TIMEOUT;
-    var LONGTAP_DELAY = 600;
+    var LONGTAP_DELAY = 750;
     var GESTURES = ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'longTap'];
 
+    /**
+     * ?
+     */
     GESTURES.forEach(function(event) {
         $$.fn[event] = function(callback) {
             return this.bind(event, callback);
         };
     });
 
+    /**
+     * ?
+     */
     $$(document).ready(function() {
         if ($$.isMobile()) {
             _listenTouches();
