@@ -1,6 +1,8 @@
-//     Quo.js
-//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
-//     Quo.js may be freely distributed under the MIT license.
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -31,6 +33,13 @@
 
         return CURRENT_ENVIRONMENT;
     };
+
+    /**
+     * ?
+     */
+    $$.isOnline = isOnline = function(selector) {
+        return (navigator.onLine) ? true : false;
+    }
 
     var _detectEnvironment = function() {
         var user_agent = navigator.userAgent;
