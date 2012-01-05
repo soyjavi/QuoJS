@@ -1,6 +1,8 @@
-//     Quo.js
-//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
-//     Quo.js may be freely distributed under the MIT license.
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -9,17 +11,18 @@
     var EVENT_METHODS = {
         preventDefault: 'isDefaultPrevented',
         stopImmediatePropagation: 'isImmediatePropagationStopped',
-        stopPropagation: 'isPropagationStopped'
-    };
+        stopPropagation: 'isPropagationStopped' };
     var EVENTS_DESKTOP = {
         touchstart : 'mousedown',
         touchmove: 'mousemove',
         touchend: 'mouseup',
         tap: 'click',
         doubletap: 'dblclick',
-        orientation_change: 'resize'
-    };
+        orientation_change: 'resize' };
 
+    /**
+     * ?
+     */
     $$.Event = function(type, props) {
         var event = document.createEvent('Events');
         event.initEvent(type, true, true, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -27,26 +30,38 @@
         return event;
     };
 
+    /**
+     * ?
+     */
     $$.fn.bind = function(event, callback) {
         return this.each(function() {
             _subscribe(this, event, callback);
         });
     };
 
+    /**
+     * ?
+     */
     $$.fn.unbind = function(event, callback){
         return this.each(function() {
             _unsubscribe(this, event, callback);
         });
     };
 
+    /**
+     * ?
+     */
     $$.fn.trigger = function(event, data) {
-        if (toType(event) === 'string') event = $$.Event(event);
+        if ($$.toType(event) === 'string') event = $$.Event(event);
 
         return this.each(function() {
             this.dispatchEvent(event)
         });
     };
 
+    /**
+     * ?
+     */
     $$.fn.delegate = function(selector, event, callback) {
         return this.each(function(i, element) {
             _subscribe(element, event, callback, selector, function(fn) {
@@ -64,6 +79,9 @@
         });
     };
 
+    /**
+     * ?
+     */
     $$.fn.undelegate = function(selector, event, callback){
         return this.each(function(){
             _unsubscribe(this, event, callback, selector);

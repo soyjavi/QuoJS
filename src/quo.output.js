@@ -1,10 +1,15 @@
-//     Quo.js
-//     (c) 2011, 2012 Javier Jiménez Villar (@soyjavi)
-//     Quo.js may be freely distributed under the MIT license.
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
-(function($) {
+(function($$) {
 
-    $.fn.text = function(value) {
+    /**
+     * ?
+     */
+    $$.fn.text = function(value) {
         return (!value) ?
             this[0].textContent
             :
@@ -13,7 +18,10 @@
             });
     }
 
-    $.fn.html = function(value) {
+    /**
+     * ?
+     */
+    $$.fn.html = function(value) {
         return (!value) ?
             this[0].innerHTML
             :
@@ -22,9 +30,12 @@
             });
     }
 
-    $.fn.append = function(value) {
+    /**
+     * ?
+     */
+    $$.fn.append = function(value) {
         return this.each(function() {
-            if (toType(value) === 'string') {
+            if ($$.toType(value) === 'string') {
                 var div = document.createElement();
                 div.innerHTML = value;
                 this.appendChild(div.firstChild);
@@ -34,9 +45,12 @@
         });
     }
 
-    $.fn.prepend = function(value) {
+    /**
+     * ?
+     */
+    $$.fn.prepend = function(value) {
         return this.each(function() {
-            if (toType(value) === 'string') {
+            if ($$.toType(value) === 'string') {
                 this.innerHTML = value + this.innerHTML;
             } else {
                 var parent = this.parentNode;
@@ -45,7 +59,10 @@
         });
     }
 
-    $.fn.empty = function() {
+    /**
+     * ?
+     */
+    $$.fn.empty = function() {
         return this.each(function() {
             this.innerHTML = null;
         });
