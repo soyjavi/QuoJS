@@ -95,6 +95,9 @@
 
     <!-- ELEMENT -->
     <script>
+        var env = $$.environment();
+        console.error(env);
+
         var placeholder =  $$('#txt-placeholder');
         placeholder.attr('placeholder', 'Setted placeholder by attr');
         $$('.placeholder').append(' is ' + placeholder.attr('placeholder'));
@@ -108,20 +111,23 @@
 
         $$(document).ready(function() {
             //GESTURES
-            $$('h1').swipeLeft(function(){ alert('ha hecho swipe'); });
+            $$('h1').swipeLeft(function(){ console.error('ha hecho swipe'); });
 
-            $$('h1').doubleTap(function(){ alert('ha hecho doubletap'); });
+            $$('h1').doubleTap(function(){ console.error('ha hecho doubletap'); });
 
-            $$('h1').longTap(function(){ alert('ha hecho longTap'); });
+
+            $$('h1').longTap(function(){ console.error('ha hecho longTap'); });
+
         });
 
-
+        /*
         $$('h1').bind('touchstart', function(){ console.error('bind touchstart'); });
         $$('h1').bind('tap', function(){ console.error('bind tap'); });
         $$('h1').tap(function() { console.error('live tap'); });
 
         $$('h1').last().unbind('touchstart');
         $$('h1.last').unbind('touchstart');
+        */
 
 
         /*
