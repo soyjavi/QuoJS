@@ -16,7 +16,7 @@
      */
     GESTURES.forEach(function(event) {
         $$.fn[event] = function(callback) {
-            return this.bind(event, callback);
+            return this.on(event, callback);
         };
     });
 
@@ -24,9 +24,7 @@
      * ?
      */
     $$(document).ready(function() {
-        if ($$.isMobile()) {
-            _listenTouches();
-        }
+        _listenTouches();
     });
 
     function _listenTouches() {
@@ -41,10 +39,9 @@
     function _onTouchStart(event) {
         var now = Date.now();
         var delta = now - (TOUCH.last || now);
-        var first_touch = event.touches[0];
+        var first_touch = ($$.isMobile()) ? event.touches[0] : event;
 
         TOUCH_TIMEOUT && clearTimeout(TOUCH_TIMEOUT);
-
         TOUCH = {
             el: $$(_parentIfText(first_touch.target)),
             x1: first_touch.pageX,
@@ -56,7 +53,7 @@
     };
 
     function _onTouchMove(event) {
-        var move_touch = event.touches[0];
+        var move_touch = ($$.isMobile()) ? event.touches[0] : event;
         TOUCH.x2 = move_touch.pageX;
         TOUCH.y2 = move_touch.pageY;
     };
@@ -69,7 +66,9 @@
             (Math.abs(TOUCH.x1 - TOUCH.x2) > 30 || Math.abs(TOUCH.y1 - TOUCH.y2) > 30)  &&
             TOUCH.el.trigger('swipe') &&
             TOUCH.el.trigger('swipe' + (_swipeDirection(TOUCH.x1, TOUCH.x2, TOUCH.y1, TOUCH.y2)));
+
             TOUCH.x1 = TOUCH.x2 = TOUCH.y1 = TOUCH.y2 = TOUCH.last = 0;
+            TOUCH = {};
         } else {
             TOUCH_TIMEOUT = setTimeout(function(){
                 TOUCH_TIMEOUT = null;
@@ -80,6 +79,7 @@
 
     function _onTouchCancel(event) {
         TOUCH = {};
+        clearTimeout(TOUCH_TIMEOUT);
     };
 
     function _parentIfText(node) {
@@ -95,13 +95,13 @@
         } else {
             return (y1 - y2 > 0 ? 'Up' : 'Down');
         }
-    }
+    };
 
     function _longTap() {
         if (TOUCH.last && (Date.now() - TOUCH.last >= LONGTAP_DELAY)) {
             TOUCH.el.trigger('longTap');
             TOUCH = {};
         }
-    }
+    };
 
 })(Quo);
