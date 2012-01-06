@@ -51,11 +51,14 @@
     /**
      * ?
      */
-    $$.fn.trigger = function(event, data) {
-        if ($$.toType(event) === 'string') event = $$.Event(event);
+    $$.fn.trigger = function(event) {
+        if (!$$.isMobile()) {
+            console.log('Event ' + event + ' captured.');
+        }
 
+        if ($$.toType(event) === 'string') event = $$.Event(event);
         return this.each(function() {
-            this.dispatchEvent(event)
+            this.dispatchEvent(event);
         });
     };
 
