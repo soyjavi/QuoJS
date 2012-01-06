@@ -47,7 +47,7 @@
 
         environment.browser = _detectBrowser(user_agent);
         environment.os = _detectOS(user_agent);
-        environment.isMobile = (environment.os.name) ? true : false;
+        environment.isMobile = (environment.os) ? true : false;
 
         return environment;
     };
@@ -59,14 +59,16 @@
     };
 
     var _detectOS = function(user_agent) {
-        var detected_os = {};
+        var detected_os;
 
         for (os in SUPPORTED_OS) {
             var supported = user_agent.match(SUPPORTED_OS[os]);
 
             if (supported) {
-                detected_os.name = os;
-                detected_os.version = supported[2];
+                detected_os = {
+                    name: (os === 'iphone' || os === 'ipad') ? 'ios' : os,
+                    version: supported[2]
+                }
                 break;
             }
         }
