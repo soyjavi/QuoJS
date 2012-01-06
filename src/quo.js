@@ -16,7 +16,7 @@ var Quo = (function() {
         return dom;
     }
 
-    function $$(selector, context) {
+    function $$(selector, context) {  //context is not used.
         if (!selector) {
           return Q();
         } else {
