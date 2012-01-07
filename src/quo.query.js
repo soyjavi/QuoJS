@@ -13,10 +13,10 @@
      */
     $$.query = queryDOM = function(domain, selector) {
         var dom_elements = document.querySelectorAll(selector);
-        dom_elements = Array.prototype.slice.call(dom_elements);
+        dom_elements = [].slice.call(dom_elements);
 
         return dom_elements;
-    }
+    };
 
     /**
      * ?
@@ -25,7 +25,7 @@
         var pluck = this.pluck(PARENT_NODE);
 
         return _filtered(pluck, selector);
-    }
+    };
 
     /**
      * ?
@@ -38,7 +38,7 @@
         });
 
         return _filtered(siblings_elements, selector);
-    }
+    };
 
     /**
      * ?
@@ -49,21 +49,21 @@
         });
 
         return _filtered(children_elements, selector);
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.get = function(index) {
         return index === undefined ? this : this[index]
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.first = function() {
         return $$(this[0]);
-    }
+    };
 
     /**
      * ?
@@ -71,7 +71,7 @@
     $$.fn.last = function() {
         var last_element_index = this.length - 1;
         return $$(this[last_element_index]);
-    }
+    };
 
     /**
      * ?
@@ -86,7 +86,7 @@
         }
 
         return $$(node);
-    }
+    };
 
     /**
      * ?
@@ -96,7 +96,7 @@
             callback.call(el, idx, el)
         });
         return this;
-    }
+    };
 
     var _filtered = function(nodes, selector) {
         return (selector === undefined) ? $$(nodes) : $$(nodes).filter(selector);
