@@ -37,9 +37,9 @@
     /**
      * ?
      */
-    $$.isOnline = isOnline = function(selector) {
+    $$.isOnline = isOnline = function() {
         return (navigator.onLine) ? true : false;
-    }
+    };
 
     var _detectEnvironment = function() {
         var user_agent = navigator.userAgent;
@@ -59,7 +59,7 @@
     };
 
     var _detectOS = function(user_agent) {
-        var detected_os;
+        var detected_os, os;
 
         for (os in SUPPORTED_OS) {
             var supported = user_agent.match(SUPPORTED_OS[os]);
@@ -68,7 +68,7 @@
                 detected_os = {
                     name: (os === 'iphone' || os === 'ipad') ? 'ios' : os,
                     version: supported[2]
-                }
+                };
                 break;
             }
         }
