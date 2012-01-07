@@ -16,7 +16,7 @@ var Quo = (function() {
         return dom;
     }
 
-    function $$(selector, context) {
+    function $$(selector) {
         if (!selector) {
           return Q();
         } else {
@@ -26,11 +26,12 @@ var Quo = (function() {
     }
 
     $$.extend = function(target) {
-        Array.prototype.slice.call(arguments, 1).forEach(function(source) {
+        var key;
+        EMPTY_ARRAY.slice.call(arguments, 1).forEach(function(source) {
           for (key in source) target[key] = source[key];
-        })
+        });
         return target;
-    }
+    };
 
     Q.prototype = $$.fn = {};
 
