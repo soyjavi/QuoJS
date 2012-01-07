@@ -23,13 +23,13 @@
             if(callback.call(elements[key], key, elements[key]) === false) return elements;
           }
         return elements;
-    }
+    };
 
     /**
      * ?
      */
      $$.mix = function() {
-        var child = child || {};
+        var child = {};
         for (var arg = 0, len = arguments.length; arg < len; arg++) {
             var argument = arguments[arg];
             for (var prop in argument) {
@@ -49,7 +49,7 @@
      */
     $$.toType = function(obj) {
         return OBJ_PROTO.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();
-    }
+    };
 
     /**
      * ?
@@ -60,9 +60,7 @@
 
     /**
      * Casting for selector
-     *
-     * @param {object} obj to get the real type of itself.
-     * @return {string} with the internal JavaScript [[Class]] of itself.
+     * @param selector
      */
     $$.getDomainSelector = function(selector) {
         var domain = null;
@@ -81,7 +79,7 @@
         }
 
         return domain;
-    }
+    };
 
     /**
      * ?
@@ -100,20 +98,16 @@
         return this.map(function() {
             return this[property];
         });
-    }
+    };
 
     var _compact = function(array) {
         return array.filter(function(item) {
             return item !== undefined && item !== null
         });
-    }
+    };
 
     function _likeArray(obj) {
         return typeof obj.length == 'number'
-    }
-
-    function _flatten(array) {
-        return array.length > 0 ? [].concat.apply([], array) : array
     }
 
 })(Quo);
