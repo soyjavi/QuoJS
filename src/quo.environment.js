@@ -37,9 +37,9 @@
     /**
      * ?
      */
-    $$.isOnline = isOnline = function(selector) {
-        return (navigator.onLine) ? true : false;
-    }
+    $$.isOnline = function() {
+        return (navigator.onLine);
+    };
 
     var _detectEnvironment = function() {
         var user_agent = navigator.userAgent;
@@ -50,13 +50,13 @@
         environment.isMobile = (environment.os) ? true : false;
 
         return environment;
-    };
+    }
 
     var _detectBrowser = function(user_agent) {
         var is_webkit = user_agent.match(IS_WEBKIT);
 
         return (is_webkit) ? is_webkit[0]: user_agent;
-    };
+    }
 
     var _detectOS = function(user_agent) {
         var detected_os;

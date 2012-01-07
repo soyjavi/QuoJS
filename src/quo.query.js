@@ -11,7 +11,7 @@
     /**
      * ?
      */
-    $$.query = queryDOM = function(domain, selector) {
+    $$.query = function(domain, selector) {
         var dom_elements = document.querySelectorAll(selector);
         dom_elements = Array.prototype.slice.call(dom_elements);
 

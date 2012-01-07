@@ -148,15 +148,15 @@
         } else {
             _xhrError('QuoJS » $$.ajax', xhr, settings);
         }
-    };
+    }
 
     function _xhrSuccess(response, xhr, settings) {
         settings.success.call(settings.context, response, xhr);
-    };
+    }
 
     function _xhrError(type, xhr, settings) {
         settings.error.call(settings.context, type, xhr, settings);
-    };
+    }
 
     function _xhrHeaders(xhr, settings) {
         if (settings.contentType) settings.headers['Content-Type'] = settings.contentType;
@@ -165,13 +165,13 @@
         for (header in settings.headers) {
             xhr.setRequestHeader(header, settings.headers[header]);
         }
-    };
+    }
 
     function _xhrTimeout(xhr, settings) {
         xhr.onreadystatechange = {};
         xhr.abort();
         _xhrError('QuoJS » $$.ajax : timeout exceeded', xhr, settings);
-    };
+    }
 
     function _parseResponse(xhr, settings) {
         var response = xhr.responseText;
@@ -186,7 +186,7 @@
         }
 
         return response;
-    };
+    }
 
     var _serializeParameters = function(parameters) {
         var serialize = '?';
@@ -198,10 +198,10 @@
         }
 
         return (serialize === '?') ? '' : serialize;
-    };
+    }
 
     var _isJsonP = function(url) {
         return (/=\?/.test(url));
-    };
+    }
 
 })(Quo);
