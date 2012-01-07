@@ -31,7 +31,7 @@
 
         h1 {
             background: white;
-            color: green;
+            color: black;
             font-size: 16px;
             line-height: 28px;
             padding-left: 8px;
@@ -53,6 +53,8 @@
             <li>last</li>
         </ul>
 
+        <h2>Section h2</h2>
+
         <h1>Output:</h1>
 
         <h1 class="last">.last</h1>
@@ -72,6 +74,8 @@
         <h1 class="last">.last</h1>
 
 
+        <h2>Section h2</h2>
+
         <header id="title-2">b</header>
     </section>
 
@@ -90,14 +94,17 @@
     <script src="../../src/quo.events.js"></script>
     <script src="../../src/quo.events.manager.js"></script>
     <script src="../../src/quo.events.gestures.js"></script>
-    <!--
-    <script src="../../release/QuoJS-1.0.js"></script>
-    -->
 
     <!-- ELEMENT -->
     <script>
         var env = $$.environment();
         console.error(env);
+
+        var sections = $$('section');
+        for (i = 0, len = sections.length; i < len; i++) {
+            var section = $$(sections[i]);
+            section.children('h1').first().addClass('green');
+        }
 
         var placeholder =  $$('#txt-placeholder');
         placeholder.attr('placeholder', 'Setted placeholder by attr');
@@ -240,9 +247,9 @@
     </script>
 
     <script>
-        $$('h1').first().html('<h1>alksdajdj</h1>').append('pepe').prepend('yohan').style('height', 'auto').style('width','12px').style('width', '50%');
+       // $$('h1').first().html('<h1>alksdajdj</h1>').append('pepe').prepend('yohan').style('height', 'auto').style('width','12px').style('width', '50%');
 
-        $$('h1').toggleClass('blue').html('class red').toggleClass('red').toggleClass('blue');
+      //  $$('h1').toggleClass('blue').html('class red').toggleClass('red').toggleClass('blue');
 
         //var selector = '#list-1 li';
 
