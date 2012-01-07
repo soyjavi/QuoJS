@@ -16,7 +16,7 @@
             this.each(function() {
                 this.textContent = value;
             });
-    }
+    };
 
     /**
      * ?
@@ -28,7 +28,7 @@
             this.each(function() {
                 this.innerHTML = value;
             });
-    }
+    };
 
     /**
      * ?
@@ -43,7 +43,7 @@
                 this.parentNode.insertBefore(value);
             }
         });
-    }
+    };
 
     /**
      * ?
@@ -57,7 +57,7 @@
                 parent.insertBefore(value, parent.firstChild);
             }
         });
-    }
+    };
 
     /**
      * ?
