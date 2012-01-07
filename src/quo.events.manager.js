@@ -23,7 +23,7 @@
     /**
      * ?
      */
-    $$.Event = function(type, props) {
+    $$.Event = function(type) {
         var event = document.createEvent('Events');
         event.initEvent(type, true, true, null, null, null, null, null, null, null, null, null, null, null, null);
 
@@ -109,7 +109,7 @@
         element_handlers.push(handler);
 
         element.addEventListener(handler.event, handler.proxy, false);
-    };
+    }
 
     function _unsubscribe(element, event, callback, selector) {
         event = _environmentEvent(event);
@@ -119,20 +119,21 @@
             delete HANDLERS[element_id][handler.index];
             element.removeEventListener(handler.event, handler.proxy, false);
         });
-    };
+    }
 
     function _getElementId(element) {
         return element._id || (element._id = ELEMENT_ID++);
-    };
+    }
 
     function _environmentEvent(event) {
         return ($$.isMobile()) ? event : EVENTS_DESKTOP[event];
-    };
+    }
 
     function _createProxyCallback(delegate, callback, element) {
-        var callback = delegate || callback;
+        var proxy;
+        callback = delegate || callback;
 
-        var proxy = function (event) {
+        proxy = function (event) {
             var result = callback.apply(element, [event].concat(event.data));
             if (result === false) {
                 event.preventDefault();
@@ -141,7 +142,7 @@
         };
 
         return proxy;
-    };
+    }
 
     function _findHandlers(element_id, event, fn, selector) {
         return (HANDLERS[element_id] || []).filter(function(handler) {
@@ -150,7 +151,7 @@
             && (!fn       || handler.fn == fn)
             && (!selector || handler.selector == selector);
         });
-    };
+    }
 
     function _createProxy(event) {
         var proxy = $$.extend({originalEvent: event}, event);
@@ -161,8 +162,8 @@
                 return event[name].apply(event, arguments);
             };
             proxy[method] = function() { return false };
-        })
+        });
         return proxy;
-    };
+    }
 
 })(Quo);
