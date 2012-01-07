@@ -17,14 +17,14 @@
                 this.setAttribute(name, value);
             });
         }
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.data = function(name, value) {
         return this.attr('data-' + name, value);
-    }
+    };
 
     /**
      * ?
@@ -37,21 +37,21 @@
         } else {
             return (this.length > 0 ? this[0].value : null)
         }
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.height = function() {
 
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.width = function() {
 
-    }
+    };
 
     /**
      * ?
@@ -65,7 +65,7 @@
             width: bounding.width,
             height: bounding.height
         };
-    }
+    };
 
     /**
      * ?
