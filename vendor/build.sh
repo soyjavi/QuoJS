@@ -1,5 +1,4 @@
 #!/bin/bash
-VERSION="1.0"
 
 #define paths
 COMPILER=google-compiler/compiler.jar
@@ -26,11 +25,11 @@ do
     FILES_TO_JOIN=$FILES_TO_JOIN" "$DIR$file
 done
 
-#UNCOMPRESED Version
-#cat $FILES_TO_JOIN > $BUILDPATH/quo-$VERSION.js
-#echo -e "\033[32m  [BUILD]: quo-"$VERSION.js"\033[0m"
+#UNCOMPRESED
+cat $FILES_TO_JOIN > $BUILDPATH/QuoJS-development.js
+echo -e "\033[32m  [BUILD]: QuoJS-development".js"\033[0m"
 
-#MINIFIED Version
-java -jar $COMPILER $FILES_TO_COMPILE --js_output_file $BUILDPATH/QuoJS-$VERSION.js
-echo -e "\033[32m  [BUILD]: quo-"$VERSION.$MINIFIED.js"\033[0m"
+#MINIFIED
+java -jar $COMPILER $FILES_TO_COMPILE --js_output_file $BUILDPATH/QuoJS.js
+echo -e "\033[32m  [BUILD]: QuoJS".js"\033[0m"
 echo ============================ /QUOJS COMPILER ============================
