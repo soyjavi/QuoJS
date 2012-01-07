@@ -54,7 +54,7 @@
         else {
             document.addEventListener('DOMContentLoaded', function(){ callback($$) }, false);
         }
-      return this;
+        return this;
     };
 
 })(Quo);

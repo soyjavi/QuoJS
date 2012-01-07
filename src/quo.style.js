@@ -15,7 +15,7 @@
                 this.className += ' ' + name;
             }
         });
-    }
+    };
 
     /**
      * ?
@@ -28,7 +28,7 @@
                 this.className = this.className.replace(remove_class, ' ');
             }
         });
-    }
+    };
 
     /**
      * ?
@@ -43,7 +43,7 @@
                 this.className += ' ' + name;
             }
         });
-    }
+    };
 
     /**
      * ?
@@ -62,11 +62,11 @@
             this.each(function() {
                 this.style[property] = value;
             });
-    }
+    };
 
     function _existsClass(name, className) {
         var classes = className.split(/\s+/g);
-        return (classes.indexOf(name) >= 0) ? true : false;
+        return (classes.indexOf(name) >= 0);
     }
 
     function _generateRemoveClass(name) {
