@@ -46,19 +46,19 @@
             el: $$(_parentIfText(first_touch.target)),
             x1: first_touch.pageX,
             y1: first_touch.pageY,
-            isDoubleTap: (delta > 0 && delta <= 250) ? true : false,
+            isDoubleTap: (delta > 0 && delta <= 250),
             last: now
-        }
+        };
         setTimeout(_longTap, LONGTAP_DELAY);
-    };
+    }
 
     function _onTouchMove(event) {
         var move_touch = ($$.isMobile()) ? event.touches[0] : event;
         TOUCH.x2 = move_touch.pageX;
         TOUCH.y2 = move_touch.pageY;
-    };
+    }
 
-    function _onTouchEnd(event) {
+    function _onTouchEnd() {
         if (TOUCH.isDoubleTap) {
             TOUCH.el.trigger('doubleTap');
             TOUCH = {};
@@ -75,16 +75,16 @@
                 TOUCH = {};
             }, 250);
         }
-    };
+    }
 
-    function _onTouchCancel(event) {
+    function _onTouchCancel() {
         TOUCH = {};
         clearTimeout(TOUCH_TIMEOUT);
-    };
+    }
 
     function _parentIfText(node) {
         return 'tagName' in node ? node : node.parentNode;
-    };
+    }
 
     function _swipeDirection(x1, x2, y1, y2) {
         var xDelta = Math.abs(x1 - x2);
@@ -95,13 +95,13 @@
         } else {
             return (y1 - y2 > 0 ? 'Up' : 'Down');
         }
-    };
+    }
 
     function _longTap() {
         if (TOUCH.last && (Date.now() - TOUCH.last >= LONGTAP_DELAY)) {
             TOUCH.el.trigger('longTap');
             TOUCH = {};
         }
-    };
+    }
 
 })(Quo);
