@@ -17,14 +17,14 @@
                 this.setAttribute(name, value);
             });
         }
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.data = function(name, value) {
         return this.attr('data-' + name, value);
-    }
+    };
 
     /**
      * ?
@@ -37,21 +37,23 @@
         } else {
             return (this.length > 0 ? this[0].value : null)
         }
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.height = function() {
-
-    }
+        var offset = this.offset();
+        return offset.height;
+    };
 
     /**
      * ?
      */
     $$.fn.width = function() {
-
-    }
+        var offset = this.offset();
+        return offset.width;
+    };
 
     /**
      * ?
@@ -65,7 +67,7 @@
             width: bounding.width,
             height: bounding.height
         };
-    }
+    };
 
     /**
      * ?
@@ -76,6 +78,6 @@
                 this.parentNode.removeChild(this);
             }
         });
-    }
+    };
 
 })(Quo);
