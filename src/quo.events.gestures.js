@@ -70,6 +70,7 @@
             TOUCH.x1 = TOUCH.x2 = TOUCH.y1 = TOUCH.y2 = TOUCH.last = 0;
             TOUCH = {};
         } else {
+            TOUCH.el.trigger('tap');
             TOUCH_TIMEOUT = setTimeout(function(){
                 TOUCH_TIMEOUT = null;
                 TOUCH = {};
