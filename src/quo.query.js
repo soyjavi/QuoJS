@@ -22,10 +22,8 @@
      * ?
      */
     $$.fn.parent = function(selector) {
-        return (selector) ?
-            _filtered(_findAncestors(this), selector)
-            :
-            this.instance(PARENT_NODE);
+        var ancestors = (selector) ? _findAncestors(this) : this.instance(PARENT_NODE);
+        return _filtered(ancestors, selector);
     };
 
     /**
