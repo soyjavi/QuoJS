@@ -18,7 +18,7 @@
         touchend: 'mouseup',
         tap: 'click',
         doubletap: 'dblclick',
-        orientation_change: 'resize' };
+        orientationchange: 'resize' };
 
     /**
      * ?
@@ -51,20 +51,6 @@
     /**
      * ?
      */
-    $$.fn.trigger = function(event) {
-        if (!$$.isMobile()) {
-            console.log('Event ' + event + ' captured.');
-        }
-
-        if ($$.toType(event) === 'string') event = $$.Event(event);
-        return this.each(function() {
-            this.dispatchEvent(event);
-        });
-    };
-
-    /**
-     * ?
-     */
     $$.fn.delegate = function(selector, event, callback) {
         return this.each(function(i, element) {
             _subscribe(element, event, callback, selector, function(fn) {
@@ -88,6 +74,20 @@
     $$.fn.undelegate = function(selector, event, callback){
         return this.each(function(){
             _unsubscribe(this, event, callback, selector);
+        });
+    };
+
+    /**
+     * ?
+     */
+    $$.fn.trigger = function(event) {
+        if (!$$.isMobile()) {
+            console.log('Event ' + event + ' captured.');
+        }
+
+        if ($$.toType(event) === 'string') event = $$.Event(event);
+        return this.each(function() {
+            this.dispatchEvent(event);
         });
     };
 
