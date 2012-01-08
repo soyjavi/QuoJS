@@ -129,7 +129,7 @@
     /**
      * ?
      */
-    $$.fn.pluck = function(property) {
+    $$.fn.instance = function(property) {
         return this.map(function() {
             return this[property];
         });
