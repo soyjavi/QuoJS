@@ -135,6 +135,7 @@ window.Quo = Quo;
      * ?
      */
      $$.mix = function() {
+        var child = {};
         for (var arg = 0, len = arguments.length; arg < len; arg++) {
             var argument = arguments[arg];
             for (var prop in argument) {
@@ -454,7 +455,8 @@ window.Quo = Quo;
      * ?
      */
     $$.fn.parent = function(selector) {
-        return (selector) ? _filtered(_findAncestors(this), selector) : this.instance(PARENT_NODE);
+        var ancestors = (selector) ? _findAncestors(this) : this.instance(PARENT_NODE);
+        return _filtered(ancestors, selector);
     };
 
     /**
@@ -1125,6 +1127,7 @@ window.Quo = Quo;
             TOUCH.x1 = TOUCH.x2 = TOUCH.y1 = TOUCH.y2 = TOUCH.last = 0;
             TOUCH = {};
         } else {
+            TOUCH.el.trigger('tap');
             TOUCH_TIMEOUT = setTimeout(function(){
                 TOUCH_TIMEOUT = null;
                 TOUCH = {};
