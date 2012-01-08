@@ -44,7 +44,11 @@ var Quo = (function() {
 })();
 
 window.Quo = Quo;
-'$$' in window || (window.$$ = Quo);
+'$$' in window || (window.$$ = Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -171,7 +175,7 @@ window.Quo = Quo;
     /**
      * ?
      */
-    $$.fn.pluck = function(property) {
+    $$.fn.instance = function(property) {
         return this.map(function() {
             return this[property];
         });
@@ -196,7 +200,11 @@ window.Quo = Quo;
         return array.length > 0 ? [].concat.apply([], array) : array
     }
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -274,7 +282,11 @@ window.Quo = Quo;
         });
     };
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -348,7 +360,11 @@ window.Quo = Quo;
         return detected_os;
     }
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -414,7 +430,11 @@ window.Quo = Quo;
         });
     };
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$){
 
@@ -428,16 +448,14 @@ window.Quo = Quo;
         dom_elements = Array.prototype.slice.call(dom_elements);
 
         return dom_elements;
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.parent = function(selector) {
-        var pluck = this.pluck(PARENT_NODE);
-
-        return _filtered(pluck, selector);
-    }
+        return (selector) ? _filtered(_findAncestors(this), selector) : this.instance(PARENT_NODE);
+    };
 
     /**
      * ?
@@ -450,7 +468,7 @@ window.Quo = Quo;
         });
 
         return _filtered(siblings_elements, selector);
-    }
+    };
 
     /**
      * ?
@@ -461,21 +479,21 @@ window.Quo = Quo;
         });
 
         return _filtered(children_elements, selector);
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.get = function(index) {
         return index === undefined ? this : this[index]
-    }
+    };
 
     /**
      * ?
      */
     $$.fn.first = function() {
         return $$(this[0]);
-    }
+    };
 
     /**
      * ?
@@ -483,7 +501,7 @@ window.Quo = Quo;
     $$.fn.last = function() {
         var last_element_index = this.length - 1;
         return $$(this[last_element_index]);
-    }
+    };
 
     /**
      * ?
@@ -498,7 +516,7 @@ window.Quo = Quo;
         }
 
         return $$(node);
-    }
+    };
 
     /**
      * ?
@@ -508,13 +526,31 @@ window.Quo = Quo;
             callback.call(el, idx, el)
         });
         return this;
+    };
+
+    var _findAncestors = function(nodes) {
+        var ancestors = []
+        while (nodes.length > 0) {
+            nodes = $$.map(nodes, function(node) {
+                if ((node = node.parentNode) && node !== document && ancestors.indexOf(node) < 0) {
+                    ancestors.push(node);
+                    return node;
+                }
+            });
+        }
+
+        return ancestors;
     }
 
     var _filtered = function(nodes, selector) {
         return (selector === undefined) ? $$(nodes) : $$(nodes).filter(selector);
     }
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($){
 
@@ -585,7 +621,11 @@ window.Quo = Quo;
         return new RegExp("(^|\\s+)" + name + "(\\s+|$)");
     }
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -787,7 +827,11 @@ window.Quo = Quo;
         return (/=\?/.test(url));
     }
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -842,7 +886,11 @@ window.Quo = Quo;
         return this;
     };
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -1005,7 +1053,11 @@ window.Quo = Quo;
         return proxy;
     }
 
-})(Quo);
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
