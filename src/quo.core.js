@@ -93,7 +93,7 @@
         for (var arg = 0, len = arguments.length; arg < len; arg++) {
             var argument = arguments[arg];
             for (var prop in argument) {
-                if ($$.isOwnProperty(argument, prop)) {
+                if ($$.isOwnProperty(argument, prop) && argument[prop] !== undefined) {
                     child[prop] = argument[prop];
                 }
             }
