@@ -1,8 +1,8 @@
-/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+/*!
+ * QuoJS 1.0 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+ * http://quojs.tapquo.com
+ * Released under MIT license, http://cubiq.org/license
+ */
 
 var Quo = (function() {
 
@@ -44,11 +44,7 @@ var Quo = (function() {
 })();
 
 window.Quo = Quo;
-'$$' in window || (window.$$ = Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+'$$' in window || (window.$$ = Quo);
 
 (function($$) {
 
@@ -139,7 +135,7 @@ window.Quo = Quo;
         for (var arg = 0, len = arguments.length; arg < len; arg++) {
             var argument = arguments[arg];
             for (var prop in argument) {
-                if ($$.isOwnProperty(argument, prop)) {
+                if ($$.isOwnProperty(argument, prop) && argument[prop] !== undefined) {
                     child[prop] = argument[prop];
                 }
             }
@@ -201,11 +197,7 @@ window.Quo = Quo;
         return array.length > 0 ? [].concat.apply([], array) : array
     }
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$) {
 
@@ -283,11 +275,7 @@ window.Quo = Quo;
         });
     };
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$) {
 
@@ -361,11 +349,7 @@ window.Quo = Quo;
         return detected_os;
     }
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$) {
 
@@ -431,11 +415,7 @@ window.Quo = Quo;
         });
     };
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$){
 
@@ -548,11 +528,7 @@ window.Quo = Quo;
         return (selector === undefined) ? $$(nodes) : $$(nodes).filter(selector);
     }
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($){
 
@@ -623,11 +599,7 @@ window.Quo = Quo;
         return new RegExp("(^|\\s+)" + name + "(\\s+|$)");
     }
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$) {
 
@@ -755,7 +727,6 @@ window.Quo = Quo;
      */
     $$.json = function(url, data, success) {
         url += _serializeParameters(data);
-        console.error('json ', url);
 
         return $$.ajax({
             url: url,
@@ -829,11 +800,7 @@ window.Quo = Quo;
         return (/=\?/.test(url));
     }
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$) {
 
@@ -888,11 +855,7 @@ window.Quo = Quo;
         return this;
     };
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$) {
 
@@ -908,7 +871,7 @@ window.Quo = Quo;
         touchend: 'mouseup',
         tap: 'click',
         doubletap: 'dblclick',
-        orientation_change: 'resize' };
+        orientationchange: 'resize' };
 
     /**
      * ?
@@ -941,20 +904,6 @@ window.Quo = Quo;
     /**
      * ?
      */
-    $$.fn.trigger = function(event) {
-        if (!$$.isMobile()) {
-            console.log('Event ' + event + ' captured.');
-        }
-
-        if ($$.toType(event) === 'string') event = $$.Event(event);
-        return this.each(function() {
-            this.dispatchEvent(event);
-        });
-    };
-
-    /**
-     * ?
-     */
     $$.fn.delegate = function(selector, event, callback) {
         return this.each(function(i, element) {
             _subscribe(element, event, callback, selector, function(fn) {
@@ -978,6 +927,20 @@ window.Quo = Quo;
     $$.fn.undelegate = function(selector, event, callback){
         return this.each(function(){
             _unsubscribe(this, event, callback, selector);
+        });
+    };
+
+    /**
+     * ?
+     */
+    $$.fn.trigger = function(event) {
+        if (!$$.isMobile()) {
+            console.log('Event ' + event + ' captured.');
+        }
+
+        if ($$.toType(event) === 'string') event = $$.Event(event);
+        return this.each(function() {
+            this.dispatchEvent(event);
         });
     };
 
@@ -1055,11 +1018,7 @@ window.Quo = Quo;
         return proxy;
     }
 
-})(Quo);/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+})(Quo);
 
 (function($$) {
 
