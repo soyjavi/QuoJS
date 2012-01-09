@@ -1,8 +1,8 @@
-/*
-  QuoJS 1.0
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-*/
+/*!
+ * QuoJS 1.0 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+ * http://quojs.tapquo.com
+ * Released under MIT license, http://cubiq.org/license
+ */
 
 var Quo = (function() {
 
