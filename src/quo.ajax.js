@@ -130,7 +130,6 @@
      */
     $$.json = function(url, data, success) {
         url += _serializeParameters(data);
-        console.error('json ', url);
 
         return $$.ajax({
             url: url,
