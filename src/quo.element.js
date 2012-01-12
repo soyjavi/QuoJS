@@ -42,6 +42,20 @@
     /**
      * ?
      */
+    $$.fn.show = function() {
+        return this.style("display", "block")
+    };
+
+    /**
+     * ?
+     */
+    $$.fn.hide = function() {
+        return this.style("display", "none")
+    };
+
+    /**
+     * ?
+     */
     $$.fn.height = function() {
         var offset = this.offset();
         return offset.height;
