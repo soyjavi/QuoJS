@@ -57,7 +57,7 @@
      */
     $.fn.style = function(property, value) {
         return (!value) ?
-            this[0].style[property]
+            this[0].style[property] || _computedStyle(this[0], property)
             :
             this.each(function() {
                 this.style[property] = value;
@@ -71,6 +71,10 @@
 
     function _generateRemoveClass(name) {
         return new RegExp("(^|\\s+)" + name + "(\\s+|$)");
+    }
+
+    function _computedStyle(element, property) {
+        return document.defaultView.getComputedStyle(element, '')[property];
     }
 
 })(Quo);
