@@ -1,7 +1,7 @@
 /*!
  * QuoJS 1.0 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
  * http://quojs.tapquo.com
- * Released under MIT license, http://cubiq.org/license
+ * Released under MIT license, https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt
  */
 
 var Quo=function(){function a(f,b){f=f||j;f.__proto__=a.prototype;f.selector=b||"";return f}function h(f){if(f){var b=h.getDomainSelector(f);return a(b,f)}else return a()}var j=[];h.extend=function(f){Array.prototype.slice.call(arguments,1).forEach(function(b){for(key in b)f[key]=b[key]});return f};a.prototype=h.fn={};return h}();window.Quo=Quo;"$$"in window||(window.$$=Quo);(function(a){function h(b){return b.filter(function(g){return g!==undefined&&g!==null})}var j=Object.prototype,f=[];a.toType=function(b){return j.toString.call(b).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()};a.isOwnProperty=function(b,g){return j.hasOwnProperty.call(b,g)};a.getDomainSelector=function(b){var g=null,d=[1,9,11],l=a.toType(b);if(l==="array")g=h(b);else if(l==="string")g=a.query(document,b);else if(d.indexOf(b.nodeType)>=0||b===window)g=[b];return g};a.map=function(b,g){var d=[],l;if(a.toType(b)===

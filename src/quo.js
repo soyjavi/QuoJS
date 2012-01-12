@@ -1,7 +1,7 @@
 /*!
  * QuoJS 1.0 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
  * http://quojs.tapquo.com
- * Released under MIT license, http://cubiq.org/license
+ * Released under MIT license, https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt
  */
 
 var Quo = (function() {
