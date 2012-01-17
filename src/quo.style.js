@@ -21,11 +21,9 @@
      * ?
      */
     $.fn.removeClass = function(name) {
-        var remove_class = _generateRemoveClass(name);
-
         return this.each(function() {
             if (_existsClass(name, this.className)) {
-                this.className = this.className.replace(remove_class, ' ');
+                this.className = this.className.replace(name, ' ');
             }
         });
     };
@@ -34,11 +32,9 @@
      * ?
      */
     $.fn.toggleClass = function(name) {
-        var remove_class = _generateRemoveClass(name);
-
         return this.each(function() {
             if (_existsClass(name, this.className)) {
-                this.className = this.className.replace(remove_class, '');
+                this.className = this.className.replace(name, ' ');
             } else {
                 this.className += ' ' + name;
             }
@@ -67,10 +63,6 @@
     function _existsClass(name, className) {
         var classes = className.split(/\s+/g);
         return (classes.indexOf(name) >= 0);
-    }
-
-    function _generateRemoveClass(name) {
-        return new RegExp("(^|\\s+)" + name + "(\\s+|$)");
     }
 
     function _computedStyle(element, property) {
