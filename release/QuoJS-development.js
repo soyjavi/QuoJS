@@ -383,12 +383,12 @@ window.Quo = Quo;
      * ?
      */
     $$.fn.html = function(value) {
-      return ($$.toType('value') === 'string') ?
-          this.each(function() {
+        return ($$.toType('value') === 'string') ?
+            this.each(function() {
                 this.innerHTML = value;
-          })
-          :
-          this[0].innerHTML;
+            })
+            :
+            this[0].innerHTML;
     };
 
     /**
@@ -782,12 +782,15 @@ window.Quo = Quo;
     function _parseResponse(xhr, settings) {
         var response = xhr.responseText;
 
-        if (settings.dataType === DEFAULT.MIME) {
-            try {
-                response = JSON.parse(response); }
-            catch (error) {
-                response = error;
-                _xhrError('Parse Error', xhr, settings);
+        if (response) {
+            if (settings.dataType === DEFAULT.MIME) {
+                try {
+                    response = JSON.parse(response);
+                }
+                catch (error) {
+                    response = error;
+                    _xhrError('Parse Error', xhr, settings);
+                }
             }
         }
 
