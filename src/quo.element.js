@@ -30,7 +30,7 @@
      * ?
      */
     $$.fn.val = function(value) {
-        if (value) {
+        if ($$.toType(value) === 'string') {
             return this.each(function() {
                 this.value = value;
             });
