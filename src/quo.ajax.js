@@ -175,12 +175,15 @@
     function _parseResponse(xhr, settings) {
         var response = xhr.responseText;
 
-        if (settings.dataType === DEFAULT.MIME) {
-            try {
-                response = JSON.parse(response); }
-            catch (error) {
-                response = error;
-                _xhrError('Parse Error', xhr, settings);
+        if (response) {
+            if (settings.dataType === DEFAULT.MIME) {
+                try {
+                    response = JSON.parse(response);
+                }
+                catch (error) {
+                    response = error;
+                    _xhrError('Parse Error', xhr, settings);
+                }
             }
         }
 
