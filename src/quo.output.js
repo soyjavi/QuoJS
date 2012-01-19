@@ -22,12 +22,12 @@
      * ?
      */
     $$.fn.html = function(value) {
-        return (!value) ?
-            this[0].innerHTML
-            :
+        return ($$.toType('value') === 'string') ?
             this.each(function() {
                 this.innerHTML = value;
-            });
+            })
+            :
+            this[0].innerHTML;
     };
 
     /**
