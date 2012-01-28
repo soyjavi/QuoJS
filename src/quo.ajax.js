@@ -59,9 +59,17 @@
                 _xhrTimeout(xhr, settings);
             }, settings.timeout);
         }
-        xhr.send(settings.data);
 
-        return (settings.async) ? xhr : _parseResponse(xhr, settings);
+        try {
+            xhr.send(settings.data);
+            if (xhr.status !== 500) {
+                return (settings.async) ? xhr : _parseResponse(xhr, settings);
+            }
+        }
+        catch (error) {
+           xhr = error;
+           _xhrError('Resource not found', xhr, settings);
+        }
     };
 
     /**
@@ -139,7 +147,7 @@
     };
 
     function _xhrStatus(xhr, settings) {
-        if (xhr.status === 200) {
+        if (xhr.status === 200 || xhr.status === 0) {
             if (settings.async) {
                 var response = _parseResponse(xhr, settings);
                 _xhrSuccess(response, xhr, settings);
