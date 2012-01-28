@@ -47,7 +47,7 @@
     /**
      * ?
      */
-    $$.fn.ready =function(callback) {
+    $$.fn.ready = function(callback) {
         if (READY_EXPRESSION.test(document.readyState)) {
             callback($$);
         }
