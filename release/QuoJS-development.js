@@ -1,5 +1,5 @@
 /*!
- * QuoJS 1.0 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+ * QuoJS 1.0.1 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
  * http://quojs.tapquo.com
  * Released under MIT license, https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt
  */
@@ -666,9 +666,17 @@ window.Quo = Quo;
                 _xhrTimeout(xhr, settings);
             }, settings.timeout);
         }
-        xhr.send(settings.data);
 
-        return (settings.async) ? xhr : _parseResponse(xhr, settings);
+        try {
+            xhr.send(settings.data);
+            if (xhr.status !== 500) {
+                return (settings.async) ? xhr : _parseResponse(xhr, settings);
+            }
+        }
+        catch (error) {
+           xhr = error;
+           _xhrError('Resource not found', xhr, settings);
+        }
     };
 
     /**
@@ -746,7 +754,7 @@ window.Quo = Quo;
     };
 
     function _xhrStatus(xhr, settings) {
-        if (xhr.status === 200) {
+        if (xhr.status === 200 || xhr.status === 0) {
             if (settings.async) {
                 var response = _parseResponse(xhr, settings);
                 _xhrSuccess(response, xhr, settings);
@@ -858,7 +866,7 @@ window.Quo = Quo;
     /**
      * ?
      */
-    $$.fn.ready =function(callback) {
+    $$.fn.ready = function(callback) {
         if (READY_EXPRESSION.test(document.readyState)) {
             callback($$);
         }
