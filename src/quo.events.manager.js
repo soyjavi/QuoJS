@@ -81,10 +81,6 @@
      * ?
      */
     $$.fn.trigger = function(event) {
-        if (!$$.isMobile()) {
-            console.log('Event ' + event + ' captured.');
-        }
-
         if ($$.toType(event) === 'string') event = $$.Event(event);
         return this.each(function() {
             this.dispatchEvent(event);
@@ -126,7 +122,9 @@
     }
 
     function _environmentEvent(event) {
-        return ($$.isMobile()) ? event : EVENTS_DESKTOP[event];
+        var environment_event = ($$.isMobile()) ? event : EVENTS_DESKTOP[event];
+
+        return (environment_event) || event;
     }
 
     function _createProxyCallback(delegate, callback, element) {
