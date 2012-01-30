@@ -60,16 +60,9 @@
             }, settings.timeout);
         }
 
-        try {
-            xhr.send(settings.data);
-            if (xhr.status !== 500) {
-                return (settings.async) ? xhr : _parseResponse(xhr, settings);
-            }
-        }
-        catch (error) {
-           xhr = error;
-           _xhrError('Resource not found', xhr, settings);
-        }
+        xhr.send(settings.data);
+
+        return (settings.async) ? xhr : _parseResponse(xhr, settings);
     };
 
     /**
@@ -192,6 +185,8 @@
                     response = error;
                     _xhrError('Parse Error', xhr, settings);
                 }
+            } else if (settings.dataType === 'xml') {
+                response = xhr.responseXML;
             }
         }
 
