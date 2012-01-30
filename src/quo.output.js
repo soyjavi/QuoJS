@@ -36,11 +36,13 @@
     $$.fn.append = function(value) {
         return this.each(function() {
             if ($$.toType(value) === 'string') {
-                var div = document.createElement();
-                div.innerHTML = value;
-                this.appendChild(div.firstChild);
+                if (value) {
+                    var div = document.createElement();
+                    div.innerHTML = value;
+                    this.appendChild(div.firstChild);
+                }
             } else {
-                this.parentNode.insertBefore(value);
+                this.insertBefore(value);
             }
         });
     };
