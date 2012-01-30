@@ -61,7 +61,9 @@
         }
 
         try {
-            xhr.send(settings.data);
+            var parameters = _serializeParameters(settings.data);
+            parameters = parameters.substr(1, parameters.length);
+            xhr.send(parameters);
             if (xhr.status !== 500) {
                 return (settings.async) ? xhr : _parseResponse(xhr, settings);
             }
