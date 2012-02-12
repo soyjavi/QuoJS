@@ -23,7 +23,7 @@
     $.fn.removeClass = function(name) {
         return this.each(function() {
             if (_existsClass(name, this.className)) {
-                this.className = this.className.replace(name, ' ');
+                this.className = this.className.replace(name, ' ').replace(/\s+/gi, ' ');
             }
         });
     };
