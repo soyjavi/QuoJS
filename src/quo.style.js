@@ -37,7 +37,7 @@
             if (_existsClass(name, this.className)) {
                 this.className = this.className.replace(name, ' ').trim();
             } else {
-                this.className = ' ' + name;
+                this.className += ' ' + name;
                 this.className = this.className.trim();
             }
         });
