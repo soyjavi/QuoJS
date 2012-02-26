@@ -103,7 +103,7 @@
      * ?
      */
     $$.get = function(url, data, success, dataType) {
-        url += _serializeParameters(data);
+        url += $$.serializeParameters(data);
 
         return $$.ajax({
             url: url,
@@ -130,13 +130,28 @@
      * ?
      */
     $$.json = function(url, data, success) {
-        url += _serializeParameters(data);
+        url += $$.serializeParameters(data);
 
         return $$.ajax({
             url: url,
             success: success,
             dataType: DEFAULT.MIME
         });
+    };
+
+    /**
+     * ?
+     */
+    $$.serializeParameters = function(parameters) {
+        var serialize = '?';
+        for (var parameter in parameters) {
+            if (parameters.hasOwnProperty(parameter)) {
+                if (serialize !== '?') serialize += '&';
+                serialize += parameter + '=' + parameters[parameter];
+            }
+        }
+
+        return (serialize === '?') ? '' : serialize;
     };
 
     function _xhrStatus(xhr, settings) {
@@ -191,18 +206,6 @@
         }
 
         return response;
-    }
-
-    var _serializeParameters = function(parameters) {
-        var serialize = '?';
-        for (var parameter in parameters) {
-            if (parameters.hasOwnProperty(parameter)) {
-                if (serialize !== '?') serialize += '&';
-                serialize += parameter + '=' + parameters[parameter];
-            }
-        }
-
-        return (serialize === '?') ? '' : serialize;
     }
 
     var _isJsonP = function(url) {
