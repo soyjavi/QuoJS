@@ -48,6 +48,7 @@
         environment.browser = _detectBrowser(user_agent);
         environment.os = _detectOS(user_agent);
         environment.isMobile = (environment.os) ? true : false;
+        environment.screen = _detectScreen();
 
         return environment;
     }
@@ -74,6 +75,13 @@
         }
 
         return detected_os;
+    }
+
+    var _detectScreen = function() {
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        }
     }
 
 })(Quo);
