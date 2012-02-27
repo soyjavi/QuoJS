@@ -1,5 +1,5 @@
 /*!
- * QuoJS 1.0.4 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+ * QuoJS 1.0.5 ~ Copyright (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
  * http://quojs.tapquo.com
  * Released under MIT license, https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt
  */
@@ -45,6 +45,12 @@ var Quo = (function() {
 
 window.Quo = Quo;
 '$$' in window || (window.$$ = Quo);
+
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -199,6 +205,12 @@ window.Quo = Quo;
 
 })(Quo);
 
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
+
 (function($$) {
 
     /**
@@ -291,6 +303,12 @@ window.Quo = Quo;
 
 })(Quo);
 
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
+
 (function($$) {
 
     var IS_WEBKIT = /WebKit\/([\d.]+)/;
@@ -335,6 +353,7 @@ window.Quo = Quo;
         environment.browser = _detectBrowser(user_agent);
         environment.os = _detectOS(user_agent);
         environment.isMobile = (environment.os) ? true : false;
+        environment.screen = _detectScreen();
 
         return environment;
     }
@@ -363,7 +382,18 @@ window.Quo = Quo;
         return detected_os;
     }
 
-})(Quo);
+    var _detectScreen = function() {
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        }
+    }
+
+})(Quo);/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -432,6 +462,12 @@ window.Quo = Quo;
     };
 
 })(Quo);
+
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$){
 
@@ -546,6 +582,12 @@ window.Quo = Quo;
 
 })(Quo);
 
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
+
 (function($){
 
     /**
@@ -612,6 +654,12 @@ window.Quo = Quo;
     }
 
 })(Quo);
+
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -712,7 +760,7 @@ window.Quo = Quo;
      * ?
      */
     $$.get = function(url, data, success, dataType) {
-        url += _serializeParameters(data);
+        url += $$.serializeParameters(data);
 
         return $$.ajax({
             url: url,
@@ -739,13 +787,28 @@ window.Quo = Quo;
      * ?
      */
     $$.json = function(url, data, success) {
-        url += _serializeParameters(data);
+        url += $$.serializeParameters(data);
 
         return $$.ajax({
             url: url,
             success: success,
             dataType: DEFAULT.MIME
         });
+    };
+
+    /**
+     * ?
+     */
+    $$.serializeParameters = function(parameters) {
+        var serialize = '?';
+        for (var parameter in parameters) {
+            if (parameters.hasOwnProperty(parameter)) {
+                if (serialize !== '?') serialize += '&';
+                serialize += parameter + '=' + parameters[parameter];
+            }
+        }
+
+        return (serialize === '?') ? '' : serialize;
     };
 
     function _xhrStatus(xhr, settings) {
@@ -802,23 +865,17 @@ window.Quo = Quo;
         return response;
     }
 
-    var _serializeParameters = function(parameters) {
-        var serialize = '?';
-        for (var parameter in parameters) {
-            if (parameters.hasOwnProperty(parameter)) {
-                if (serialize !== '?') serialize += '&';
-                serialize += parameter + '=' + parameters[parameter];
-            }
-        }
-
-        return (serialize === '?') ? '' : serialize;
-    }
-
     var _isJsonP = function(url) {
         return (/=\?/.test(url));
     }
 
 })(Quo);
+
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -874,6 +931,12 @@ window.Quo = Quo;
     };
 
 })(Quo);
+
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
@@ -1035,6 +1098,12 @@ window.Quo = Quo;
     }
 
 })(Quo);
+
+/*
+  QuoJS 1.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+*/
 
 (function($$) {
 
