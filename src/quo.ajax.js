@@ -1,5 +1,5 @@
 /*
-  QuoJS 1.0
+  QuoJS 1.1
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 */
