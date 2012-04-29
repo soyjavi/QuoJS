@@ -69,34 +69,38 @@
      * ?
      */
     $$.jsonp = function(settings) {
-        var callbackName = 'jsonp' + (++JSONP_ID);
-        var script = document.createElement('script');
-        var xhr = {
-            abort: function() {
+        if (settings.async) {
+            var callbackName = 'jsonp' + (++JSONP_ID);
+            var script = document.createElement('script');
+            var xhr = {
+                abort: function() {
+                    $$(script).remove();
+                    if (callbackName in window) window[callbackName] = {};
+                }
+            };
+            var abortTimeout;
+
+            window[callbackName] = function(response) {
+                clearTimeout(abortTimeout);
                 $$(script).remove();
-                if (callbackName in window) window[callbackName] = {};
+                delete window[callbackName];
+                _xhrSuccess(response, xhr, settings);
+            };
+
+            script.src = settings.url.replace(/=\?/, '=' + callbackName);
+            $$('head').append(script);
+
+            if (settings.timeout > 0) {
+                abortTimeout = setTimeout(function() {
+                    _xhrTimeout(xhr, settings);
+                }, settings.timeout);
             }
-        };
-        var abortTimeout;
 
-        window[callbackName] = function(response) {
-            clearTimeout(abortTimeout);
-            $$(script).remove();
-            delete window[callbackName];
+            return xhr;
 
-            _xhrSuccess(response, xhr, settings);
-        };
-
-        script.src = settings.url.replace(/=\?/, '=' + callbackName);
-        $$('head').append(script);
-
-        if (settings.timeout > 0) {
-            abortTimeout = setTimeout(function() {
-                _xhrTimeout(xhr, settings);
-            }, settings.timeout);
+        } else {
+            console.error('ERROR: Unable to make jsonp synchronous call.')
         }
-
-        return xhr;
     };
 
     /**
