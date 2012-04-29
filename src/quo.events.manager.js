@@ -23,10 +23,17 @@
     /**
      * ?
      */
-    $$.Event = function(type, props) {
+    $$.Event = function(type, touch) {
         var event = document.createEvent('Events');
         event.initEvent(type, true, true, null, null, null, null, null, null, null, null, null, null, null, null);
 
+        if (touch) {
+            event.pageX = touch.x1;
+            event.pageY = touch.y1;
+            event.toX = touch.x2;
+            event.toY = touch.y2;
+            event.fingers = touch.fingers;
+        }
         return event;
     };
 
@@ -80,8 +87,9 @@
     /**
      * ?
      */
-    $$.fn.trigger = function(event) {
-        if ($$.toType(event) === 'string') event = $$.Event(event);
+    $$.fn.trigger = function(event, touch) {
+        if ($$.toType(event) === 'string') event = $$.Event(event, touch);
+
         return this.each(function() {
             this.dispatchEvent(event);
         });

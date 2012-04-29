@@ -8,8 +8,8 @@
 
     var TOUCH = {};
     var TOUCH_TIMEOUT;
-    var HOLD_DELAY = 750;
-    var GESTURES = ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'hold'];
+    var HOLD_DELAY = 650;
+    var GESTURES = ['tap', 'doubleTap', 'hold', 'fingers', 'swipe', 'swiping', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown'];
 
     /**
      * ?
@@ -33,56 +33,73 @@
         environment.bind('touchstart', _onTouchStart);
         environment.bind('touchmove', _onTouchMove);
         environment.bind('touchend', _onTouchEnd);
-        environment.bind('touchcancel', _onTouchCancel);
+        environment.bind('touchcancel', _cleanGesture);
     }
 
     function _onTouchStart(event) {
         var now = Date.now();
         var delta = now - (TOUCH.last || now);
-        var first_touch = ($$.isMobile()) ? event.touches[0] : event;
+        var touch_event = _captureTouch(event);
 
         TOUCH_TIMEOUT && clearTimeout(TOUCH_TIMEOUT);
         TOUCH = {
-            el: $$(_parentIfText(first_touch.target)),
-            x1: first_touch.pageX,
-            y1: first_touch.pageY,
+            el: $$(_parentIfText(touch_event.target)),
+            x1: touch_event.pageX,
+            y1: touch_event.pageY,
             isDoubleTap: (delta > 0 && delta <= 250) ? true : false,
-            last: now
+            last: now,
+            fingers: _countFingers(event)
         }
         setTimeout(_hold, HOLD_DELAY);
     }
 
     function _onTouchMove(event) {
-        var move_touch = ($$.isMobile()) ? event.touches[0] : event;
-        TOUCH.x2 = move_touch.pageX;
-        TOUCH.y2 = move_touch.pageY;
+        var touch_event = _captureTouch(event);
+        TOUCH.x2 = touch_event.pageX;
+        TOUCH.y2 = touch_event.pageY;
+
+        if (_isSwipe(event)) {
+            TOUCH.el.trigger('swiping', TOUCH);
+        }
     }
 
     function _onTouchEnd(event) {
         if (TOUCH.isDoubleTap) {
-            TOUCH.el.trigger('doubleTap');
-            TOUCH = {};
-        } else if (TOUCH.x2 > 0 || TOUCH.y2 > 0) {
-            (Math.abs(TOUCH.x1 - TOUCH.x2) > 30 || Math.abs(TOUCH.y1 - TOUCH.y2) > 30)  &&
-            TOUCH.el.trigger('swipe') &&
-            TOUCH.el.trigger('swipe' + (_swipeDirection(TOUCH.x1, TOUCH.x2, TOUCH.y1, TOUCH.y2)));
+            _trigger('doubleTap', true)
 
-            TOUCH.x1 = TOUCH.x2 = TOUCH.y1 = TOUCH.y2 = TOUCH.last = 0;
-            TOUCH = {};
-        } else {
-            if (TOUCH.el !== undefined) {
-                TOUCH.el.trigger('tap');
+        } else if (TOUCH.x2 > 0 || TOUCH.y2 > 0) {
+            if (_isSwipe(event)) {
+                _trigger('swipe', false);
+
+                swipe_direction = _swipeDirection(TOUCH.x1, TOUCH.x2, TOUCH.y1, TOUCH.y2);
+                _trigger(swipe_direction, false);
             }
-            TOUCH_TIMEOUT = setTimeout(function(){
-                TOUCH_TIMEOUT = null;
-                TOUCH = {};
-            }, 250);
+
+            _cleanGesture();
+        } else {
+            if (TOUCH.el) {
+                _trigger('tap');
+            }
+            TOUCH_TIMEOUT = setTimeout( _cleanGesture, 250);
         }
     }
 
-    function _onTouchCancel(event) {
+    function _trigger(type, clean) {
+        TOUCH.el.trigger(type, TOUCH);
+        clean && _cleanGesture();
+    }
+
+    function _cleanGesture(event) {
         TOUCH = {};
         clearTimeout(TOUCH_TIMEOUT);
+    }
+
+    function _isSwipe(event) {
+        return TOUCH.el && (Math.abs(TOUCH.x1 - TOUCH.x2) > 30 || Math.abs(TOUCH.y1 - TOUCH.y2) > 30);
+    };
+
+    function _captureTouch(event) {
+        return ($$.isMobile()) ? event.touches[0] : event;
     }
 
     function _parentIfText(node) {
@@ -94,17 +111,20 @@
         var yDelta = Math.abs(y1 - y2);
 
         if (xDelta >= yDelta) {
-            return (x1 - x2 > 0 ? 'Left' : 'Right');
+            return (x1 - x2 > 0 ? 'swipeLeft' : 'swipeRight');
         } else {
-            return (y1 - y2 > 0 ? 'Up' : 'Down');
+            return (y1 - y2 > 0 ? 'swipeUp' : 'swipeDown');
         }
     }
 
     function _hold() {
         if (TOUCH.last && (Date.now() - TOUCH.last >= HOLD_DELAY)) {
-            TOUCH.el.trigger('hold');
-            TOUCH = {};
+            _trigger('hold');
         }
+    }
+
+    function _countFingers(event) {
+         return event.touches ? event.touches.length : 1;
     }
 
 })(Quo);
