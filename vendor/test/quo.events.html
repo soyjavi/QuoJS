@@ -28,7 +28,7 @@
     <section class="touch">touch</section>
     <section class="tap">tap</section>
     <section class="doubletap">doubletap</section>
-    <section class="longtap">longtap</section>
+    <section class="hold">hold</section>
     <section class="swipe">swipe</section>
 
     <!-- Instance of QuoJS -->
@@ -59,8 +59,8 @@
             console.error('doubleTap', event);
         });
 
-        $$('section.longtap').longTap(function(event){
-            console.error('longTap', event);
+        $$('section.hold').hold(function(event){
+            console.error('hold', event);
         });
 
         $$('section.swipe').swipe(function(event){
