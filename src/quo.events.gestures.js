@@ -8,8 +8,8 @@
 
     var TOUCH = {};
     var TOUCH_TIMEOUT;
-    var LONGTAP_DELAY = 750;
-    var GESTURES = ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'longTap'];
+    var HOLD_DELAY = 750;
+    var GESTURES = ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'hold'];
 
     /**
      * ?
@@ -49,7 +49,7 @@
             isDoubleTap: (delta > 0 && delta <= 250) ? true : false,
             last: now
         }
-        setTimeout(_longTap, LONGTAP_DELAY);
+        setTimeout(_hold, HOLD_DELAY);
     }
 
     function _onTouchMove(event) {
@@ -100,9 +100,9 @@
         }
     }
 
-    function _longTap() {
-        if (TOUCH.last && (Date.now() - TOUCH.last >= LONGTAP_DELAY)) {
-            TOUCH.el.trigger('longTap');
+    function _hold() {
+        if (TOUCH.last && (Date.now() - TOUCH.last >= HOLD_DELAY)) {
+            TOUCH.el.trigger('hold');
             TOUCH = {};
         }
     }
