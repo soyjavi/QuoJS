@@ -147,19 +147,29 @@
      * ?
      */
     $$.serializeParameters = function(parameters) {
-        var serialize = '?';
-        for (var parameter in parameters) {
-            if (parameters.hasOwnProperty(parameter)) {
-                if (serialize !== '?') serialize += '&';
-                serialize += parameter + '=' + parameters[parameter];
-            }
-        }
+      var serialized = $$._serialize(parameters);
 
-        return (serialize === '?') ? '' : serialize;
+      if(serialized != "")
+        serialized = "?" + serialized;
+
+      return serialized;
+    };
+
+    $$._serialize = function(obj, prefix) {
+      var str = [];
+
+      for(var p in obj) {
+        var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+        str.push(typeof v == "object" ?
+            $$._serialize(v, k) :
+            encodeURIComponent(k) + "=" + encodeURIComponent(v));
+      }
+
+      return str.join("&");
     };
 
     function _xhrStatus(xhr, settings) {
-        if (xhr.status === 200 || xhr.status === 0) {
+        if ((xhr.status >= 200 && xhr.status < 300 ) || xhr.status === 0) {
             if (settings.async) {
                 var response = _parseResponse(xhr, settings);
                 _xhrSuccess(response, xhr, settings);
