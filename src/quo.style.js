@@ -35,7 +35,7 @@
     $.fn.toggleClass = function(name) {
         return this.each(function() {
             if (_existsClass(name, this.className)) {
-                this.className = this.className.replace(name, ' ');
+                this.className = this.className.replace(name, ' ').trim();
             } else {
                 this.className += ' ' + name;
                 this.className = this.className.trim();
