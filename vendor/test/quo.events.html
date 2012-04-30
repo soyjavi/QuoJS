@@ -30,6 +30,11 @@
             display: inline-block;
         }
 
+        section.big {
+            width: 100%;
+            margin-bottom: 256px;
+        }
+
         article {
             position: fixed;
             min-height: 12px;
@@ -70,6 +75,8 @@
     <section class="swipeRight">swipeRight</section>
     <section class="swipeDown">swipeDown</section>
 
+    <h1>Drag Events</h1>
+    <section class="big drag">drag</section>
 
     <!-- Instance of QuoJS -->
     <script src="../../src/quo.js"></script>
@@ -91,8 +98,6 @@
             $$(this).removeClass('success')
             $$('article').html('');
         });
-
-
 
         $$('section.touch').touch(function(event) {
             _touchInfo(event, 'touch', $$(this));
@@ -132,6 +137,10 @@
 
         $$('section.swipeDown').swipeDown(function(event) {
             _touchInfo(event, 'swipeDown', $$(this));
+        });
+
+        $$('section.drag').drag(function(event) {
+            _touchInfo(event, 'drag', $$(this));
         });
 
         var _touchInfo = function(event, type, el) {

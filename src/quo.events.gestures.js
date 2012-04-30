@@ -9,7 +9,11 @@
     var TOUCH = {};
     var TOUCH_TIMEOUT;
     var HOLD_DELAY = 650;
-    var GESTURES = ['tap', 'doubleTap', 'hold', 'fingers', 'swipe', 'swiping', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown'];
+    var GESTURES = ['tap',
+                    'doubleTap',
+                    'hold',
+                    'swipe', 'swiping', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
+                    'drag'];
 
     /**
      * ?
@@ -69,10 +73,14 @@
 
         } else if (TOUCH.x2 > 0 || TOUCH.y2 > 0) {
             if (_isSwipe(event)) {
-                _trigger('swipe', false);
+                if (TOUCH.fingers == 1) {
+                    _trigger('swipe', false);
 
-                swipe_direction = _swipeDirection(TOUCH.x1, TOUCH.x2, TOUCH.y1, TOUCH.y2);
-                _trigger(swipe_direction, false);
+                    swipe_direction = _swipeDirection(TOUCH.x1, TOUCH.x2, TOUCH.y1, TOUCH.y2);
+                    _trigger(swipe_direction, false);
+                } else {
+                    _trigger('drag', false);
+                }
             }
 
             _cleanGesture();
@@ -120,6 +128,7 @@
     function _hold() {
         if (TOUCH.last && (Date.now() - TOUCH.last >= HOLD_DELAY)) {
             _trigger('hold');
+            _cleanGesture();
         }
     }
 
