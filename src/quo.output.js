@@ -22,7 +22,7 @@
      * ?
      */
     $$.fn.html = function(value) {
-        return ($$.toType(value) === 'string') ?
+        return ($$.toType(value) === 'string' || $$.toType(value) == 'number') ?
             this.each(function() {
                 this.innerHTML = value;
             })
