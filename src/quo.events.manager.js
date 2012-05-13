@@ -95,6 +95,32 @@
         });
     };
 
+    /**
+     * ?
+     */
+    $$.fn.addEvent = function(element, event_name, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(event_name, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent('on' + event_name, callback );
+        } else {
+            element['on' + event_name] = callback;
+        }
+    };
+
+    /**
+     * ?
+     */
+    $$.fn.removeEvent = function(element, event_name, callback) {
+        if (element.removeEventListener) {
+            element.removeEventListener(event_name, callback, false);
+        } else if (element.detachEvent) {
+            element.detachEvent('on' + event_name, callback );
+        } else {
+            element['on' + event_name] = null;
+        }
+    };
+
     function _subscribe(element, event, callback, selector, delegate_callback) {
         event = _environmentEvent(event);
 
@@ -112,7 +138,7 @@
         };
         element_handlers.push(handler);
 
-        element.addEventListener(handler.event, handler.proxy, false);
+        $$.fn.addEvent(element, handler.event, handler.proxy);
     }
 
     function _unsubscribe(element, event, callback, selector) {
@@ -121,7 +147,8 @@
         var element_id = _getElementId(element);
         _findHandlers(element_id, event, callback, selector).forEach(function(handler) {
             delete HANDLERS[element_id][handler.index];
-            element.removeEventListener(handler.event, handler.proxy, false);
+
+            $$.fn.removeEvent(element, handler.event, handler.proxy);
         });
     }
 

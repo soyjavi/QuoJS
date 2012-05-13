@@ -52,7 +52,7 @@
             callback($$);
         }
         else {
-            document.addEventListener('DOMContentLoaded', function(){ callback($$) }, false);
+            $$.fn.addEvent(document, 'DOMContentLoaded', function(){ callback($$) } );
         }
         return this;
     };

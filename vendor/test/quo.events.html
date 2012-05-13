@@ -94,6 +94,9 @@
     <script src="release/Quo.js"></script>
     -->
     <script>
+        $$(document).ready(function(event) {
+            console.error('LUNGOJS Ready!!!');
+        });
         $$('section').touch(function(event) {
             $$(this).removeClass('success')
             $$('article').html('');
