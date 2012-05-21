@@ -1,5 +1,5 @@
 /*
-  QuoJS 1.1
+  QuoJS 2.0
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 */
@@ -37,7 +37,7 @@
         return this.each(function() {
             if ($$.toType(value) === 'string') {
                 if (value) {
-                    var div = document.createElement();
+                    var div = document.createElement('div');
                     div.innerHTML = value;
                     this.appendChild(div.firstChild);
                 }
