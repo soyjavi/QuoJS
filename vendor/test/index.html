@@ -15,70 +15,112 @@
 
     <style>
         body {
-            margin: 0px;
-            padding: 0px;
-            background: black;
-            font-family: monospace;
+            font-family: 'Courier New';
             font-size: 12px;
-            color: white;
-            line-height: 32px;
         }
-        .red { color: red; }
-        .black { color: black; }
-        .grey { color: grey ; }
-        .green { color: green !important; }
-        .blue { color: blue; }
+        h1, h2 {
+            display: block;
+            margin: 0px;
+            padding-left: 4px !important;
+        }
 
         h1 {
-            background: white;
-            color: black;
-            font-size: 16px;
-            line-height: 28px;
-            padding-left: 8px;
+            font-size: 24px;
+            line-height: 32px;
+            background-color: rgba(0,0,0,0.5);
+            color: #fff;
+            margin-top: 16px;
         }
 
-        label {float: left;}
-        input {float:right;}
+        h2 {
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .success {
+            color: green;
+            border: solid 1px green;
+            background: rgba(0,255,0,0.25);
+        }
+
+        section.box {
+            height: 80px;
+            width: 80px;
+            background: #ccc;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        section.test {
+            color: red;
+            border: solid 1px red;
+            height: 20px;
+            line-height: 20px;
+            background: rgba(255,0,0,0.25);
+        }
+            .test.success {
+                color: green;
+                border: solid 1px rgba(0,255,0,0.75);
+                background: rgba(0,255,0,0.2) !important;
+            }
+
+        section.big {
+            width: 100%;
+            margin-bottom: 256px;
+        }
+
+        section.fail{
+            background: red;
+        }
+
+        section.success {
+            background: green;
+            color: white;
+        }
     </style>
 </head>
 
-<body id="identificador-body">
-    <section id="primary" style="background:red;">
-        <h1  class="first" id="papapa">Query:</h1>
-        <ul id="list-1">
-            <li>first</li>
-            <li class="red">second</li>
-            <li>third</li>
-            <li>fourth</li>
-            <li>last</li>
-        </ul>
+<body>
+    <h1 id="output">OUTPUT</h1>
+        <section id="box-delete" class="box">Delete me</section>
+        <section id="box-input"></section>
 
-        <h2>Section h2</h2>
+    <h1 id="element">ELEMENT</h1>
+        <input type="text" value="hello"/>
+        <section id="box-show" style="display:none;">Show me</section>
+        <section id="box-hide">Hide me</section>
 
-        <h1>Output:</h1>
+    <h1 id="environment">ENVIRONMENT</h1>
+        <section id="box-environment"></section>
 
-        <h1 class="last">.last</h1>
-        <h1>Style:</h1>
-    </section>
+    <h1 id="ajax">AJAX</h1>
+        <section class="test" id="ajax-panoramio"></section>
+        <section class="test" id="json-panoramio"></section>
+        <section class="test" id="xml-yunait"></section>
+        <section class="test" id="ajax-html-local"></section>
+        <section class="test" id="ajax-html-remote"></section>
 
-    <section id="secondary" style="background:blue;">
-        <h1>Element:</h1>
-            <ul>
-                <li>
-                    <label class="placeholder"><strong>Set placeholder</strong></label>
-                    <input type="text" id="txt-placeholder">
-                </li>
-            </ul>
+    <h1 id="events">EVENTS</h1>
+        <h2>Normal Events</h2>
+        <section class="box touch">touch</section>
+        <section class="box tap">tap</section>
 
+        <h2>Special Events</h2>
+        <section class="box doubletap">doubletap</section>
+        <section class="box hold">hold</section>
+        <section class="box fingers">fingers</section>
 
-        <h1 class="last">.last</h1>
+        <h2>Swipe Events</h2>
+        <section class="box swipe">swipe</section>
+        <section class="box swiping">swiping</section>
+        <section class="box swipeLeft">swipeLeft</section>
+        <section class="box swipeUp">swipeUp</section>
+        <section class="box swipeRight">swipeRight</section>
+        <section class="box swipeDown">swipeDown</section>
 
-
-        <h2>Section h2</h2>
-
-        <header id="title-2">b</header>
-    </section>
-
+        <h2>Drag Events</h2>
+        <section class="big drag">drag</section>
 
     <!-- Instance of QuoJS -->
     <script src="../../src/quo.js"></script>
@@ -92,194 +134,170 @@
     <script src="../../src/quo.events.js"></script>
     <script src="../../src/quo.events.manager.js"></script>
     <script src="../../src/quo.events.gestures.js"></script>
-
-    <!-- ELEMENT -->
+    <!--
+    <script src="release/Quo.js"></script>
+    -->
     <script>
+        $$(document).ready(function(event) {
+            $$('#events').addClass('success');
+        });
+
+        // OUTPUT
+        $$('#box-delete').empty();
+        console.log('Delete text from output box');
+
+        var el = $$('#box-input');
+        el.text('First insert: text');
+        el.append('<article>Append a element</article>');
+        el.prepend('<article>Prepend a element</article>');
+        html_of_last_article = el.children('article:last-child').html();
+        el.children('article:last-child').html(html_of_last_article + '>> added a portion of html :)')
+        $$('#output').addClass('success');
+
+        // ELEMENT
+        el = $$('input');
+        el.attr('placeholder', 'Dinamic placeholder setted');
+        el.val('Hello world');
+        console.log('The input value is ' + el.val());
+        el.val('');
+        el.data('date', '1980');
+        console.log('The data-date value is ' + el.data('date'));
+        $$('#box-show').show();
+        $$('#box-hide').hide();
+        console.error('#box-show offset is ', $$('#box-show').offset());
+        console.error('#box-hide offset is ', $$('#box-hide').offset());
+        $$('#element').addClass('success');
+
+        // ENVIRONMENT
         var env = $$.environment();
-        console.error(env);
+        el = $$('#box-environment');
+        el.append('<div>browser: ' + env.browser + '</div>');
+        el.append('<div>os: ' + env.os + '</div>');
+        el.append('<div>isMobile: ' + env.isMobile + '</div>');
+        el.append('<div>screen: ' + env.screen.width.toString() + 'x' + env.screen.height.toString() + '</div>');
+        $$('#environment').addClass('success');
 
-        var sections = $$('section');
-        for (i = 0, len = sections.length; i < len; i++) {
-            var section = $$(sections[i]);
-            section.children('h1').first().addClass('green');
+        // AJAX
+        $$('#ajax-panoramio').html('CALL AJAX: http://www.panoramio.com/map/get_panoramas.php?');
+        try {
+            $$.ajax({
+                url: 'http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=3&minx=-180&miny=-90&maxx=180&maxy=90&size=medium&mapfilter=true',
+                timeout: 2000,
+                success: function(response) {
+                    if (response) {
+                        $$('#ajax-panoramio').addClass('success').html('AJAX PANORAMIO: ' + response.count + ' photos');
+                        console.log('CALL AJAX: ', response, response.count, response.photos.length);
+                    } else {
+                        console.error('CALL AJAX: Not response');
+                    }
+                }
+            });
+        } catch(error) {}
+
+        $$('#json-panoramio').html('CALL JSON: http://www.panoramio.com/map/get_panoramas.php?');
+        try {
+            $$.get('http://www.panoramio.com/map/get_panoramas.php',
+                {
+                    set: 'public',
+                    from: 0,
+                    to: 3,
+                    minx: -180,
+                    miny: -90,
+                    maxx: 180,
+                    maxy: 90,
+                    size: 'medium',
+                    mapfilter: true,
+                    callback: '?'
+                },
+                function(response) {
+                    if (response) {
+                        $$('#json-panoramio').addClass('success').html('JSON PANORAMIO: ' + response.count + ' photos');
+                        console.error('CALL JSON: ', response);
+                    } else {
+                        console.error('CALL JSON: Not response');
+                    }
+                }
+            );
+        } catch(error) {}
+
+        $$('#xml-yunait').html('CALL XML: http://www.yunait.com/rest/deals/near');
+        try {
+            $$.ajaxSettings.dataType = 'xml';
+            $$.get('http://www.yunait.com/rest/deals/near',
+                {
+                    format: 'xml',
+                    key: '9152e54733f24f164d43c4652f6a98f451f72d40',
+                    lat: '43.26865',
+                    lng: '-2.946119',
+                    page: 0,
+                    order: 'importance'
+                },
+                function(response) {
+                    if (response) {
+                        $$('#xml-yunait').addClass('success').html('XML YUNAIT: Succeeded');
+                        console.log('CALL XML: ', response);
+                    } else {
+                        console.error('CALL XML: Not response');
+                    }
+
+                    console.error('$$.get (XML): ', response);
+                }
+            );
+        } catch(error) {}
+
+        $$('#ajax-html-local').html('LOAD HTML(local): ...');
+        try {
+            $$.ajax({
+                url: 'quo-service-async.html',
+                dataType: 'html',
+                success: function(response) {
+                    if (response) {
+                        $$('#ajax-html-local').addClass('success').append('Succeeded');
+                        console.error('ajax-html-local: ' + response)
+                    }
+                }
+            });
+
+        } catch(error) {}
+
+        $$('#ajax-html-remote').html('LOAD HTML(remote): ...');
+        try {
+            $$.ajax({
+                url: 'http://examples.tapquo.com/examples/kitchen-sink/app/sections/remote.html',
+                dataType: 'html',
+                success: function(response) {
+                    if (response) {
+                        $$('#ajax-html-remote').addClass('success').append('Succeeded');
+                        //$$('body').append(response);
+                        console.error('ajax-html-remote: ' + response);
+                    }
+                }
+            });
+
+        } catch(error) {}
+
+
+        // EVENTS
+        $$('section').touch(function(event) { $$(this).removeClass('success'); });
+        $$('section.touch').touch(function(event) { _touchInfo(event, 'touch', $$(this)); });
+        $$('section.tap').tap(function(event) { _touchInfo(event, 'tap', $$(this)); });
+        $$('section.doubletap').doubleTap(function(event) { _touchInfo(event, 'doubleTap', $$(this)); });
+        $$('section.hold').hold(function(event) { _touchInfo(event, 'hold', $$(this)); });
+        $$('section.swipe').swipe(function(event) { _touchInfo(event, 'swipe', $$(this)); });
+        $$('section.swiping').swiping(function(event) { _touchInfo(event, 'swiping', $$(this)); });
+        $$('section.swipeLeft').swipeLeft(function(event) { _touchInfo(event, 'swipeLeft', $$(this)); });
+        $$('section.swipeRight').swipeRight(function(event) { _touchInfo(event, 'swipeRight', $$(this));});
+        $$('section.swipeUp').swipeUp(function(event) { _touchInfo(event, 'swipeUp', $$(this)); });
+        $$('section.swipeDown').swipeDown(function(event) { _touchInfo(event, 'swipeDown', $$(this)); });
+        $$('section.drag').drag(function(event) { _touchInfo(event, 'drag', $$(this)); });
+        var _touchInfo = function(event, type, el) {
+            el.addClass('success');
+            console.log('Captured', event);
+            $$('article').html('\
+                Event: ' + type + '\
+                Fingers: ' + event.fingers);
         }
 
-        var placeholder =  $$('#txt-placeholder');
-        placeholder.attr('placeholder', 'Setted placeholder by attr');
-        $$('.placeholder').append(' is ' + placeholder.attr('placeholder'));
-    </script>
-
-
-    <!-- EVENTS -->
-    <script>
-
-        $$('h1').first().html('jajaja');
-
-        $$(document).ready(function() {
-            //GESTURES
-            $$('h1').swipeLeft(function(){ console.error('ha hecho swipe'); });
-
-            $$('h1').doubleTap(function(){ console.error('ha hecho doubletap'); });
-
-
-            $$('h1').hold(function(){ console.error('ha hecho hold'); });
-
-        });
-
-        /*
-        $$('h1').bind('touchstart', function(){ console.error('bind touchstart'); });
-        $$('h1').bind('tap', function(){ console.error('bind tap'); });
-        $$('h1').tap(function() { console.error('live tap'); });
-
-        $$('h1').last().unbind('touchstart');
-        $$('h1.last').unbind('touchstart');
-        */
-
-
-        /*
-        $$('h1:first-child').touch(function() {
-            console.error('h1:first-child - touch');
-        });
-        $$('h1:first-child').tap(function() {
-            console.error('h1:first-child - tap');
-        });
-
-        $$('#primary').on('touchstart', 'h1.last', function() {
-            console.error('h1.last - touch');
-        });
-
-        $$('h1.last').touch(function() {
-            console.error('h1 - all touch');
-        });
-        */
-
-
-        //$$('#secondary').append('<h1>Añadido dinamicamente</h1>');
-        //$$(document.body).append('<h1 class="pepe">Añadido dinamicamente 2</h1>');
-
-
-
-        //FUNCIONA
-        //$$('h1').bind('tap', function(event) { console.error(event) });
-        //$$('h1').last().unbind('tap');
-        //NO FUNCIONA
-        //$$('h1').delegate('li', 'click', function() { alert('siii'); });
-
-        /*
-
-
-
-        $$('h1').on('click', function(){
-            console.error('h1.click');
-        });
-
-
-        $$('h1').last().off('click');
-        */
-
-        //$$('h1').unbind('tap', null);
-
-        /*
-        $$('#list-1 li:last-child').live('click', function(event) {
-            console.error(event, 'li:last-child.click()');
-        });
-
-        $$('h1').bind('click', function() {
-            console.error(event, 'h1.click()')
-        });
-        $$('h1.first').unbind('click', null);
-
-
-        $$('h1.last').bind('click', function(event) {
-            console.error(event, 'h1.last.click())');
-        });
-
-        //Dinamics
-        $$('#list-1').append('<li>six</li>');
-        $$('#list-1').append('<li>seven</li>');
-        $$('body').append('<h1>Ultimo dinámcos</h1>');
-        */
-
-
-
-
-        /*
-        $$(selector).bind('click', function(event){
-            console.error(event)
-        });
-        */
-    </script>
-
-    <!-- AJAX -->
-    <script>
-    /*
-        $$.ajaxSettings.timeout = 1500;
-        $$.ajaxSettings.error = function(){
-            console.error('Error General:', arguments);
-        }
-
-        $$.ajax({
-            url: 'http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=3&minx=-180&miny=-90&maxx=180&maxy=90&size=medium&mapfilter=true',
-            timeout: 1000,
-            success: function(response) {
-                console.error(response);
-            }
-        });
-    */
-
-    $$.ajaxSettings.timeout = 2000;
-    $$.ajaxSettings.error = function(){
-        console.error('Error General:', arguments);
-    }
-    /*
-    $$.json('http://appstapquo.appspot.com/iparkutxa/login',
-        {
-            user: 'a',
-            password: 'b',
-            jsonp: '?'
-        }, function(result){
-            console.error(result);
-        }
-    );
-    */
-    </script>
-
-    <script>
-       // $$('h1').first().html('<h1>alksdajdj</h1>').append('pepe').prepend('yohan').style('height', 'auto').style('width','12px').style('width', '50%');
-
-      //  $$('h1').toggleClass('blue').html('class red').toggleClass('red').toggleClass('blue');
-
-        //var selector = '#list-1 li';
-
-        /*
-        console.error('================================================');
-        var zep = $(selector);
-        console.error('get(1):', zep.get(1));
-        console.error('first():', zep.first());
-        console.error('================================================');
-        */
-        //var quo = $$(selector);
-        //console.error('id:', quo.attr('id'));
-        //console.error('------------------------------------------------');
-        //console.error('parent():', quo.parent());
-        //console.error('------------------------------------------------');
-        //console.error('parent().attr("id"):', quo.parent().addClass('blue').attr('id'));
-        //console.error('------------------------------------------------');
-        //console.error('------------------------------------------------');
-        //console.error('children():', quo.children().addClass('blue'));
-        //console.error('------------------------------------------------');
-        //console.error('sibbling():', quo.siblings().addClass('blue'));
-        //console.error('------------------------------------------------');
-        //var a = $$('#list-1 li').get(1);
-        //var second = $$(a);
-        //console.error('get(1):', $$('#list-1 li').get(1));
-        //console.error('first():', $$('#list-1 li').first().addClass('blue').append(' >> added .blue'));
-        //console.error('first():', $$('#list-1 li').last().addClass('green').append(' >> added .green'));
-        //console.error('================================================');
-
-
-
-        //$('#title-3').data('search', 'pepito').attr('style','jajaja').val('papa');
     </script>
 </body>
 </html>
