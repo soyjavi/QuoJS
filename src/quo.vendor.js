@@ -1,10 +1,10 @@
 /*
-  QuoJS 1.1
+  QuoJS 2.0
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 */
 
-(function($){
+(function($) {
 
     var VENDORS = ['webkit','moz','ms','o',''];
     var CSS_PROPERTIES = {
