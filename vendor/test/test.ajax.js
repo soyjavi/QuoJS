@@ -8,8 +8,6 @@ try {
             if (response) {
                 $$('#ajax-panoramio').addClass('success').html('AJAX PANORAMIO: ' + response.count + ' photos');
                 console.log('CALL AJAX: ', response, response.count, response.photos.length);
-            } else {
-                console.error('CALL AJAX: Not response');
             }
         }
     });
@@ -36,8 +34,6 @@ try {
             if (response) {
                 $$('#json-panoramio').addClass('success').html('JSON PANORAMIO: ' + response.count + ' photos');
                 console.error('CALL JSON: ', response);
-            } else {
-                console.error('CALL JSON: Not response');
             }
         }
     );
@@ -59,11 +55,7 @@ try {
             if (response) {
                 $$('#xml-yunait').addClass('success').html('XML YUNAIT: Succeeded');
                 console.log('CALL XML: ', response);
-            } else {
-                console.error('CALL XML: Not response');
             }
-
-            console.error('$$.get (XML): ', response);
         }
     );
 } catch(error) {}
