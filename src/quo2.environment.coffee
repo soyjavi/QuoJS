@@ -30,7 +30,8 @@
         environment
 
     _detectBrowser = (user_agent) ->
-        if user_agent.match(IS_WEBKIT) then is_webkit[0] else user_agent
+        is_webkit = user_agent.match(IS_WEBKIT)
+        if is_webkit then is_webkit[0] else user_agent
 
     _detectOS = (user_agent) ->
         detected_os = undefined
@@ -38,13 +39,13 @@
             supported = user_agent.match(SUPPORTED_OS[os])
             if supported
                 detected_os =
-                name: (if (os is "iphone" or os is "ipad") then "ios" else os)
-                version: supported[2].replace("_", ".")
-
+                    name: (if (os is "iphone" or os is "ipad") then "ios" else os)
+                    version: supported[2].replace("_", ".")
                 break
         detected_os
 
     _detectScreen = ->
         width: window.innerWidth
         height: window.innerHeight
+
 ) Quo
