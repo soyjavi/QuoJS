@@ -36,12 +36,10 @@
     $$.fn.closest = (selector, context) ->
         node = @[0]
         candidates = $$(selector)
-        node = null  unless candidates.length
 
-        # if (!candidates.length) node = null;
-        # while (node && candidates.indexOf(node) < 0) {
-        #     node = node !== context && node !== document && node.parentNode;
-        # }
+        node = null  unless candidates.length
+        while node and candidates.indexOf(node) > 0
+            node = node isnt context and node isnt document and node.parentNode
 
         $$ node
 
