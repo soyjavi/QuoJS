@@ -1,3 +1,9 @@
+###
+  QuoJS 2.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+###
+
 (($$) ->
 
     $$.fn.addClass = (name) ->
@@ -32,5 +38,7 @@
 
     _computedStyle = (element, property) ->
         document.defaultView.getComputedStyle(element, "")[property]
+
+    return
 
 ) Quo
