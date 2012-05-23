@@ -1,4 +1,4 @@
-# QuoJS
+# QuoJS 2.0
 ### Micro #JavaScript Library for Mobile Devices
 
 ## QuoJS?
@@ -8,9 +8,6 @@ Is designed to change the way that you write JavaScript with the goal: a 8-12k l
 Released under the MIT license, which gives you the possibility to use it and modify it in every circumstance.
 
 [Source code](https://github.com/soyjavi/QuoJS) and [issue tracking](https://github.com/soyjavi/QuoJS/issues) are available on Github.
-
-## Oh... what I'm going do?
-
 
 ## Learn more about the project
 The idea of QuoJs arose earlier this year, the author [Javi Jiménez Villar](http://twitter.com/soyjavi) saw how existing JavaScript Libraries were not optimized for mobile devices. They were very big libraries that were built based on requirements of desktop devices, so mobile performance was not optimal.
@@ -25,7 +22,6 @@ Created by [Javier Jiménez](http://twitter.com/soyjavi).
 Copyright (c) 2011, 2012 by Tapquo Inc.
 
 ## Licensing Options
-QuoJS is licensed under free commercial and open source licenses for
-application development, and a paid commercial license for OEM uses.
+LungoJS is licensed under free commercial and open source licenses for application development, and a paid commercial license for OEM uses.
 
 See LICENSE.txt for license.
