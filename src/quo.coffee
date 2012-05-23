@@ -4,7 +4,6 @@
   http://quojs.tapquo.com
 ###
 
-
 Quo = (->
     EMPTY_ARRAY = []
 
@@ -32,4 +31,4 @@ Quo = (->
 )()
 
 window.Quo = Quo
-'$$' of window or (window.$$ = Quo)
+"$$" of window or (window.$$ = Quo)

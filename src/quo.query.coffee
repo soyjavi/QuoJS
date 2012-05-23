@@ -1,3 +1,9 @@
+###
+  QuoJS 2.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+###
+
 (($$) ->
 
     PARENT_NODE = "parentNode"
@@ -36,15 +42,13 @@
     $$.fn.closest = (selector, context) ->
         node = @[0]
         candidates = $$(selector)
-
         node = null  unless candidates.length
-        while node and candidates.indexOf(node) > 0
+        while node and candidates.indexOf(node) < 0
             node = node isnt context and node isnt document and node.parentNode
-
         $$ node
 
     $$.fn.each = (callback) ->
-        @forEach (el, idx) -> callback.call el, idx, el
+        @forEach (element, index) -> callback.call element, index, element
         @
 
     _findAncestors = (nodes) ->
@@ -59,4 +63,6 @@
 
     _filtered = (nodes, selector) ->
         (if (selector is `undefined`) then $$(nodes) else $$(nodes).filter(selector))
+
+    return
 ) Quo
