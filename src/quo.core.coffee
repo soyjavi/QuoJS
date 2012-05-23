@@ -1,3 +1,9 @@
+###
+  QuoJS 2.0
+  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
+  http://quojs.tapquo.com
+###
+
 (($$) ->
 
     EMPTY_ARRAY = [ ]
@@ -85,5 +91,7 @@
 
     _flatten = (array) ->
         (if array.length > 0 then [].concat.apply([], array) else array)
+
+    return
 
 ) Quo
