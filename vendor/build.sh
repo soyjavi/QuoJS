@@ -2,7 +2,7 @@
 
 #define paths
 COMPILER=google-compiler/compiler.jar
-LUNGO_SOURCES=../src/
+LUNGO_SOURCES=../src/build/
 LUNGO_NAMESPACE=quo.
 BUILDPATH=../release/
 MINIFIED="min"
