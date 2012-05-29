@@ -14,14 +14,12 @@ The idea of QuoJs arose earlier this year, the author [Javi Jiménez Villar](htt
 These libraries doesn't have a good support to touch events such as: touch, tap, swipe ... or a semantic API that would help the developer to create a good & cool JavaScript.
 
 - Visit QuoJS [Site](http://quojs.tapquo.com/)
-- [JavaScript API](http://quojs.tapquo.com/api/)
 
 ## Credits
 Created by [Javier Jiménez](http://twitter.com/soyjavi).
-
 Copyright (c) 2011, 2012 by Tapquo Inc.
 
 ## Licensing Options
-LungoJS is licensed under free commercial and open source licenses for application development, and a paid commercial license for OEM uses.
+Released under MIT license, https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt
 
 See LICENSE.txt for license.
