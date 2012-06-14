@@ -1,4 +1,4 @@
-// OUTPUT
+
 $$('#box-delete').empty();
 console.log('Delete text from output box');
 
@@ -9,3 +9,5 @@ el.prepend('<article>Prepend a element</article>');
 html_of_last_article = el.children('article:last-child').html();
 el.children('article:last-child').html(html_of_last_article + '>> added a portion of html :)')
 $$('#output').addClass('success');
+
+$$('section').first().find('article:last-child').append(' >> cached!');
