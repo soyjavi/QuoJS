@@ -13,6 +13,14 @@
         dom_elements = Array::slice.call(dom_elements)
         dom_elements
 
+    $$.fn.find = (selector) ->
+        result = undefined
+        if @length is 1
+            result = Quo.query(@[0], selector)
+        else
+            result = @map(-> Quo.query @, selector )
+        $$ result
+
     $$.fn.parent = (selector) ->
         ancestors = (if (selector) then _findAncestors(@) else @instance(PARENT_NODE))
         _filtered ancestors, selector
