@@ -9,7 +9,7 @@
     PARENT_NODE = "parentNode"
 
     $$.query = (domain, selector) ->
-        dom_elements = document.querySelectorAll(selector)
+        dom_elements = domain.querySelectorAll(selector)
         dom_elements = Array::slice.call(dom_elements)
         dom_elements
 
