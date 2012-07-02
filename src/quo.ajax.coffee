@@ -1,5 +1,5 @@
 ###
-  QuoJS 2.0
+  QuoJS 2.0.3
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 ###
@@ -72,7 +72,7 @@
                 , settings.timeout)
             xhr
         else
-            console.error "ERROR: Unable to make jsonp synchronous call."
+            console.error "QuoJS.ajax: Unable to make jsonp synchronous call."
 
     $$.get = (url, data, success, dataType) ->
         url += $$.serializeParameters(data)
@@ -111,7 +111,7 @@
                 _xhrSuccess _parseResponse(xhr, settings), xhr, settings
                 return
         else
-            _xhrError "QuoJS » $$.ajax", xhr, settings
+            _xhrError "QuoJS.ajax: Unsuccesful request", xhr, settings
             return
 
     _xhrSuccess = (response, xhr, settings) ->
@@ -123,8 +123,8 @@
         return
 
     _xhrHeaders = (xhr, settings) ->
-        settings.headers["Content-Type"] = settings.contentType  if settings.contentType
-        settings.headers["Accept"] = MIME_TYPES[settings.dataType]  if settings.dataType
+        settings.headers["Content-Type"] = settings.contentType if settings.contentType
+        settings.headers["Accept"] = MIME_TYPES[settings.dataType] if settings.dataType
         for header of settings.headers
             xhr.setRequestHeader header, settings.headers[header]
         return
@@ -132,7 +132,7 @@
     _xhrTimeout = (xhr, settings) ->
         xhr.onreadystatechange = {}
         xhr.abort()
-        _xhrError "QuoJS » $$.ajax : timeout exceeded", xhr, settings
+        _xhrError "QuoJS.ajax: Timeout exceeded", xhr, settings
         return
 
     _parseResponse = (xhr, settings) ->
@@ -143,7 +143,7 @@
                     response = JSON.parse(response)
                 catch error
                     response = error
-                    _xhrError "Parse Error", xhr, settings
+                    _xhrError "QuoJS.ajax: Parse Error", xhr, settings
             else response = xhr.responseXML    if settings.dataType is "xml"
         response
 
