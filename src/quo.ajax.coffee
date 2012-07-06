@@ -32,6 +32,12 @@
 
     $$.ajax = (options) ->
         settings = $$.mix($$.ajaxSettings, options)
+
+        if settings.type is DEFAULT.TYPE
+            settings.url += $$.serializeParameters(settings.data, "?")
+        else
+            settings.data = $$.serializeParameters(settings.data)
+
         return $$.jsonp(settings) if _isJsonP(settings.url)
         xhr = settings.xhr()
         xhr.onreadystatechange = ->
@@ -75,35 +81,35 @@
             console.error "QuoJS.ajax: Unable to make jsonp synchronous call."
 
     $$.get = (url, data, success, dataType) ->
-        url += $$.serializeParameters(data)
         $$.ajax
-            url: url
-            success: success
-            dataType: dataType
-
-    $$.post = (url, data, success, dataType) ->
-        $$.ajax
-            type: "POST"
             url: url
             data: data
             success: success
             dataType: dataType
-            contentType: "application/x-www-form-urlencoded"
+
+    $$.post = (url, data, success, dataType) ->
+        _xhrForm("POST", url, data, success, dataType)
+
+    $$.put = (url, data, success, dataType) ->
+        _xhrForm("PUT", url, data, success, dataType)
+
+    $$.delete = (url, data, success, dataType) ->
+        _xhrForm("DELETE", url, data, success, dataType)
 
     $$.json = (url, data, success) ->
-        url += $$.serializeParameters(data)
         $$.ajax
             url: url
+            data: data
             success: success
             dataType: DEFAULT.MIME
 
-    $$.serializeParameters = (parameters) ->
-        serialize = "?"
+    $$.serializeParameters = (parameters, character="") ->
+        serialize = character
         for parameter of parameters
             if parameters.hasOwnProperty(parameter)
-                serialize += "&"    if serialize isnt "?"
+                serialize += "&"    if serialize isnt character
                 serialize += parameter + "=" + parameters[parameter]
-        (if (serialize is "?") then "" else serialize)
+        (if (serialize is character) then "" else serialize)
 
     _xhrStatus = (xhr, settings) ->
         if xhr.status is 200 or xhr.status is 0
@@ -134,6 +140,15 @@
         xhr.abort()
         _xhrError "QuoJS.ajax: Timeout exceeded", xhr, settings
         return
+
+    _xhrForm = (method, url, data, success, dataType) ->
+        $$.ajax
+            type: method
+            url: url
+            data: data
+            success: success
+            dataType: dataType
+            contentType: "application/x-www-form-urlencoded"
 
     _parseResponse = (xhr, settings) ->
         response = xhr.responseText
