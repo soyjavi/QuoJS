@@ -1,4 +1,13 @@
 // AJAX
+$$('#post-html').html('CALL POST: http://api.jquery.com/');
+try {
+    $$.post('http://api.jquery.com/', {s: 'getjson'}, function(response) {
+        $$('#post-html').addClass('success');
+    }, 'html');
+} catch(error) {
+    console.error(error);
+}
+
 $$('#ajax-panoramio').html('CALL AJAX: http://www.panoramio.com/map/get_panoramas.php?');
 try {
     $$.ajax({
@@ -12,8 +21,9 @@ try {
         }
     });
 } catch(error) {
-    console.error(error)
+    console.error(error);
 }
+
 
 $$('#json-panoramio').html('CALL JSON: http://www.panoramio.com/map/get_panoramas.php?');
 try {
