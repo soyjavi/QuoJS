@@ -626,7 +626,7 @@
       if (settings.type === DEFAULT.TYPE) {
         settings.url += $$.serializeParameters(settings.data, "?");
       } else {
-        settings.data = $$.serializeParameters(settings.data);
+        //settings.data = $$.serializeParameters(settings.data);
       }
       if (_isJsonP(settings.url)) {
         return $$.jsonp(settings);
