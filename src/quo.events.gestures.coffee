@@ -28,6 +28,7 @@
         environment.bind "touchcancel", _cleanGesture
 
     _onTouchStart = (event) ->
+        event.preventDefault();
         now = Date.now()
         delta = now - (TOUCH.last or now)
         touch_event = _captureTouch(event)
