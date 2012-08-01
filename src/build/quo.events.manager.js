@@ -31,11 +31,7 @@
       event = document.createEvent("Events");
       event.initEvent(type, true, true, null, null, null, null, null, null, null, null, null, null, null, null);
       if (touch) {
-        event.pageX = touch.x1;
-        event.pageY = touch.y1;
-        event.toX = touch.x2;
-        event.toY = touch.y2;
-        event.fingers = touch.fingers;
+        for(var property in touch) event[property] = touch[property];
       }
       return event;
     };
