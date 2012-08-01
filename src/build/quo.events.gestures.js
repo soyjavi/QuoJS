@@ -8,14 +8,16 @@
 
 
 (function() {
-
   (function($$) {
-    var GESTURES, HOLD_DELAY, TOUCH, TOUCH_TIMEOUT, _captureTouch, _cleanGesture, _countFingers, _hold, _isSwipe, _listenTouches, _onTouchEnd, _onTouchMove, _onTouchStart, _parentIfText, _swipeDirection, _trigger;
-    TOUCH = {};
-    TOUCH_TIMEOUT = void 0;
-    HOLD_DELAY = 650;
-    GESTURES = ["doubleTap", "hold", "swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown", "drag"];
-    GESTURES.forEach(function(event) {
+    var TIMEOUT_HOLD = TIMEOUT_DBLTAP = void(0);
+    var gesture_data = events = {};
+    var touches = touches2 = [];
+    (["doubleTap", "hold",
+      "swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown",
+      "rotate", "rotating", "rotateLeft", "rotateRight",
+      "pinch", "pinching", "pinchIn", "pinchOut",
+      "drag"
+    ]).forEach(function(event) {
       $$.fn[event] = function(callback) {
         return this.on(event, callback);
       };
@@ -29,111 +31,142 @@
       environment.bind("touchstart", _onTouchStart);
       environment.bind("touchmove", _onTouchMove);
       environment.bind("touchend", _onTouchEnd);
-      return environment.bind("touchcancel", _cleanGesture);
+      environment.bind("touchcancel", _cleanGesture);
     };
     _onTouchStart = function(event) {
-      var delta, now, touch_event;
-      now = Date.now();
-      delta = now - (TOUCH.last || now);
-      touch_event = _captureTouch(event);
-      TOUCH_TIMEOUT && clearTimeout(TOUCH_TIMEOUT);
-      TOUCH = {
-        el: $$(_parentIfText(touch_event.target)),
-        x1: touch_event.pageX,
-        y1: touch_event.pageY,
-        isDoubleTap: (delta > 0 && delta <= 250 ? true : false),
-        last: now,
-        fingers: _countFingers(event)
+      var touch_data, fingers, t;
+      touch_data = _captureTouch(event);
+      fingers = touch_data.length;
+      if(touches.length > 0 && fingers === 1) {
+        _trigger('doubleTap');
+        _cleanGesture();
+      }
+      if(fingers === 1) TIMEOUT_HOLD = setTimeout(_hold, 650);
+      for(var i=0; i<fingers; i++) {
+        touches.push({
+          x:touch_data[i].pageX,
+          y:touch_data[i].pageY
+        });
+      }
+      gesture_data = {
+        element: $$(_parentIfText(touch_data[0].target)),
+        fingers: fingers
       };
-      return setTimeout(_hold, HOLD_DELAY);
+      if(fingers === 2) {
+        gesture_data.start_angle = _angle(touches);
+        gesture_data.last_angle = 0;
+        gesture_data.start_distance = _distance(touches);
+      }
     };
     _onTouchMove = function(event) {
-      var touch_event;
-      touch_event = _captureTouch(event);
-      TOUCH.x2 = touch_event.pageX;
-      TOUCH.y2 = touch_event.pageY;
-      if (_isSwipe(event)) {
-        return TOUCH.el.trigger("swiping", TOUCH);
+      var touch_data, fingers, t;
+      clearTimeout(TIMEOUT_HOLD);
+      clearTimeout(TIMEOUT_DBLTAP);
+      touches2 = [];
+      touch_data = _captureTouch(event);
+      fingers = touch_data.length;
+      if(fingers === gesture_data.fingers) {
+        for(var i=0; i<fingers; i++) {
+          touches2.push({
+            x:touch_data[i].pageX,
+            y:touch_data[i].pageY
+          });
+        }
+        if(fingers === 1) _captureSwipe();
+        else {
+          _captureRotation();
+          _capturePinch();
+        }
       }
     };
     _onTouchEnd = function(event) {
-      var swipe_direction;
-      if (TOUCH.isDoubleTap) {
-        return _trigger("doubleTap", true);
-      } else if (TOUCH.x2 > 0 || TOUCH.y2 > 0) {
-        if (_isSwipe(event)) {
-          if (TOUCH.fingers === 1) {
-            _trigger("swipe", false);
-            swipe_direction = _swipeDirection(TOUCH.x1, TOUCH.x2, TOUCH.y1, TOUCH.y2);
-            _trigger(swipe_direction, false);
-          } else {
-            _trigger("drag", false);
-          }
-        }
-        return _cleanGesture();
-      } else {
-        if (TOUCH.el) {
+      clearTimeout(TIMEOUT_HOLD);
+      var tap_triggered = false;
+      if(gesture_data.fingers === 1) {
+        if(events.swipeX) _trigger("swipe" + events.swipeX);
+        if(events.swipeY) _trigger("swipe" + events.swipeY);
+        if(events.swipeX || events.swipeY) _trigger("swipe");
+        else {
           _trigger("tap");
-        }
-        return TOUCH_TIMEOUT = setTimeout(_cleanGesture, 250);
-      }
-    };
-    _trigger = function(type, clean) {
-      TOUCH.el.trigger(type, TOUCH);
-      return clean && _cleanGesture();
-    };
-    _cleanGesture = function(event) {
-      TOUCH = {};
-      return clearTimeout(TOUCH_TIMEOUT);
-    };
-    _isSwipe = function(event) {
-      return TOUCH.el && (Math.abs(TOUCH.x1 - TOUCH.x2) > 30 || Math.abs(TOUCH.y1 - TOUCH.y2) > 30);
-    };
-    _captureTouch = function(event) {
-      if ($$.isMobile()) {
-        return event.touches[0];
-      } else {
-        return event;
-      }
-    };
-    _parentIfText = function(node) {
-      if ("tagName" in node) {
-        return node;
-      } else {
-        return node.parentNode;
-      }
-    };
-    _swipeDirection = function(x1, x2, y1, y2) {
-      var xDelta, yDelta;
-      xDelta = Math.abs(x1 - x2);
-      yDelta = Math.abs(y1 - y2);
-      if (xDelta >= yDelta) {
-        if (x1 - x2 > 0) {
-          return "swipeLeft";
-        } else {
-          return "swipeRight";
+          tap_triggered = true;
         }
       } else {
-        if (y1 - y2 > 0) {
-          return "swipeUp";
-        } else {
-          return "swipeDown";
+        if(events.pinch) {
+          _trigger("pinch");
+          _trigger("pinch" + events.pinch);
+        }
+        if(events.rotate) {
+          _trigger("rotate", {angle: gesture_data.last_angle});
+          _trigger("rotate" + events.rotate, {angle: gesture_data.last_angle});
         }
       }
+      if(tap_triggered) TIMEOUT_DBLTAP = setTimeout(_cleanGesture, 300);
+      else _cleanGesture();
+    };
+    _captureRotation = function() {
+      var angle = _angle(touches2);
+      var diff = gesture_data.start_angle - angle;
+      if( Math.abs(diff) > 5 || gesture_data.last_angle != 0 ) {
+        if(diff != gesture_data.last_angle) {
+          var symbol = gesture_data.last_angle < 0 ? '-' : '+';
+          var i=0;
+          while(Math.abs(diff - gesture_data.last_angle) > 90 && i++<10) {
+            eval("diff "+symbol+"= 180;");
+          }
+          gesture_data.last_angle = diff;
+          events.rotate = diff>0 ? "Left" : "Right";
+          _trigger('rotating', {angle: gesture_data.last_angle});
+        }
+      }
+    };
+    _capturePinch = function() {
+      var distance = _distance(touches2);
+      var diff = gesture_data.start_distance - distance;
+      events.pinch = false;
+      if(Math.abs(diff) > 5) {
+        _trigger('pinching', {distance: diff});
+        events.pinch = diff<0 ? 'In' : 'Out';
+      }
+    };
+    _captureSwipe = function() {
+      var xdiff = parseInt(touches2[0].x - touches[0].x, 10);
+      var ydiff = parseInt(touches2[0].y - touches[0].y, 10);
+      events.swipeX = Math.abs(xdiff) > 20 ? (xdiff>0 ? 'Right' : 'Left') : false;
+      events.swipeY = Math.abs(ydiff) > 20 ? (ydiff>0 ? 'Down' : 'Up') : false;
+      if(events.swipeX || events.swipeY) _trigger("swiping");
+    };
+    _angle = function(touches_data) {
+      var A = touches_data[0], B = touches_data[1];
+      var curr_angle = Math.atan((B.y-A.y)*-1/(B.x-A.x)) * (180/Math.PI);
+      return parseInt((curr_angle<0 ? curr_angle+180 : curr_angle), 10);
+    };
+    _distance = function(touches_data) {
+      var A = touches_data[0], B = touches_data[1];
+      return parseInt(Math.sqrt((B.x-A.x)*(B.x-A.x)+(B.y-A.y)*(B.y-A.y)), 10)*-1;
     };
     _hold = function() {
-      if (TOUCH.last && (Date.now() - TOUCH.last >= HOLD_DELAY)) {
-        _trigger("hold");
-        _cleanGesture();
-      }
+      _trigger('hold');
+      _cleanGesture();
     };
-    _countFingers = function(event) {
-      if (event.touches) {
-        return event.touches.length;
-      } else {
-        return 1;
-      }
+    _parentIfText = function(node) {
+      if ("tagName" in node) return node;
+      else return node.parentNode;
+    };
+    _captureTouch = function(event) {
+      return ($$.isMobile() ? event.touches : [event]);
+    };
+    _cleanGesture = function() {
+      clearTimeout(TIMEOUT_HOLD);
+      clearTimeout(TIMEOUT_DBLTAP);
+      gesture_data = events = {};
+      touches = touches2 = [];
+    };
+    _trigger = function(type, params) {
+      params = params || {};
+      params.touches = [];
+      params.touches.push(touches);
+      params.touches.push(touches2);
+      gesture_data.element.trigger(type, params);
     };
   })(Quo);
-
 }).call(this);
