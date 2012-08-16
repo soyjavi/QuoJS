@@ -542,9 +542,15 @@
       });
     };
     $$.fn.removeClass = function(name) {
+      var type;
+      type = $$.toType(name);
       return this.each(function() {
-        if (_existsClass(name, this.className)) {
-          return this.className = this.className.replace(name, " ").replace(/\s+/g, " ").trim();
+        if (type === "undefined"){
+          return this.className = "";
+        } else {
+          if (_existsClass(name, this.className)) {
+            return this.className = this.className.replace(name, " ").replace(/\s+/g, " ").trim();
+          }
         }
       });
     };
