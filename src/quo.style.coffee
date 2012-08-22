@@ -14,7 +14,10 @@
 
     $$.fn.removeClass = (name) ->
         @each ->
-            @className = @className.replace(name, " ").replace(/\s+/g, " ").trim() if _existsClass(name, @className)
+            unless name
+                @className = ""
+            else
+                @className = @className.replace(name, " ").replace(/\s+/g, " ").trim() if _existsClass(name, @className)
 
     $$.fn.toggleClass = (name) ->
         @each ->
