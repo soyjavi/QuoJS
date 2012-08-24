@@ -11,3 +11,6 @@ el.children('article:last-child').html(html_of_last_article + '>> added a portio
 $$('#output').addClass('success');
 
 $$('section').first().find('article:last-child').append(' >> cached!');
+
+el = $$('#replace');
+el.replaceWith('<a href="#">New link via <strong>replaceWith</strong></a>');

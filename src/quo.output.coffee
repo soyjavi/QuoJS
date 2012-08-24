@@ -7,7 +7,7 @@
 (($$) ->
     $$.fn.text = (value) ->
         if (not value)
-            this[0].textContent
+            @[0].textContent
         else
             @each ->
                 @textContent = value
@@ -18,15 +18,13 @@
             @each ->
                 @innerHTML = value
         else
-            this[0].innerHTML
+            @[0].innerHTML
 
     $$.fn.append = (value) ->
         @each ->
             if $$.toType(value) is "string"
                 if value
-                    div = document.createElement("div")
-                    div.innerHTML = value
-                    @appendChild div.firstChild
+                    @appendChild _createElement(value)
             else
                 @insertBefore value
 
@@ -38,12 +36,20 @@
                 parent = @parentNode
                 parent.insertBefore value, parent.firstChild
 
+    $$.fn.replaceWith = (content) ->
+        @each ->
+            @parentNode.insertBefore _createElement(content), @
+            $$(@).remove()
+
     $$.fn.empty = () ->
         @each ->
             @innerHTML = null
             return
 
-    _priv = -> true
+    _createElement = (content) ->
+        div = document.createElement("div")
+        div.innerHTML = content
+        div.firstChild
 
     return
 ) Quo
