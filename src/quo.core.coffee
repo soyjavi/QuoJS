@@ -34,14 +34,14 @@
 
         if type is "array"
             domain = _compact(selector)
-        else if elementTypes.indexOf(selector.nodeType) >= 0 or selector is window
-            domain = [selector]
-            selector = null
         else if type is "string" and IS_HTML_FRAGMENT.test(selector)
             domain = $$.fragment(selector.trim(), RegExp.$1)
             selector = null
-        else
+        else if type is "string"
             domain = $$.query(document, selector)
+        else if elementTypes.indexOf(selector.nodeType) >= 0 or selector is window
+            domain = [selector]
+            selector = null
         domain
 
     $$.map = (elements, callback) ->
