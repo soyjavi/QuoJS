@@ -55,10 +55,14 @@
     };
     $$.fn.replaceWith = function(content) {
       return this.each(function() {
+        var parent;
         if ($$.toType(content) === "string") {
           content = _createElement(content);
         }
-        this.parentNode.insertBefore(content, this);
+        parent = this.parentNode;
+        if (parent) {
+          parent.insertBefore(content, this);
+        }
         return $$(this).remove();
       });
     };
