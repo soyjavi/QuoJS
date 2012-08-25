@@ -8,6 +8,18 @@
 
     EMPTY_ARRAY = [ ]
     OBJECT_PROTOTYPE = Object::
+    IS_HTML_FRAGMENT = /^\s*<(\w+|!)[^>]*>/
+
+    TABLE = document.createElement('table')
+    TABLE_ROW = document.createElement('tr')
+    HTML_CONTAINERS =
+        "tr": document.createElement("tbody")
+        "tbody": TABLE
+        "thead": TABLE
+        "tfoot": TABLE
+        "td": TABLE_ROW
+        "th": TABLE_ROW
+        "*": document.createElement("div")
 
     $$.toType = (obj) ->
         OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
@@ -22,11 +34,14 @@
 
         if type is "array"
             domain = _compact(selector)
-        else if type is "string"
-            domain = $$.query(document, selector)
         else if elementTypes.indexOf(selector.nodeType) >= 0 or selector is window
             domain = [selector]
             selector = null
+        else if type is "string" and IS_HTML_FRAGMENT.test(selector)
+            domain = $$.fragment(selector.trim(), RegExp.$1)
+            selector = null
+        else
+            domain = $$.query(document, selector)
         domain
 
     $$.map = (elements, callback) ->
@@ -44,7 +59,6 @@
                 value = callback(elements[key], key)
                 values.push value  if value?
         _flatten values
-
 
     $$.each = (elements, callback) ->
         i = undefined
@@ -70,6 +84,14 @@
                 child[prop] = argument[prop]  if $$.isOwnProperty(argument, prop) and argument[prop] isnt `undefined`
             arg++
         child
+
+    $$.fragment = (markup, tag = "*") ->
+        tag = "*" unless tag of HTML_CONTAINERS
+
+        container = HTML_CONTAINERS[tag]
+        container.innerHTML = "" + markup
+        $$.each Array::slice.call(container.childNodes), ->
+            container.removeChild this
 
     $$.fn.map = (fn) ->
         $$.map this, (el, i) -> fn.call el, i, el
