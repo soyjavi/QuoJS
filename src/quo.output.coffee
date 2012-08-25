@@ -39,7 +39,10 @@
     $$.fn.replaceWith = (content) ->
         @each ->
             content = _createElement(content) if $$.toType(content) is "string"
-            @parentNode.insertBefore content, @
+
+            parent = @parentNode
+            if parent
+                parent.insertBefore content, @
             $$(@).remove()
 
     $$.fn.empty = () ->
