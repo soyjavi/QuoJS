@@ -1,5 +1,5 @@
 ###
-  QuoJS 2.0
+  QuoJS 2.1
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 ###
@@ -27,21 +27,31 @@
     $$.isOwnProperty = (object, property) ->
         OBJECT_PROTOTYPE.hasOwnProperty.call object, property
 
-    $$.getDomainSelector = (selector) ->
+    $$.getDOMObject = (selector, children) ->
         domain = null
         elementTypes = [ 1, 9, 11 ]
         type = $$.toType(selector)
 
         if type is "array"
             domain = _compact(selector)
+
         else if type is "string" and IS_HTML_FRAGMENT.test(selector)
             domain = $$.fragment(selector.trim(), RegExp.$1)
             selector = null
+
         else if type is "string"
             domain = $$.query(document, selector)
+            if children
+                if domain.length is 1
+                    domain = $$.query(domain[0], children)
+                else
+                    #@todo: BUG if selector count > 1
+                    domain = $$.map(-> $$.query domain, children )
+
         else if elementTypes.indexOf(selector.nodeType) >= 0 or selector is window
             domain = [selector]
             selector = null
+
         domain
 
     $$.map = (elements, callback) ->

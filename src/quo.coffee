@@ -1,5 +1,5 @@
 ###
-    QuoJS 2.0
+    QuoJS 2.1
     http://quojs.tapquo.com
 
     Copyright (C) 2011,2012 Javi Jiménez Villar (@soyjavi)
@@ -32,12 +32,13 @@ Quo = (->
         dom.selector = selector or ''
         dom
 
-    $$ = (selector) ->
+    $$ = (selector, children) ->
         unless selector
             Q()
         else
-            domain_selector = $$.getDomainSelector(selector)
-            Q(domain_selector, selector)
+            dom = $$.getDOMObject(selector, children)
+            selector += ' ' + children if children
+            Q(dom, selector)
 
     $$.extend = (target) ->
         Array::slice.call(arguments, 1).forEach (source) ->
