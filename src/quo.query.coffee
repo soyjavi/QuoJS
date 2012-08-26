@@ -1,5 +1,5 @@
 ###
-  QuoJS 2.0
+  QuoJS 2.1
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 ###
@@ -14,7 +14,6 @@
         dom_elements
 
     $$.fn.find = (selector) ->
-        result = undefined
         if @length is 1
             result = Quo.query(@[0], selector)
         else
