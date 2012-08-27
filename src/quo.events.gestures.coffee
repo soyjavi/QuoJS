@@ -32,6 +32,7 @@
         environment.bind "touchcancel", _cleanGesture
 
     _onTouchStart = (event) ->
+        event.preventDefault
         now = Date.now()
         delta = now - (GESTURE.last or now)
         TOUCH_TIMEOUT and clearTimeout(TOUCH_TIMEOUT)
