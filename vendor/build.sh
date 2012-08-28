@@ -26,10 +26,10 @@ do
 done
 
 #UNCOMPRESED
-cat $FILES_TO_JOIN > $BUILDPATH/QuoJS-development.js
-echo -e "\033[32m  [BUILD]: QuoJS-development".js"\033[0m"
+cat $FILES_TO_JOIN > $BUILDPATH/quo.debug.js
+echo -e "\033[32m  [BUILD]: quo.debug.js\033[0m"
 
 #MINIFIED
-java -jar $COMPILER $FILES_TO_COMPILE --js_output_file $BUILDPATH/QuoJS.js
-echo -e "\033[32m  [BUILD]: QuoJS".js"\033[0m"
+java -jar $COMPILER $FILES_TO_COMPILE --js_output_file $BUILDPATH/quo.js
+echo -e "\033[32m  [BUILD]: quo".js"\033[0m"
 echo ============================ /QUOJS COMPILER ============================
