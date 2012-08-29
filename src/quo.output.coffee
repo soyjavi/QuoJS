@@ -14,9 +14,14 @@
 
     $$.fn.html = (value) ->
         type = $$.toType(value)
-        if type is "string" or type is "number"
+        if value
             @each ->
-                @innerHTML = value
+                if type is "string" or type is "number"
+                    @innerHTML = value
+                else
+                    @innerHTML = null
+                    @appendChild value
+
         else
             @[0].innerHTML
 
