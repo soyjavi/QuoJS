@@ -16,7 +16,7 @@
                 "swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown",
                 "rotate", "rotating", "rotateLeft", "rotateRight",
                 "pinch", "pinching", "pinchIn", "pinchOut",
-                "drag"]
+                "drag", "dragLeft", "dragRight", "dragUp", "dragDown"]
 
     GESTURES.forEach (event) ->
         $$.fn[event] = (callback) -> @on event, callback
@@ -60,6 +60,7 @@
                 if fingers == 2
                     _captureRotation()
                     _capturePinch()
+                    event.preventDefault()
             else
                 _cleanGesture()
         true
@@ -73,6 +74,7 @@
         ret
 
     _onTouchEnd = (event) ->
+        event.preventDefault()
         if GESTURE.isDoubleTap
             _trigger "doubleTap"
             _cleanGesture()
@@ -80,20 +82,28 @@
             if _isSwipe()
                 _trigger "swipe"
                 swipe_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
-                _trigger swipe_direction
+                _trigger "swipe" + swipe_direction
                 _cleanGesture()
             else
                 _trigger "tap"
                 TOUCH_TIMEOUT = setTimeout(_cleanGesture, 250)
         else if GESTURE.fingers is 2
+            anyevent = false
             if GESTURE.angle_difference isnt 0
                 _trigger "rotate", angle: GESTURE.angle_difference
                 rotation_direction = if GESTURE.angle_difference > 0 then "rotateRight" else "rotateLeft"
                 _trigger rotation_direction, angle: GESTURE.angle_difference
+                anyevent = true
             if GESTURE.distance_difference isnt 0
                 _trigger "pinch", angle: GESTURE.distance_difference
                 pinch_direction = if GESTURE.distance_difference > 0 then "pinchOut" else "pinchIn"
                 _trigger pinch_direction, distance: GESTURE.distance_difference
+                anyevent = true
+            if not anyevent and CURRENT_TOUCH[0]
+                if Math.abs(FIRST_TOUCH[0].x - CURRENT_TOUCH[0].x) > 10 or Math.abs(FIRST_TOUCH[0].y - CURRENT_TOUCH[0].y) > 10
+                    _trigger "drag"
+                    drag_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
+                    _trigger "drag" + drag_direction
             _cleanGesture()
 
     _fingersPosition = (touches, fingers) ->
@@ -109,7 +119,7 @@
     _captureRotation = () ->
         angle = parseInt(_angle(CURRENT_TOUCH), 10)
         diff = parseInt(GESTURE.initial_angle - angle, 10)
-        if Math.abs(diff) > 10 or GESTURE.angle_difference isnt 0
+        if Math.abs(diff) > 20 or GESTURE.angle_difference isnt 0
             i = 0
             symbol = if GESTURE.angle_difference < 0 then "-" else "+"
             eval "diff " + symbol + "= 180;" while Math.abs(diff - GESTURE.angle_difference) > 90 and i++ < 10
@@ -119,7 +129,7 @@
     _capturePinch = () ->
         distance = parseInt(_distance(CURRENT_TOUCH), 10)
         diff = GESTURE.initial_distance - distance
-        if Math.abs(diff) > 5
+        if Math.abs(diff) > 10
             GESTURE.distance_difference = diff
             _trigger "pinching", distance: diff
 
@@ -155,9 +165,9 @@
         xDelta = Math.abs(x1 - x2)
         yDelta = Math.abs(y1 - y2)
         if xDelta >= yDelta
-            if x1-x2>0 then "swipeLeft" else "swipeRight"
+            if x1-x2>0 then "Left" else "Right"
         else
-            if y1-y2>0 then "swipeUp" else "swipeDown"
+            if y1-y2>0 then "Up" else "Down"
 
     _hold = ->
         if GESTURE.last and (Date.now() - GESTURE.last >= HOLD_DELAY)
