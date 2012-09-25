@@ -4,7 +4,7 @@
 COMPILER=google-compiler/compiler.jar
 LUNGO_SOURCES=../src/build/
 LUNGO_NAMESPACE=quo.
-BUILDPATH=../release/
+BUILDPATH=../package/
 MINIFIED="min"
 PACKED="packed"
 
