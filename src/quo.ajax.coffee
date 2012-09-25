@@ -112,7 +112,7 @@
         (if (serialize is character) then "" else serialize)
 
     _xhrStatus = (xhr, settings) ->
-        if xhr.status is 200 or xhr.status is 0
+        if (xhr.status >= 200 and xhr.status < 300) or xhr.status is 0
             if settings.async
                 _xhrSuccess _parseResponse(xhr, settings), xhr, settings
                 return
