@@ -38,7 +38,7 @@
       timeout: 0
     };
     $$.ajax = function(options) {
-      var abortTimeout, settings, xhr;
+      var abortTimeout, parameters, settings, xhr;
       settings = $$.mix($$.ajaxSettings, options);
       if (settings.type === DEFAULT.TYPE) {
         settings.url += $$.serializeParameters(settings.data, "?");
@@ -62,7 +62,13 @@
           return _xhrTimeout(xhr, settings);
         }, settings.timeout);
       }
-      xhr.send(settings.data);
+      try {
+        parameters = _serializeParameters(settings.data);
+        xhr.send(parameters.substr(1, parameters.length));
+      } catch (error) {
+        xhr = error;
+        _xhrError("Resource not found", xhr, settings);
+      }
       if (settings.async) {
         return xhr;
       } else {
