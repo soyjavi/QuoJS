@@ -47,11 +47,19 @@
 
         xhr.open settings.type, settings.url, settings.async
         _xhrHeaders xhr, settings
+
         if settings.timeout > 0
             abortTimeout = setTimeout(->
                 _xhrTimeout xhr, settings
             , settings.timeout)
-        xhr.send settings.data
+
+        try
+             parameters = _serializeParameters(settings.data)
+             xhr.send parameters.substr(1, parameters.length)
+        catch error
+            xhr = error
+            _xhrError "Resource not found", xhr, settings
+
         (if (settings.async) then xhr else _parseResponse(xhr, settings))
 
     $$.jsonp = (settings) ->
