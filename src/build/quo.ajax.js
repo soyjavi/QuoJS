@@ -147,7 +147,7 @@
       }
     };
     _xhrStatus = function(xhr, settings) {
-      if (xhr.status === 200 || xhr.status === 0) {
+      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 0) {
         if (settings.async) {
           _xhrSuccess(_parseResponse(xhr, settings), xhr, settings);
         }
