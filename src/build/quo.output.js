@@ -23,9 +23,9 @@
     $$.fn.html = function(value) {
       var type;
       type = $$.toType(value);
-      if (value) {
+      if (value || type === "null") {
         return this.each(function() {
-          if (type === "string" || type === "number") {
+          if (type === "string" || type === "number" || type === "null") {
             return this.innerHTML = value;
           } else {
             this.innerHTML = null;
