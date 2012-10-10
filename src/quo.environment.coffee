@@ -31,7 +31,7 @@
         environment = {}
         environment.browser = _detectBrowser(user_agent)
         environment.os = _detectOS(user_agent)
-        environment.isMobile = (if (environment.os) then true else false)
+        environment.isMobile = !!environment.os
         environment.screen = _detectScreen()
         environment
 
@@ -40,7 +40,7 @@
         if is_webkit then is_webkit[0] else user_agent
 
     _detectOS = (user_agent) ->
-        detected_os = undefined
+        detected_os = null
         for os of SUPPORTED_OS
             supported = user_agent.match(SUPPORTED_OS[os])
             if supported
