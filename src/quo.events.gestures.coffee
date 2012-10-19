@@ -68,8 +68,8 @@
     _isSwipe = (event) ->
         ret = false
         if CURRENT_TOUCH[0]
-            move_horizontal = Math.abs(FIRST_TOUCH[0].x - CURRENT_TOUCH[0].x) > 30
-            move_vertical = Math.abs(FIRST_TOUCH[0].y - CURRENT_TOUCH[0].y) > 30
+            move_horizontal = Math.abs(FIRST_TOUCH[0].x - CURRENT_TOUCH[0].x) > 1
+            move_vertical = Math.abs(FIRST_TOUCH[0].y - CURRENT_TOUCH[0].y) > 1
             ret = GESTURE.el and (move_horizontal or move_vertical)
         ret
 
@@ -136,6 +136,9 @@
     _trigger = (type, params) ->
         if GESTURE.el
             params = params or {}
+            if CURRENT_TOUCH[0]
+                params.iniTouch = (if GESTURE.fingers > 1 then FIRST_TOUCH else FIRST_TOUCH[0])
+                params.currentTouch = (if GESTURE.fingers > 1 then CURRENT_TOUCH else CURRENT_TOUCH[0])
             GESTURE.el.trigger type, params
 
     _cleanGesture = (event) ->
@@ -172,7 +175,6 @@
     _hold = ->
         if GESTURE.last and (Date.now() - GESTURE.last >= HOLD_DELAY)
             _trigger "hold"
-            _cleanGesture()
 
     return
 
