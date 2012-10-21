@@ -62,9 +62,12 @@
           return _xhrTimeout(xhr, settings);
         }, settings.timeout);
       }
-      try {
+      if (settings.data) {
         parameters = _serializeParameters(settings.data);
-        xhr.send(parameters.substr(1, parameters.length));
+        settings.data = parameters.substr(1, parameters.length);
+      }
+      try {
+        xhr.send(settings.data);
       } catch (error) {
         xhr = error;
         _xhrError("Resource not found", xhr, settings);
