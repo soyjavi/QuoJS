@@ -176,6 +176,10 @@
     _trigger = function(type, params) {
       if (GESTURE.el) {
         params = params || {};
+        if (CURRENT_TOUCH[0]) {
+          params.iniTouch = (GESTURE.fingers > 1 ? FIRST_TOUCH : FIRST_TOUCH[0]);
+          params.currentTouch = (GESTURE.fingers > 1 ? CURRENT_TOUCH : CURRENT_TOUCH[0]);
+        }
         return GESTURE.el.trigger(type, params);
       }
     };
@@ -236,8 +240,7 @@
     };
     _hold = function() {
       if (GESTURE.last && (Date.now() - GESTURE.last >= HOLD_DELAY)) {
-        _trigger("hold");
-        return _cleanGesture();
+        return _trigger("hold");
       }
     };
   })(Quo);
