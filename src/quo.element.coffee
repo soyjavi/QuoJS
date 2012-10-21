@@ -24,6 +24,9 @@
 
     $$.fn.hide = -> @style "display", "none"
 
+    $$.fn.toggle = ->
+        @style "display", if @style "display" is "block" then "none" else "block"
+
     $$.fn.height = ->
         offset = @offset()
         offset.height
