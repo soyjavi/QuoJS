@@ -12,18 +12,18 @@
   (function($$) {
     var _createElement;
     $$.fn.text = function(value) {
-      if (!value) {
-        return this[0].textContent;
-      } else {
+      if (value || $$.toType(value) === "number") {
         return this.each(function() {
           return this.textContent = value;
         });
+      } else {
+        return this[0].textContent;
       }
     };
     $$.fn.html = function(value) {
       var type;
       type = $$.toType(value);
-      if (value || type === "null") {
+      if (value || type === "number" || type === "null") {
         return this.each(function() {
           if (type === "string" || type === "number" || type === "null") {
             return this.innerHTML = value;

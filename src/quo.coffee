@@ -1,5 +1,5 @@
 ###
-    QuoJS 2.1
+    QuoJS 2.1.2
     http://quojs.tapquo.com
 
     Copyright (C) 2011,2012 Javi Jiménez Villar (@soyjavi)
