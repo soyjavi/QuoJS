@@ -68,8 +68,8 @@
     _isSwipe = (event) ->
         ret = false
         if CURRENT_TOUCH[0]
-            move_horizontal = Math.abs(FIRST_TOUCH[0].x - CURRENT_TOUCH[0].x) > 1
-            move_vertical = Math.abs(FIRST_TOUCH[0].y - CURRENT_TOUCH[0].y) > 1
+            move_horizontal = Math.abs(FIRST_TOUCH[0].x - CURRENT_TOUCH[0].x) > 30
+            move_vertical = Math.abs(FIRST_TOUCH[0].y - CURRENT_TOUCH[0].y) > 30
             ret = GESTURE.el and (move_horizontal or move_vertical)
         ret
 
