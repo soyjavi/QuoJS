@@ -6,15 +6,15 @@
 
 (($$) ->
     $$.fn.text = (value) ->
-        if (not value)
-            @[0].textContent
+        if value or $$.toType(value) is "number"
+          @each -> @textContent = value
         else
-            @each ->
-                @textContent = value
+            @[0].textContent
 
     $$.fn.html = (value) ->
         type = $$.toType(value)
-        if value or type is "null"
+
+        if value or type is "number" or type is "null"
             @each ->
                 if type is "string" or type is "number" or type is "null"
                     @innerHTML = value
