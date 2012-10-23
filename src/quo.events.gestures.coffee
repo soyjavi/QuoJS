@@ -74,7 +74,6 @@
         ret
 
     _onTouchEnd = (event) ->
-        event.preventDefault()
         if GESTURE.isDoubleTap
             _trigger "doubleTap"
             _cleanGesture()
