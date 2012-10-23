@@ -87,7 +87,6 @@
     };
     _onTouchEnd = function(event) {
       var anyevent, drag_direction, pinch_direction, rotation_direction, swipe_direction;
-      event.preventDefault();
       if (GESTURE.isDoubleTap) {
         _trigger("doubleTap");
         return _cleanGesture();
