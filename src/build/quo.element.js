@@ -41,9 +41,6 @@
     $$.fn.hide = function() {
       return this.style("display", "none");
     };
-    $$.fn.toggle = function() {
-      return this.style("display", this.style("display" === "block") ? "none" : "block");
-    };
     $$.fn.height = function() {
       var offset;
       offset = this.offset();
