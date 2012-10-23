@@ -42,9 +42,7 @@
 
     $$.fn.first = -> $$ @[0]
 
-    $$.fn.last = ->
-        last_element_index = @length - 1
-        $$ @[last_element_index]
+    $$.fn.last = -> $$ @[@length - 1]
 
     $$.fn.closest = (selector, context) ->
         node = @[0]
