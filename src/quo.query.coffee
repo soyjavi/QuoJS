@@ -5,15 +5,15 @@
 ###
 
 (($$) ->
-    PARENT_NODE   = "parentNode"
-    classSelector = /^\.([\w-]+)$/
-    idSelector    = /^#([\w-]*)$/
-    tagSelector   = /^[\w-]+$/
+    PARENT_NODE    = "parentNode"
+    CLASS_SELECTOR = /^\.([\w-]+)$/
+    ID_SELECTOR    = /^#([\w-]*)$/
+    TAG_SELECTOR   = /^[\w-]+$/
 
     $$.query = (domain, selector) ->
-        if classSelector.test(selector)
+        if CLASS_SELECTOR.test(selector)
             dom_elements = domain.getElementsByClassName(selector)
-        else if tagSelector.test(selector)
+        else if TAG_SELECTOR.test(selector)
             dom_elements = domain.getElementsByTagName(selector)
         else
             dom_elements = domain.querySelectorAll(selector)
