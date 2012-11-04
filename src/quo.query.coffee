@@ -5,11 +5,18 @@
 ###
 
 (($$) ->
-
-    PARENT_NODE = "parentNode"
+    PARENT_NODE   = "parentNode"
+    classSelector = /^\.([\w-]+)$/
+    idSelector    = /^#([\w-]*)$/
+    tagSelector   = /^[\w-]+$/
 
     $$.query = (domain, selector) ->
-        dom_elements = domain.querySelectorAll(selector)
+        if classSelector.test(selector)
+            dom_elements = domain.getElementsByClassName(selector)
+        else if tagSelector.test(selector)
+            dom_elements = domain.getElementsByTagName(selector)
+        else
+            dom_elements = domain.querySelectorAll(selector)
         dom_elements = Array::slice.call(dom_elements)
         dom_elements
 
