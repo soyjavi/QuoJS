@@ -1,5 +1,5 @@
 ###
-  QuoJS 2.1.3
+  QuoJS 2.2.0
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 ###
@@ -53,16 +53,11 @@
                 _xhrTimeout xhr, settings
             , settings.timeout)
 
-        xhr.send settings.data
-
-        # if settings.data
-        #     parameters = $$.serializeParameters(settings.data)
-        #     settings.data = parameters.substr(1, parameters.length)
-        # try
-        #     xhr.send settings.data
-        # catch error
-        #     xhr = error
-        #     _xhrError "Resource not found", xhr, settings
+        try
+            xhr.send settings.data
+        catch error
+            xhr = error
+            _xhrError "Resource not found", xhr, settings
 
         (if (settings.async) then xhr else _parseResponse(xhr, settings))
 
