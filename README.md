@@ -1,10 +1,10 @@
-# QuoJS 2.1
+# QuoJS 2.2.0
 ### Micro #JavaScript Library for Mobile Devices
 
 ## QuoJS?
 QuoJS is a micro, modular, Object-Oriented and concise JavaScript Library that simplifies HTML document traversing, event handling, and Ajax interactions for rapid mobile web development. It allows you to write powerful, flexible and cross-browser code with its elegant, well documented, and micro coherent API.
 
-Is designed to change the way that you write JavaScript with the goal: a 8-12k library that handles most basic drudge work with a nice API so you can concentrate on getting stuff done.
+Designed to change the way that you write JavaScript with the goal: a 8-12k library that handles most basic drudge work with a nice API so you can concentrate on getting stuff done.
 Released under the MIT license, which gives you the possibility to use it and modify it in every circumstance.
 
 [Source code](https://github.com/soyjavi/QuoJS) and [issue tracking](https://github.com/soyjavi/QuoJS/issues) are available on Github.
