@@ -10,20 +10,11 @@
 (function() {
 
   (function($$) {
-    var CLASS_SELECTOR, ID_SELECTOR, PARENT_NODE, TAG_SELECTOR, _filtered, _findAncestors;
+    var PARENT_NODE, _filtered, _findAncestors;
     PARENT_NODE = "parentNode";
-    CLASS_SELECTOR = /^\.([\w-]+)$/;
-    ID_SELECTOR = /^#([\w-]*)$/;
-    TAG_SELECTOR = /^[\w-]+$/;
     $$.query = function(domain, selector) {
       var dom_elements;
-      if (CLASS_SELECTOR.test(selector)) {
-        dom_elements = domain.getElementsByClassName(selector);
-      } else if (TAG_SELECTOR.test(selector)) {
-        dom_elements = domain.getElementsByTagName(selector);
-      } else {
-        dom_elements = domain.querySelectorAll(selector);
-      }
+      dom_elements = domain.querySelectorAll(selector);
       dom_elements = Array.prototype.slice.call(dom_elements);
       return dom_elements;
     };

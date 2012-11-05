@@ -6,17 +6,20 @@
 
 (($$) ->
     PARENT_NODE    = "parentNode"
-    CLASS_SELECTOR = /^\.([\w-]+)$/
-    ID_SELECTOR    = /^#([\w-]*)$/
-    TAG_SELECTOR   = /^[\w-]+$/
+    # @TODO: v.2.2.1
+    # CLASS_SELECTOR = /^\.([\w-]+)$/
+    # ID_SELECTOR    = /^#([\w-]*)$/
+    # TAG_SELECTOR   = /^[\w-]+$/
 
     $$.query = (domain, selector) ->
-        if CLASS_SELECTOR.test(selector)
-            dom_elements = domain.getElementsByClassName(selector)
-        else if TAG_SELECTOR.test(selector)
-            dom_elements = domain.getElementsByTagName(selector)
-        else
-            dom_elements = domain.querySelectorAll(selector)
+        # @TODO: v.2.2.1
+        # if CLASS_SELECTOR.test(selector)
+        #     dom_elements = domain.getElementsByClassName(selector)
+        # else if TAG_SELECTOR.test(selector)
+        #     dom_elements = domain.getElementsByTagName(selector)
+        # else
+        #     dom_elements = domain.querySelectorAll(selector)
+        dom_elements = domain.querySelectorAll(selector)
         dom_elements = Array::slice.call(dom_elements)
         dom_elements
 
