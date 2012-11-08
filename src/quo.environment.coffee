@@ -13,6 +13,7 @@
         ipad: /(iPad).*OS\s([\d_]+)/
         iphone: /(iPhone\sOS)\s([\d_]+)/
         blackberry: /(BlackBerry).*Version\/([\d.]+)/
+        blackberryPlaybook: /(PlayBook).*Version\/([\d.]+)/
         webos: /(webOS|hpwOS)[\s\/]([\d.]+)/
 
     $$.isMobile = ->

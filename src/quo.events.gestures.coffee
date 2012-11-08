@@ -108,6 +108,7 @@
     _fingersPosition = (touches, fingers) ->
         result = []
         i = 0
+        touches = if touches[0].targetTouches then touches[0].targetTouches else touches
         while i < fingers
             result.push
                 x: touches[i].pageX
