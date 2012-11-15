@@ -1,5 +1,5 @@
 ###
-  QuoJS 2.2.0
+  QuoJS 2.2.1
   (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
   http://quojs.tapquo.com
 ###
@@ -57,7 +57,8 @@
     _createElement = (content) ->
         div = document.createElement("div")
         div.innerHTML = content
-        div.firstChild
+        # div.firstChild
+        div
 
     return
 ) Quo
