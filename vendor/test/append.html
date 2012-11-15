@@ -1,0 +1,62 @@
+<!doctype html>
+<html manifest="APP.appcache">
+<head>
+    <meta charset="utf-8">
+    <title>QuoJS by @soyjavi</title>
+    <meta name="description" content="">
+    <meta name="author" content="Javier Jiménez Villar (@soyjavi)">
+    <style>
+        section {
+            display: block;
+            background: #ccc;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .jquery {
+            background: blue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="uno" class="quojs"></section>
+    <section id="dos" class="quojs"></section>
+
+    <section id="uno" class="jquery"></section>
+    <section id="dos" class="jquery"></section>
+
+    <!-- Instance of QuoJS -->
+
+
+    <script src="../../src/build/quo.js"></script>
+    <script src="../../src/build/quo.core.js"></script>
+    <script src="../../src/build/quo.environment.js"></script>
+    <script src="../../src/build/quo.query.js"></script>
+    <script src="../../src/build/quo.style.js"></script>
+    <script src="../../src/build/quo.element.js"></script>
+    <script src="../../src/build/quo.output.js"></script>
+    <script src="../../src/build/quo.ajax.js"></script>
+    <script src="../../src/build/quo.events.js"></script>
+    <script src="../../src/build/quo.events.manager.js"></script>
+    <script src="../../src/build/quo.events.gestures.js"></script>
+
+
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script>
+        var list_uno = "<ul><li>uno</li></ul>";
+        var list_dos = "<ul><li>uno</li></ul><ul><li>dos</li></ul>";
+
+
+        $$(document).ready(function(){
+
+            $$('section#uno.quojs').append(list_uno);
+            $$('section#dos.quojs').append(list_dos);
+
+            $('section#uno.jquery').append(list_uno);
+            $('section#dos.jquery').append(list_dos);
+        })
+    </script>
+</body>
+</html>
+
