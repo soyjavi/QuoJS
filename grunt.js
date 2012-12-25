@@ -1,23 +1,29 @@
 module.exports = function(grunt) {
 
-  // Project configuration.
   grunt.initConfig({
     pkg: '<json:package/component.json>',
 
     meta: {
         file: "quo",
-        name: 'QuoJS - ',
-        banner: '/*! <%= meta.name %> - <%= grunt.template.today("yyyy/m/d") %> */'
+        banner: '/* <%= pkg.name %> v<%= pkg.version %> - <%= grunt.template.today("m/d/yyyy") %>\n' +
+                '   <%= pkg.homepage %>\n' +
+                '   Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>' +
+                ' - Licensed <%= _.pluck(pkg.license, "type").join(", ") %> */'
     },
 
     resources: {
         coffee: ['src/**/*.coffee', 'spec/**/*.coffee'],
         js: ['build/**/quo.js',
-            'build/**/monocle.model.js',
-            'build/**/monocle.controller.js',
-            'build/**/monocle.view.js',
-            'build/**/monocle.templayed.js',
-            'build/**/monocle.route.js']
+            'build/**/quo.core.js',
+            'build/**/quo.environment.js',
+            'build/**/quo.query.js',
+            'build/**/quo.style.js',
+            'build/**/quo.element.js',
+            'build/**/quo.output.js',
+            'build/**/quo.ajax.js',
+            'build/**/quo.events.js',
+            'build/**/quo.events.manager.js',
+            'build/**/quo.events.gestures.js']
     },
 
     coffee: {
@@ -33,11 +39,10 @@ module.exports = function(grunt) {
 
     concat: {
       js: {
-        src: ['<banner>', '<config:resources.js>'],
+        src: ['<config:resources.js>'],
         dest: 'package/<%=meta.file%>.js'
       }
     },
-
 
     min: {
       js: {
@@ -46,10 +51,9 @@ module.exports = function(grunt) {
       }
     },
 
-
     watch: {
       files: ['<config:resources.coffee>'],
-      tasks: 'coffee concat min'
+      tasks: 'coffee concat'
     },
 
 
