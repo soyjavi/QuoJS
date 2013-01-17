@@ -1,12 +1,6 @@
-###
-  QuoJS
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
+do ($$ = Quo) ->
 
-(($$) ->
-
-    EMPTY_ARRAY = [ ]
+    EMPTY_ARRAY = []
     OBJECT_PROTOTYPE = Object::
     IS_HTML_FRAGMENT = /^\s*<(\w+|!)[^>]*>/
 
@@ -20,6 +14,7 @@
         "td": TABLE_ROW
         "th": TABLE_ROW
         "*": document.createElement("div")
+
 
     $$.toType = (obj) ->
         OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
@@ -124,6 +119,3 @@
     _flatten = (array) ->
         (if array.length > 0 then [].concat.apply([], array) else array)
 
-    return
-
-) Quo
