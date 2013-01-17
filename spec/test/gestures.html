@@ -40,12 +40,11 @@
     <section class="red"></section>
     <section class="green"></section>
 
-    <script src="package/quo.js"></script>
-    <!-- // <script src="vendor/test/test.ajax.js"></script> -->
+    <script src="../../package/quo.js"></script>
 
     <script>
-        var gestures =  ["touch",
-            "tap", "doubleTap", "hold",
+        var gestures =  [
+            "singleTap", "doubleTap", "hold",
             "swipe", "-swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown",
             "rotate", "-rotating", "rotateLeft", "rotateRight",
             "pinch", "-pinching", "pinchIn", "pinchOut",
@@ -57,9 +56,14 @@
             });
         });
 
+
+        $$("section.red").tap(function() {
+            $$(this).append(' | tap');
+        });
+
         $$(function(){
             environment = $$.environment();
-            alert(environment.isMobile);
+            // alert(environment.isMobile);
         });
     </script>
 </body>
