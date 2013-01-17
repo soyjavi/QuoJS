@@ -22,8 +22,7 @@ module.exports = function(grunt) {
             'build/**/quo.output.js',
             'build/**/quo.ajax.js',
             'build/**/quo.events.js',
-            'build/**/quo.events.manager.js',
-            'build/**/quo.events.gestures.js']
+            'build/**/quo.gestures.js']
     },
 
     coffee: {
@@ -39,7 +38,7 @@ module.exports = function(grunt) {
 
     concat: {
       js: {
-        src: ['<config:resources.js>'],
+        src: ['<banner>', '<config:resources.js>'],
         dest: 'package/<%=meta.file%>.js'
       }
     },
@@ -53,7 +52,7 @@ module.exports = function(grunt) {
 
     watch: {
       files: ['<config:resources.coffee>'],
-      tasks: 'coffee concat'
+      tasks: 'coffee concat min'
     },
 
 

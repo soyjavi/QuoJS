@@ -1,25 +1,19 @@
-###
-  QuoJS
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
-
-Quo = (->
+Quo = do ->
     EMPTY_ARRAY = []
-
-    Q = (dom, selector) ->
-        dom = dom or EMPTY_ARRAY
-        dom.__proto__ = Q::
-        dom.selector = selector or ''
-        dom
 
     $$ = (selector, children) ->
         unless selector
             Q()
+        else if $$.toType(selector) is "function"
+            $$(document).ready selector
         else
             dom = $$.getDOMObject(selector, children)
-            selector += ' ' + children if children
             Q(dom, selector)
+
+    Q = (dom) ->
+        dom = dom or EMPTY_ARRAY
+        dom.__proto__ = Q::
+        dom
 
     $$.extend = (target) ->
         Array::slice.call(arguments, 1).forEach (source) ->
@@ -30,7 +24,7 @@ Quo = (->
     Q:: = $$.fn = {}
 
     $$
-)()
+
 
 window.Quo = Quo
 "$$" of window or (window.$$ = Quo)
