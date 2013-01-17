@@ -10,9 +10,10 @@ Quo = do ->
             dom = $$.getDOMObject(selector, children)
             Q(dom, selector)
 
-    Q = (dom) ->
+    Q = (dom, selector) ->
         dom = dom or EMPTY_ARRAY
         dom.__proto__ = Q::
+        dom.selector = selector or ''
         dom
 
     $$.extend = (target) ->

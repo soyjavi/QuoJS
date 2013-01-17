@@ -28,6 +28,8 @@ do ($$ = Quo) ->
 
     _onTouchStart = (event) ->
         now = Date.now()
+        delta = now - (GESTURE.last or now)
+
         TOUCH_TIMEOUT and clearTimeout(TOUCH_TIMEOUT)
         touches = _getTouches(event)
         fingers = touches.length
@@ -40,8 +42,8 @@ do ($$ = Quo) ->
         GESTURE.taps++
 
         if fingers is 1
-            delta = now - (GESTURE.last or now)
-            GESTURE.isDoubleTap = (delta > 0 and delta <= 250)
+            if fingers >= 1
+              GESTURE.gap = (delta > 0 and delta <= 250)
             setTimeout _hold, HOLD_DELAY
         else if fingers is 2
             GESTURE.initial_angle = parseInt(_angle(FIRST_TOUCH), 10)
@@ -66,16 +68,16 @@ do ($$ = Quo) ->
         true
 
     _isSwipe = (event) ->
-        ret = false
+        it_is = false
         if CURRENT_TOUCH[0]
             move_horizontal = Math.abs(FIRST_TOUCH[0].x - CURRENT_TOUCH[0].x) > 30
             move_vertical = Math.abs(FIRST_TOUCH[0].y - CURRENT_TOUCH[0].y) > 30
-            ret = GESTURE.el and (move_horizontal or move_vertical)
-        ret
+            it_is = GESTURE.el and (move_horizontal or move_vertical)
+        it_is
 
     _onTouchEnd = (event) ->
         if GESTURE.fingers is 1
-            if GESTURE.taps is 2 and GESTURE.isDoubleTap
+            if GESTURE.taps is 2 and GESTURE.gap
                 _trigger "doubleTap"
                 _cleanGesture()
             else if _isSwipe()
@@ -83,14 +85,13 @@ do ($$ = Quo) ->
                 swipe_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
                 _trigger "swipe" + swipe_direction
                 _cleanGesture()
-            else if GESTURE.taps is 1
-                TOUCH_TIMEOUT = setTimeout((->
-                  _trigger "tap"
-                  _cleanGesture()
-                ), 100)
             else
-                _trigger "touch"
-                TOUCH_TIMEOUT = setTimeout(_cleanGesture, 250)
+                _trigger "tap"
+                if GESTURE.taps is 1
+                    TOUCH_TIMEOUT = setTimeout((->
+                        _trigger "singleTap"
+                        _cleanGesture()
+                    ), 100)
         else
             anyevent = false
             if GESTURE.angle_difference isnt 0
