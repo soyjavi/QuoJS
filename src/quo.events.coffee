@@ -16,7 +16,7 @@ do ($$ = Quo) ->
 
     READY_EXPRESSION = /complete|loaded|interactive/
 
-    SHORTCUTS = [ "touch" ]
+    SHORTCUTS = [ "tap" ]
     SHORTCUTS.forEach (event) ->
         $$.fn[event] = (callback) ->
             $$(document.body).delegate @selector, event, callback
