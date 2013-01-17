@@ -1,10 +1,4 @@
-###
-  QuoJS
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
-
-(($$) ->
+do ($$ = Quo) ->
 
     $$.fn.addClass = (name) ->
         @each ->
@@ -41,7 +35,3 @@
 
     _computedStyle = (element, property) ->
         document.defaultView.getComputedStyle(element, "")[property]
-
-    return
-
-) Quo

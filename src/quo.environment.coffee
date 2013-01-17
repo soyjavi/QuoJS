@@ -1,10 +1,4 @@
-###
-  QuoJS
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
-
-(($$) ->
+do ($$ = Quo) ->
 
     _current = null
     IS_WEBKIT = /WebKit\/([\d.]+)/
@@ -14,11 +8,13 @@
         iphone: /(iPhone\sOS)\s([\d_]+)/
         blackberry: /(BlackBerry).*Version\/([\d.]+)/
         blackberryPlaybook: /(PlayBook).*Version\/([\d.]+)/
+        firefoxOS: /(Mozilla).*Mobile[^\/]*\/([\d\.]*)/
         webos: /(webOS|hpwOS)[\s\/]([\d.]+)/
 
     $$.isMobile = ->
         _current = _current or _detectEnvironment()
-        _current.isMobile
+        #@todo: nowadays FirefoxOS Simulator detects MouseEvents
+        _current.isMobile and _current.os.name isnt "firefoxOS"
 
     $$.environment = ->
         _current = _current or _detectEnvironment()
@@ -54,7 +50,3 @@
     _detectScreen = ->
         width: window.innerWidth
         height: window.innerHeight
-
-    return
-
-) Quo
