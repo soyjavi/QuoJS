@@ -1,10 +1,4 @@
-###
-  QuoJS
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
-
-(($$) ->
+do ($$ = Quo) ->
 
     $$.fn.attr = (name, value) ->
         if $$.toType(name) is "string" and value is undefined
@@ -12,7 +6,12 @@
         else
             @each -> @setAttribute name, value
 
+    $$.fn.removeAttr = (name) ->
+        @each -> @removeAttribute name
+
     $$.fn.data = (name, value) -> @attr "data-" + name, value
+
+    $$.fn.removeData = (name) -> @removeAttr "data-" + name
 
     $$.fn.val = (value) ->
         if $$.toType(value) is "string"
@@ -42,7 +41,3 @@
 
     $$.fn.remove = ->
         @each -> @parentNode.removeChild this  if @parentNode?
-
-    return
-
-) Quo
