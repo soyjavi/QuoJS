@@ -1,10 +1,5 @@
-###
-  QuoJS 2.2.1
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
+do ($$ = Quo) ->
 
-(($$) ->
     $$.fn.text = (value) ->
         if value or $$.toType(value) is "number"
           @each -> @textContent = value
@@ -13,10 +8,9 @@
 
     $$.fn.html = (value) ->
         type = $$.toType(value)
-
-        if value or type is "number" or type is "null"
+        if value or type is "number" or type is "string"
             @each ->
-                if type is "string" or type is "number" or type is "null"
+                if type is "string" or type is "number"
                     @innerHTML = value
                 else
                     @innerHTML = null
@@ -25,40 +19,31 @@
             @[0].innerHTML
 
     $$.fn.append = (value) ->
+        type = $$.toType(value)
         @each ->
-            if $$.toType(value) is "string"
-                if value
-                    @appendChild _createElement(value)
+            if type is "string"
+                @insertAdjacentHTML "beforeend", value
+            else if type is "array"
+                value.each (index, value) => @appendChild value
             else
-                @insertBefore value
+                @appendChild value
 
     $$.fn.prepend = (value) ->
-        @each ->
-            if $$.toType(value) is "string"
-                @innerHTML = value + @innerHTML
-            else
-                parent = @parentNode
-                parent.insertBefore value, parent.firstChild
+        type = $$.toType(value)
+        @each -> _prependElement @, value, type
 
-    $$.fn.replaceWith = (content) ->
-        @each ->
-            content = _createElement(content) if $$.toType(content) is "string"
-
-            parent = @parentNode
-            if parent
-                parent.insertBefore content, @
-            $$(@).remove()
+    $$.fn.replaceWith = (value) ->
+        type = $$.toType(value)
+        @each -> if @parentNode then _prependElement @parentNode, value, type
+        @remove()
 
     $$.fn.empty = () ->
-        @each ->
-            @innerHTML = null
-            return
+        @each -> @innerHTML = null
 
-    _createElement = (content) ->
-        div = document.createElement("div")
-        div.innerHTML = content
-        # div.firstChild
-        div
-
-    return
-) Quo
+    _prependElement = (parent, value, type) ->
+        if type is "string"
+            parent.insertAdjacentHTML "afterbegin", value
+        else if type is "array"
+            value.each (index, value) => parent.insertBefore value, parent.firstChild
+        else
+            parent.insertBefore value, parent.firstChild

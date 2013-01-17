@@ -1,11 +1,6 @@
-###
-  QuoJS
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
+do ($$ = Quo) ->
 
-(($$) ->
-
+    TAPS = null
     GESTURE = {}
     FIRST_TOUCH = []
     CURRENT_TOUCH = []
@@ -25,7 +20,7 @@
     $$(document).ready -> _listenTouches()
 
     _listenTouches = ->
-        environment = $$(document.body)
+        environment = $$ document.body
         environment.bind "touchstart", _onTouchStart
         environment.bind "touchmove", _onTouchMove
         environment.bind "touchend", _onTouchEnd
@@ -33,7 +28,6 @@
 
     _onTouchStart = (event) ->
         now = Date.now()
-        delta = now - (GESTURE.last or now)
         TOUCH_TIMEOUT and clearTimeout(TOUCH_TIMEOUT)
         touches = _getTouches(event)
         fingers = touches.length
@@ -41,7 +35,12 @@
         GESTURE.el = $$(_parentIfText(touches[0].target))
         GESTURE.fingers = fingers
         GESTURE.last = now
+
+        unless GESTURE.taps then GESTURE.taps = 0
+        GESTURE.taps++
+
         if fingers is 1
+            delta = now - (GESTURE.last or now)
             GESTURE.isDoubleTap = (delta > 0 and delta <= 250)
             setTimeout _hold, HOLD_DELAY
         else if fingers is 2
@@ -49,6 +48,7 @@
             GESTURE.initial_distance = parseInt(_distance(FIRST_TOUCH), 10)
             GESTURE.angle_difference = 0
             GESTURE.distance_difference = 0
+
 
     _onTouchMove = (event) ->
         if GESTURE.el
@@ -74,19 +74,24 @@
         ret
 
     _onTouchEnd = (event) ->
-        if GESTURE.isDoubleTap
-            _trigger "doubleTap"
-            _cleanGesture()
-        else if GESTURE.fingers is 1
-            if _isSwipe()
+        if GESTURE.fingers is 1
+            if GESTURE.taps is 2 and GESTURE.isDoubleTap
+                _trigger "doubleTap"
+                _cleanGesture()
+            else if _isSwipe()
                 _trigger "swipe"
                 swipe_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
                 _trigger "swipe" + swipe_direction
                 _cleanGesture()
+            else if GESTURE.taps is 1
+                TOUCH_TIMEOUT = setTimeout((->
+                  _trigger "tap"
+                  _cleanGesture()
+                ), 100)
             else
-                _trigger "tap"
+                _trigger "touch"
                 TOUCH_TIMEOUT = setTimeout(_cleanGesture, 250)
-        else if GESTURE.fingers is 2
+        else
             anyevent = false
             if GESTURE.angle_difference isnt 0
                 _trigger "rotate", angle: GESTURE.angle_difference
@@ -175,7 +180,4 @@
     _hold = ->
         if GESTURE.last and (Date.now() - GESTURE.last >= HOLD_DELAY)
             _trigger "hold"
-
-    return
-
-) Quo
+            GESTURE.taps = 0
