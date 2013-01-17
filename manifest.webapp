@@ -1,0 +1,13 @@
+{
+  "name": "My App",
+  "description": "My elevator pitch goes here",
+  "launch_path": "/test.html",
+  "icons": {
+    "128": "/img/icon-128.png"
+  },
+  "developer": {
+    "name": "Your name or organization",
+    "url": "http://your-homepage-here.org"
+  },
+  "default_locale": "en"
+}

@@ -1,10 +1,4 @@
-###
-  QuoJS
-  (c) 2011, 2012 Javi Jiménez Villar (@soyjavi)
-  http://quojs.tapquo.com
-###
-
-(($$) ->
+do ($$ = Quo) ->
 
     DEFAULT =
         TYPE: "GET"
@@ -39,6 +33,7 @@
             settings.data = $$.serializeParameters(settings.data)
 
         return $$.jsonp(settings) if _isJsonP(settings.url)
+
         xhr = settings.xhr()
         xhr.onreadystatechange = ->
             if xhr.readyState is 4
@@ -48,10 +43,12 @@
         xhr.open settings.type, settings.url, settings.async
         _xhrHeaders xhr, settings
 
+        console.error settings.timeout
         if settings.timeout > 0
-            abortTimeout = setTimeout(->
-                _xhrTimeout xhr, settings
-            , settings.timeout)
+            # xhr.timeout = settings.timeout
+            # xhr.ontimeout = -> _xhrTimeout xhr, settings
+
+            abortTimeout = setTimeout((-> _xhrTimeout xhr, settings ), settings.timeout)
 
         try
             xhr.send settings.data
@@ -80,9 +77,7 @@
             script.src = settings.url.replace(RegExp("=\\?"), "=" + callbackName)
             $$("head").append script
             if settings.timeout > 0
-                abortTimeout = setTimeout(->
-                    _xhrTimeout xhr, settings
-                , settings.timeout)
+                abortTimeout = setTimeout((-> _xhrTimeout xhr, settings), settings.timeout)
             xhr
         else
             console.error "QuoJS.ajax: Unable to make jsonp synchronous call."
@@ -114,7 +109,7 @@
         serialize = character
         for parameter of parameters
             if parameters.hasOwnProperty(parameter)
-                serialize += "&"    if serialize isnt character
+                serialize += "&" if serialize isnt character
                 serialize += parameter + "=" + parameters[parameter]
         (if (serialize is character) then "" else serialize)
 
@@ -171,7 +166,3 @@
 
     _isJsonP = (url) ->
         RegExp("=\\?").test url
-
-    return
-
-) Quo
