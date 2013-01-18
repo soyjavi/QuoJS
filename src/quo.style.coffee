@@ -1,5 +1,7 @@
 do ($$ = Quo) ->
 
+    VENDORS = [ "-webkit-", "-moz-", "-ms-", "-o-", "" ]
+
     $$.fn.addClass = (name) ->
         @each ->
             unless _existsClass(name, @className)
@@ -25,9 +27,13 @@ do ($$ = Quo) ->
         _existsClass name, this[0].className
 
     $$.fn.style = (property, value) ->
-        (if (not value) then this[0].style[property] or _computedStyle(this[0], property) else @each(->
-            @style[property] = value
-        ))
+        if value
+            @each -> @style[property] = value
+        else
+            this[0].style[property] or _computedStyle(this[0], property)
+
+    $$.fn.vendor = (property, value) ->
+        @style("#{vendor}#{property}", value) for vendor in VENDORS
 
     _existsClass = (name, className) ->
         classes = className.split(/\s+/g)
