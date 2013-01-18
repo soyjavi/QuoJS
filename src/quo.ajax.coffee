@@ -43,11 +43,7 @@ do ($$ = Quo) ->
         xhr.open settings.type, settings.url, settings.async
         _xhrHeaders xhr, settings
 
-        console.error settings.timeout
         if settings.timeout > 0
-            # xhr.timeout = settings.timeout
-            # xhr.ontimeout = -> _xhrTimeout xhr, settings
-
             abortTimeout = setTimeout((-> _xhrTimeout xhr, settings ), settings.timeout)
 
         try
