@@ -39,14 +39,14 @@ module.exports = function(grunt) {
     concat: {
       js: {
         src: ['<banner>', '<config:resources.js>'],
-        dest: 'package/<%=meta.file%>.js'
+        dest: 'package/<%=meta.file%>.debug.js'
       }
     },
 
     min: {
       js: {
         src: ['<banner>', 'package/<%=meta.file%>.js'],
-        dest: 'package/<%=meta.file%>.min.js'
+        dest: 'package/<%=meta.file%>.js'
       }
     },
 
