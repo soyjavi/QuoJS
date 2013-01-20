@@ -10,11 +10,12 @@ do ($$ = Quo) ->
         selector = selector.trim()
 
         if CLASS_SELECTOR.test(selector)
-            dom_elements = domain.getElementsByClassName(selector)
-        else if TAG_SELECTOR.test(selector)
-            dom_elements = domain.getElementsByTagName(selector)
+            dom_elements = domain.getElementsByClassName selector.replace(".", "")
+        # else if TAG_SELECTOR.test(selector)
+        #     dom_elements = domain.getElementsByTagName(selector)
         else
-            dom_elements = domain.querySelectorAll(selector)
+            dom_elements = domain.querySelectorAll selector
+
 
         Array::slice.call(dom_elements)
 
