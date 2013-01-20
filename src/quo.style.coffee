@@ -32,6 +32,8 @@ do ($$ = Quo) ->
         else
             this[0].style[property] or _computedStyle(this[0], property)
 
+    $$.fn.css = (property, value) -> @style property, value
+
     $$.fn.vendor = (property, value) ->
         @style("#{vendor}#{property}", value) for vendor in VENDORS
 
