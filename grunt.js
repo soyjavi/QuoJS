@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 
     min: {
       js: {
-        src: ['<banner>', 'package/<%=meta.file%>.js'],
+        src: ['<banner>', 'package/<%=meta.file%>.debug.js'],
         dest: 'package/<%=meta.file%>.js'
       }
     },
