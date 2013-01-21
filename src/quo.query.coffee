@@ -1,23 +1,24 @@
 do ($$ = Quo) ->
 
     PARENT_NODE    = "parentNode"
-    # @TODO: v.2.2.1
-    CLASS_SELECTOR = /^\.([\w-]+)$/
-    ID_SELECTOR    = /^#([\w-]*)$/
+    CLASS_SELECTOR  = /^\.([\w-]+)$/
+    ID_SELECTOR     = /^#[\w\d-]+$/
     TAG_SELECTOR   = /^[\w-]+$/
 
     $$.query = (domain, selector) ->
         selector = selector.trim()
 
         if CLASS_SELECTOR.test(selector)
-            dom_elements = domain.getElementsByClassName selector.replace(".", "")
-        # else if TAG_SELECTOR.test(selector)
-        #     dom_elements = domain.getElementsByTagName(selector)
+            elements = domain.getElementsByClassName selector.replace(".", "")
+        else if TAG_SELECTOR.test(selector)
+            elements = domain.getElementsByTagName(selector)
+        else if ID_SELECTOR.test(selector)
+            elements = domain.getElementById selector.replace("#", "")
+            unless elements then elements = []
         else
-            dom_elements = domain.querySelectorAll selector
+            elements = domain.querySelectorAll selector
 
-
-        Array::slice.call(dom_elements)
+        if elements.nodeType then [elements] else Array::slice.call(elements)
 
     $$.fn.find = (selector) ->
         if @length is 1
