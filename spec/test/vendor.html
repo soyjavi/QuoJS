@@ -23,19 +23,39 @@
             background: #ccc;
             margin: 10px;
         }
+
+        .red {
+            background: red !important;
+        }
+
+        .green {
+            background: green !important;
+        }
     </style>
 </head>
 
 <body>
-    <section></section>
+    <section class="a">.a<article></article></section>
 
-    <section></section>
+    <section id="b">#b<article></article></section>
+
+    <!-- <section id="b"><article></article></section> -->
+
+
+    <section><article></article></section>
+
 
     <script src="../../package/quo.js"></script>
     <script>
-        el = $$('section')
-        console.error(el);
-        el.vendor("transform", "translateX(128px)");
+        el = $$("section");
+        console.error( el );
+
+        el.style("color", "white").vendor("transform", "translateX(128px)");
+        console.error( $$("#b").addClass("red").style("opacity", "0.5") );
+        console.error( $$(".a").addClass("green"));
+        console.error( $$("#b > article").html("#b > article") );
+        console.error( $$(".a > article").html(".a > article") );
+
     </script>
 </body>
 </html>
