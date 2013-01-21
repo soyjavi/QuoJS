@@ -13,7 +13,7 @@ do ($$ = Quo) ->
         else if TAG_SELECTOR.test(selector)
             elements = domain.getElementsByTagName(selector)
         else if ID_SELECTOR.test(selector)
-            elements = domain.getElementById selector.replace("#", "")
+            elements = document.getElementById selector.replace("#", "")
             unless elements then elements = []
         else
             elements = domain.querySelectorAll selector
