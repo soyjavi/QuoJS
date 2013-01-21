@@ -12,8 +12,8 @@ do ($$ = Quo) ->
             elements = domain.getElementsByClassName selector.replace(".", "")
         else if TAG_SELECTOR.test(selector)
             elements = domain.getElementsByTagName(selector)
-        else if ID_SELECTOR.test(selector)
-            elements = document.getElementById selector.replace("#", "")
+        else if ID_SELECTOR.test(selector) and domain isnt document
+            elements = domain.getElementById selector.replace("#", "")
             unless elements then elements = []
         else
             elements = domain.querySelectorAll selector
