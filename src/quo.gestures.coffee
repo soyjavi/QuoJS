@@ -58,7 +58,9 @@ do ($$ = Quo) ->
             fingers = touches.length
             if fingers == GESTURE.fingers
                 CURRENT_TOUCH = _fingersPosition(touches, fingers)
-                _trigger "swiping" if _isSwipe(event)
+                is_swipe = _isSwipe(event)
+                if is_swipe then GESTURE.prevSwipe = true
+                _trigger "swiping" if (is_swipe or GESTURE.prevSwipe is true)
                 if fingers == 2
                     _captureRotation()
                     _capturePinch()
@@ -80,7 +82,7 @@ do ($$ = Quo) ->
             if GESTURE.taps is 2 and GESTURE.gap
                 _trigger "doubleTap"
                 _cleanGesture()
-            else if _isSwipe()
+            else if _isSwipe() or GESTURE.prevSwipe
                 _trigger "swipe"
                 swipe_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
                 _trigger "swipe" + swipe_direction
