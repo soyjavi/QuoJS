@@ -12,7 +12,7 @@ do ($$ = Quo) ->
             elements = domain.getElementsByClassName selector.replace(".", "")
         else if TAG_SELECTOR.test(selector)
             elements = domain.getElementsByTagName(selector)
-        else if ID_SELECTOR.test(selector) and domain isnt document
+        else if ID_SELECTOR.test(selector) and domain is document
             elements = domain.getElementById selector.replace("#", "")
             unless elements then elements = []
         else
