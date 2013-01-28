@@ -6,10 +6,9 @@ do ($$ = Quo) ->
         Android: /(Android)\s+([\d.]+)/
         ipad: /(iPad).*OS\s([\d_]+)/
         iphone: /(iPhone\sOS)\s([\d_]+)/
-        blackberry: /(BlackBerry).*Version\/([\d.]+)/
-        blackberryPlaybook: /(PlayBook).*Version\/([\d.]+)/
-        firefoxOS: /(Mozilla).*Mobile[^\/]*\/([\d\.]*)/
-        webos: /(webOS|hpwOS)[\s\/]([\d.]+)/
+        Blackberry: /(BlackBerry|BB10|Playbook).*Version\/([\d.]+)/
+        FirefoxOS: /(Mozilla).*Mobile[^\/]*\/([\d\.]*)/
+        webOS: /(webOS|hpwOS)[\s\/]([\d.]+)/
 
     $$.isMobile = ->
         _current = _current or _detectEnvironment()
