@@ -24,26 +24,30 @@ do ($$ = Quo) ->
             if type is "string"
                 @insertAdjacentHTML "beforeend", value
             else if type is "array"
-                value.each (index, value) => @appendChild value
+                value.each (index, value) => @appendChild value.cloneNode(true)
             else
-                @appendChild value
+                @appendChild value.cloneNode(true)
 
     $$.fn.prepend = (value) ->
         type = $$.toType(value)
-        @each -> _prependElement @, value, type
+        @each ->
+            if type is "string"
+                @insertAdjacentHTML "afterbegin", value
+            else if type is "array"
+                value.each (index, value) => @insertBefore value.cloneNode(true), @firstChild
+            else
+                @insertBefore value.cloneNode(true), @firstChild
 
     $$.fn.replaceWith = (value) ->
         type = $$.toType(value)
-        @each -> if @parentNode then _prependElement @parentNode, value, type
+        @each ->
+            if type is "string"
+                @insertAdjacentHTML "beforeBegin", value
+            else if type is "array"
+                value.each (index, value) => @parentNode.insertBefore value.cloneNode(true)
+            else
+                @parentNode.insertBefore value.cloneNode(true)
         @remove()
 
     $$.fn.empty = () ->
         @each -> @innerHTML = null
-
-    _prependElement = (parent, value, type) ->
-        if type is "string"
-            parent.insertAdjacentHTML "afterbegin", value
-        else if type is "array"
-            value.each (index, value) => parent.insertBefore value, parent.firstChild
-        else
-            parent.insertBefore value, parent.firstChild
