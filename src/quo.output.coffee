@@ -24,9 +24,9 @@ do ($$ = Quo) ->
             if type is "string"
                 @insertAdjacentHTML "beforeend", value
             else if type is "array"
-                value.each (index, value) => @appendChild value.cloneNode(true)
+                value.each (index, value) => @appendChild value
             else
-                @appendChild value.cloneNode(true)
+                @appendChild value
 
     $$.fn.prepend = (value) ->
         type = $$.toType(value)
@@ -34,19 +34,20 @@ do ($$ = Quo) ->
             if type is "string"
                 @insertAdjacentHTML "afterbegin", value
             else if type is "array"
-                value.each (index, value) => @insertBefore value.cloneNode(true), @firstChild
+                value.each (index, value) => @insertBefore value, @firstChild
             else
-                @insertBefore value.cloneNode(true), @firstChild
+                @insertBefore value, @firstChild
 
     $$.fn.replaceWith = (value) ->
         type = $$.toType(value)
         @each ->
-            if type is "string"
-                @insertAdjacentHTML "beforeBegin", value
-            else if type is "array"
-                value.each (index, value) => @parentNode.insertBefore value.cloneNode(true)
-            else
-                @parentNode.insertBefore value.cloneNode(true)
+            if @parentNode
+                if type is "string"
+                    @insertAdjacentHTML "beforeBegin", value
+                else if type is "array"
+                    value.each (index, value) => @parentNode.insertBefore value, @
+                else
+                    @parentNode.insertBefore value, @
         @remove()
 
     $$.fn.empty = () ->
