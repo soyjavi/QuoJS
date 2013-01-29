@@ -29,8 +29,7 @@
 </head>
 
 <body>
-    <section></section>
-
+    <section>clean</section>
     <section class="first">first</section>
     <section class="red">red</section>
     <section class="green">green</section>
@@ -40,12 +39,11 @@
         $$(function() {
             el = $$('.first');
 
-            div = document.createElement("div")
-            div.innerHTML = "puta!"
+            div = document.createElement("section")
+            div.innerHTML = "dinamic"
 
-            $$('.red').replaceWith("<h1>Hello</h1><h2>World</h2><h3>QuoJS</h3>");
-            $$('.green').replaceWith(el[0]);
-            // $$('.green').append(div);
+            $$('.red').replaceWith("<h1>Hello</h1><h3>World</h3>");
+            $$('.green').replaceWith(div);
 
         });
     </script>
