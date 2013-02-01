@@ -16,12 +16,6 @@ do ($$ = Quo) ->
 
     READY_EXPRESSION = /complete|loaded|interactive/
 
-    SHORTCUTS = [ "tap" ]
-    SHORTCUTS.forEach (event) ->
-        $$.fn[event] = (callback) ->
-            $$(document.body).delegate @selector, event, callback
-        @
-
     $$.fn.on = (event, selector, callback) ->
         (if (selector is "undefined" or $$.toType(selector) is "function") then @bind(event, selector) else @delegate(selector, event, callback))
 

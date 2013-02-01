@@ -6,16 +6,17 @@ do ($$ = Quo) ->
     CURRENT_TOUCH = []
     TOUCH_TIMEOUT = undefined
     HOLD_DELAY = 650
-    GESTURES = ["doubleTap",
-                "hold",
+    GESTURES = ["tap", "singleTap", "doubleTap", "hold",
                 "swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown",
                 "rotate", "rotating", "rotateLeft", "rotateRight",
                 "pinch", "pinching", "pinchIn", "pinchOut",
                 "drag", "dragLeft", "dragRight", "dragUp", "dragDown"]
 
     GESTURES.forEach (event) ->
-        $$.fn[event] = (callback) -> @on event, callback
-        return
+        $$.fn[event] = (callback) ->
+            # @on event, callback
+            $$(document.body).delegate @selector, event, callback
+        @
 
     $$(document).ready -> _listenTouches()
 
