@@ -125,7 +125,7 @@ do ($$ = Quo) ->
 
     _findHandlers = (element_id, event, fn, selector) ->
         (HANDLERS[element_id] or []).filter (handler) ->
-            handler and (not event or handler.event is event) and (not fn or handler.fn is fn) and (not selector or handler.selector is selector)
+            handler and (not event or handler.event is event) and (not fn or handler.callback is fn) and (not selector or handler.selector is selector)
 
     _createProxy = (event) ->
         proxy = $$.extend( originalEvent: event, event)
