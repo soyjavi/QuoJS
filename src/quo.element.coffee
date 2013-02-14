@@ -1,6 +1,8 @@
 do ($$ = Quo) ->
 
     $$.fn.attr = (name, value) ->
+        if this.length is 0
+            null
         if $$.toType(name) is "string" and value is undefined
             this[0].getAttribute name
         else
