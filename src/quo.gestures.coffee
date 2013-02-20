@@ -6,7 +6,8 @@ do ($$ = Quo) ->
     CURRENT_TOUCH = []
     TOUCH_TIMEOUT = undefined
     HOLD_DELAY = 650
-    GESTURES = ["tap", "singleTap", "doubleTap", "hold",
+    GESTURES = ["touch",
+                "tap", "singleTap", "doubleTap", "hold",
                 "swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown",
                 "rotate", "rotating", "rotateLeft", "rotateRight",
                 "pinch", "pinching", "pinchIn", "pinchOut",
@@ -15,7 +16,8 @@ do ($$ = Quo) ->
     GESTURES.forEach (event) ->
         $$.fn[event] = (callback) ->
             # @on event, callback
-            $$(document.body).delegate @selector, event, callback
+            event_name = if event is "touch" then "touchend" else event
+            $$(document.body).delegate @selector, event_name, callback
         @
 
     $$(document).ready -> _listenTouches()
@@ -79,6 +81,8 @@ do ($$ = Quo) ->
         it_is
 
     _onTouchEnd = (event) ->
+        _trigger "touch"
+
         if GESTURE.fingers is 1
             if GESTURE.taps is 2 and GESTURE.gap
                 _trigger "doubleTap"
