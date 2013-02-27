@@ -106,7 +106,7 @@ do ($$ = Quo) ->
         for parameter of parameters
             if parameters.hasOwnProperty(parameter)
                 serialize += "&" if serialize isnt character
-                serialize += parameter + "=" + parameters[parameter]
+                serialize += "#{encodeURIComponent parameter}=#{encodeURIComponent parameters[parameter]}"
         (if (serialize is character) then "" else serialize)
 
     _xhrStatus = (xhr, settings) ->
