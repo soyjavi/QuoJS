@@ -25,6 +25,7 @@
         }
         .red { background: red; }
         .green { background: green; }
+        .blue {background:  blue;}
     </style>
 </head>
 
@@ -33,6 +34,11 @@
     <section class="first">first</section>
     <section class="red">red</section>
     <section class="green">green</section>
+
+
+    <article class="blue">
+        s
+    </article>
 
     <script src="../../package/quo.js"></script>
     <script>
@@ -44,6 +50,9 @@
 
             $$('.red').replaceWith("<h1>Hello</h1><h3>World</h3>");
             $$('.green').replaceWith(div);
+
+            sections = $$('section');
+            $$('article').html(sections[0]);
 
         });
     </script>
