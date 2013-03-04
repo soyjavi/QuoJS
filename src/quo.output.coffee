@@ -14,7 +14,8 @@ do ($$ = Quo) ->
                     @innerHTML = value
                 else
                     @innerHTML = null
-                    @appendChild value
+                    if type is "array" then @appendChild element for element in value
+                    else @appendChild value
         else
             @[0].innerHTML
 
