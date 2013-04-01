@@ -8,16 +8,17 @@ do ($$ = Quo) ->
 
     $$.fn.html = (value) ->
         type = $$.toType(value)
-        if value or type is "number" or type is "string"
-            @each ->
-                if type is "string" or type is "number"
-                    @innerHTML = value
-                else
-                    @innerHTML = null
-                    if type is "array" then @appendChild element for element in value
-                    else @appendChild value
-        else
+        if type is "undefined"
             @[0].innerHTML
+        else
+            @each ->            
+                if type is "string"
+                    @innerHTML = value
+                    return
+                else if type is "array"
+                    value.forEach (v) => $$(@).html(v)
+                else
+                    @innerHTML = @innerHTML + $$(value).html()
 
     $$.fn.append = (value) ->
         type = $$.toType(value)
@@ -25,7 +26,7 @@ do ($$ = Quo) ->
             if type is "string"
                 @insertAdjacentHTML "beforeend", value
             else if type is "array"
-                value.each (index, value) => @appendChild value
+                value.forEach (v) => $$(@).append(v)
             else
                 @appendChild value
 
