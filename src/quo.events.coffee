@@ -63,8 +63,9 @@ do ($$ = Quo) ->
             _unsubscribe @, event, callback, selector
             return
 
-    $$.fn.trigger = (event, touch) ->
+    $$.fn.trigger = (event, touch, originalEvent) ->
         event = $$.Event(event, touch) if $$.toType(event) is "string"
+        event.originalEvent = originalEvent if originalEvent?
         @each ->
             @dispatchEvent event
             return
