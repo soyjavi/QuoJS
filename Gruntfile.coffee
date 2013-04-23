@@ -10,19 +10,31 @@ module.exports = (grunt) ->
               ' - Licensed <%= _.pluck(pkg.license, "type").join(", ") %> */\n'
 
     resources:
-      app: ['src/*.coffee']
+      app: [
+        'src/quo.coffee'
+        'src/quo.*.coffee'
+      ]
+      widgets: [
+        'src/gestures/quo.gestures.coffee'
+        'src/gestures/quo.gestures.*.coffee'
+      ]
 
     coffee:
-      app: files: 'package/<%= meta.file %>.debug.js': ['<%= resources.app %>']
+      app:      files: 'package/<%= meta.file %>.debug.js'        : ['<%= resources.app %>']
+      # widgets:  files: 'package/<%= meta.file %>.widget.debug.js' : ['<%= resources.widgets %>']
 
     uglify:
       options: compress: false, banner: "<%= meta.banner %>"
-      app: files: 'package/<%= meta.file %>.js': 'package/<%= meta.file %>.debug.js'
+      app:      files: 'package/<%= meta.file %>.js'        : 'package/<%= meta.file %>.debug.js'
+      # widgets:  files: 'package/<%= meta.file %>.widget.js' : 'package/<%= meta.file %>.widget.debug.js'
 
     watch:
-      coffee:
+      app:
         files: ['<%= resources.app %>']
-        tasks: ["coffee"]
+        tasks: ["coffee:app"]
+      # widgets:
+      #   files: ['<%= resources.widgets %>']
+      #   tasks: ["coffee:widgets"]
 
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-uglify"

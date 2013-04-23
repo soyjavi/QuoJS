@@ -1,6 +1,7 @@
 do ($$ = Quo) ->
 
     TAPS = null
+    EVENT = undefined
     GESTURE = {}
     FIRST_TOUCH = []
     CURRENT_TOUCH = []
@@ -30,6 +31,7 @@ do ($$ = Quo) ->
         environment.bind "touchcancel", _cleanGesture
 
     _onTouchStart = (event) ->
+        EVENT = event
         now = Date.now()
         delta = now - (GESTURE.last or now)
 
@@ -56,6 +58,7 @@ do ($$ = Quo) ->
 
 
     _onTouchMove = (event) ->
+        EVENT = event
         if GESTURE.el
             touches = _getTouches(event)
             fingers = touches.length
@@ -81,6 +84,7 @@ do ($$ = Quo) ->
         it_is
 
     _onTouchEnd = (event) ->
+        EVENT = event
         _trigger "touch"
 
         if GESTURE.fingers is 1
@@ -117,6 +121,7 @@ do ($$ = Quo) ->
                     drag_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
                     _trigger "drag" + drag_direction
             _cleanGesture()
+        EVENT = undefined
 
     _fingersPosition = (touches, fingers) ->
         result = []
@@ -152,7 +157,7 @@ do ($$ = Quo) ->
             if CURRENT_TOUCH[0]
                 params.iniTouch = (if GESTURE.fingers > 1 then FIRST_TOUCH else FIRST_TOUCH[0])
                 params.currentTouch = (if GESTURE.fingers > 1 then CURRENT_TOUCH else CURRENT_TOUCH[0])
-            GESTURE.el.trigger type, params
+            GESTURE.el.trigger type, params, EVENT
 
     _cleanGesture = (event) ->
         FIRST_TOUCH = []
