@@ -43,3 +43,12 @@ do ($$ = Quo) ->
 
     $$.fn.remove = ->
         @each -> @parentNode.removeChild this  if @parentNode?
+
+    $$.fn.next = -> _getSibling.call @, "nextSibling"
+
+    $$.fn.prev = -> _getSibling.call @, "previousSibling"
+
+    _getSibling = (command) ->
+      element = @[0][command]
+      element = element[command] while element and element.nodeType isnt 1
+      $$ element
