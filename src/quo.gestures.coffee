@@ -139,8 +139,8 @@ do ($$ = Quo) ->
         diff = parseInt(GESTURE.initial_angle - angle, 10)
         if Math.abs(diff) > 20 or GESTURE.angle_difference isnt 0
             i = 0
-            symbol = if GESTURE.angle_difference < 0 then "-" else "+"
-            eval "diff " + symbol + "= 180;" while Math.abs(diff - GESTURE.angle_difference) > 90 and i++ < 10
+            symbol = if GESTURE.angle_difference < 0 then -1 else 1
+            diff += 180 * symbol while Math.abs(diff - GESTURE.angle_difference) > 90 and i++ < 10
             GESTURE.angle_difference = parseInt(diff, 10)
             _trigger "rotating", angle: GESTURE.angle_difference
 
