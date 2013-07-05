@@ -1,4 +1,4 @@
-# QuoJS 2.3.0
+# QuoJS 2.3.1
 ### Micro #JavaScript Library for Mobile Devices
 
 ## QuoJS?
