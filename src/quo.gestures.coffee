@@ -21,14 +21,14 @@ do ($$ = Quo) ->
             $$(document.body).delegate @selector, event_name, callback
         @
 
-    $$(document).ready -> _listenTouches()
-
     _listenTouches = ->
         environment = $$ document.body
         environment.bind "touchstart", _onTouchStart
         environment.bind "touchmove", _onTouchMove
         environment.bind "touchend", _onTouchEnd
         environment.bind "touchcancel", _cleanGesture
+
+    $$(document).ready -> _listenTouches()
 
     _onTouchStart = (event) ->
         EVENT = event
