@@ -8,7 +8,7 @@ do ($$ = Quo) ->
     TOUCH_TIMEOUT = undefined
     HOLD_DELAY = 650
     GESTURES = ["touch",
-                "tap", "singleTap", "twoTap" "doubleTap", "hold",
+                "tap", "singleTap", "doubleTap", "hold",
                 "swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown",
                 "rotate", "rotating", "rotateLeft", "rotateRight",
                 "pinch", "pinching", "pinchIn", "pinchOut",
