@@ -121,8 +121,6 @@ do ($$ = Quo) ->
                     drag_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
                     _trigger "drag" + drag_direction
                     anyevent = true
-            if not anyevent
-                _trigger "twoTap"
             _cleanGesture()
         EVENT = undefined
 
