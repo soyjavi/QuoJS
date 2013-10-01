@@ -24,12 +24,12 @@ do ($$ = Quo) ->
                 @className = @className.trim()
 
     $$.fn.hasClass = (name) ->
-        _existsClass name, this[0].className
+        this.length > 0 and _existsClass name, this[0].className
 
     $$.fn.style = (property, value) ->
         if value
             @each -> @style[property] = value
-        else
+        else if this.length > 0
             this[0].style[property] or _computedStyle(this[0], property)
 
     $$.fn.css = (property, value) -> @style property, value
