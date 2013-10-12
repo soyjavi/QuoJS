@@ -27,7 +27,7 @@ do ($$ = Quo) ->
         _existsClass name, this[0].className
 
     $$.fn.style = (property, value) ->
-        if value
+        if typeof value != "undefined"
             @each -> @style[property] = value
         else
             this[0].style[property] or _computedStyle(this[0], property)
