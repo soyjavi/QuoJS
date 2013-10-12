@@ -1,21 +1,21 @@
 do ($$ = Quo) ->
 
     $$.fn.text = (value) ->
-        if value or $$.toType(value) is "number"
+        if arguments.length > 0
           @each -> @textContent = value
         else
             @[0].textContent
 
     $$.fn.html = (value) ->
         type = $$.toType(value)
-        if value or type is "number" or type is "string"
+        if arguments.lenth > 0
             @each ->
                 if type is "string" or type is "number"
                     @innerHTML = value
                 else
                     @innerHTML = null
                     if type is "array" then @appendChild element for element in value
-                    else @appendChild value
+                    else if value then @appendChild value
         else
             @[0].innerHTML
 
