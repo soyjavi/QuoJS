@@ -105,12 +105,12 @@ do ($$ = Quo) ->
                     ), 100)
         else
             anyevent = false
-            if GESTURE.angle_difference isnt 0
+            if GESTURE.angle_difference
                 _trigger "rotate", angle: GESTURE.angle_difference
                 rotation_direction = if GESTURE.angle_difference > 0 then "rotateRight" else "rotateLeft"
                 _trigger rotation_direction, angle: GESTURE.angle_difference
                 anyevent = true
-            if GESTURE.distance_difference isnt 0
+            if GESTURE.distance_difference
                 _trigger "pinch", angle: GESTURE.distance_difference
                 pinch_direction = if GESTURE.distance_difference > 0 then "pinchOut" else "pinchIn"
                 _trigger pinch_direction, distance: GESTURE.distance_difference
@@ -120,6 +120,7 @@ do ($$ = Quo) ->
                     _trigger "drag"
                     drag_direction = _swipeDirection(FIRST_TOUCH[0].x, CURRENT_TOUCH[0].x, FIRST_TOUCH[0].y, CURRENT_TOUCH[0].y)
                     _trigger "drag" + drag_direction
+                    anyevent = true
             _cleanGesture()
         EVENT = undefined
 
