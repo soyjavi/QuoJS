@@ -40,20 +40,10 @@
         s
     </article>
 
-    <script src="../../package/quo.js"></script>
+    <script src="../../package/quo.debug.js"></script>
     <script>
         $$(function() {
-            el = $$('.first');
-
-            div = document.createElement("section")
-            div.innerHTML = "dinamic"
-
-            $$('.red').replaceWith("<h1>Hello</h1><h3>World</h3>");
-            $$('.green').replaceWith(div);
-
-            sections = $$('section');
-            $$('article').html(sections[0]);
-
+            $$('article').html($$('section')[1])
         });
     </script>
 </body>
