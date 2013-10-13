@@ -8,7 +8,7 @@ do ($$ = Quo) ->
 
     $$.fn.html = (value) ->
         type = $$.toType(value)
-        if arguments.lenth > 0
+        if arguments.length > 0
             @each ->
                 if type is "string" or type is "number"
                     @innerHTML = value
