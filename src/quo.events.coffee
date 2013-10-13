@@ -17,7 +17,7 @@ do ($$ = Quo) ->
     READY_EXPRESSION = /complete|loaded|interactive/
 
     $$.fn.on = (event, selector, callback) ->
-        (if (selector is "undefined" or $$.toType(selector) is "function") then @bind(event, selector or calback) else @delegate(selector, event, callback))
+        (if (selector is "undefined" or $$.toType(selector) is "function") then @bind(event, selector or callback) else @delegate(selector, event, callback))
 
     $$.fn.off = (event, selector, callback) ->
         (if (selector is "undefined" or $$.toType(selector) is "function") then @unbind(event, selector or callback) else @undelegate(selector, event, callback))
