@@ -4,12 +4,12 @@ do ($$ = Quo) ->
         if value or $$.toType(value) is "number"
           @each -> @textContent = value
         else
-            @[0].textContent
+            (if @length > 0 then @[0].textContent else '')
 
     $$.fn.html = (value) ->
         type = $$.toType(value)
         if type is "undefined"
-            @[0].innerHTML
+            (if @length > 0 then @[0].innerHTML else)
         else
             @each ->            
                 if type is "string"
