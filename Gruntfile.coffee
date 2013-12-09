@@ -1,36 +1,46 @@
 module.exports = (grunt) ->
   grunt.initConfig
-    pkg: grunt.file.readJSON "package/component.json"
+    pkg: grunt.file.readJSON "package.json"
 
     meta:
+      build   : 'build',
+      bower   : 'components/quojs',
+
       file: 'quo'
       banner: '/* <%= pkg.name %> v<%= pkg.version %> - <%= grunt.template.today("yyyy/m/d") %>\n' +
               '   <%= pkg.homepage %>\n' +
               '   Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>' +
               ' - Licensed <%= _.pluck(pkg.license, "type").join(", ") %> */\n'
 
-    resources:
-      app: [
+    source:
+      core: [
         'src/quo.coffee'
         'src/quo.*.coffee'
       ]
+      gestures: []
+      ajax: []
+
+
+    concat:
+      core    : files: '<%=meta.build%>/<%=pkg.name%>.debug.coffee'   : '<%= source.core %>'
 
     coffee:
-      app: files: 'package/<%= meta.file %>.debug.js': ['<%= resources.app %>']
+      core: files: '<%= meta.bower %>/<%= meta.file %>.debug.js': '<%=meta.build%>/<%=pkg.name%>.debug.coffee'
 
     uglify:
-      options: compress: false, banner: "<%= meta.banner %>"
-      app: files: 'package/<%= meta.file %>.js': 'package/<%= meta.file %>.debug.js'
+      options: mangle: false, banner: "<%= meta.banner %>"#, report: "gzip"
+      core: files: '<%= meta.bower %>/<%= meta.file %>.js': '<%= meta.bower %>/<%= meta.file %>.debug.js'
 
     watch:
       app:
-        files: ['<%= resources.app %>']
-        tasks: ["coffee:app"]
+        files: ['<%= source.core %>']
+        tasks: ["concat:core", "coffee:core"]
 
+  grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-watch"
 
   # Default task.
-  grunt.registerTask 'default', ["coffee", "uglify"]
+  grunt.registerTask 'default', ["concat", "coffee", "uglify"]
 
