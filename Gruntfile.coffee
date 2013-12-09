@@ -13,28 +13,51 @@ module.exports = (grunt) ->
               ' - Licensed <%= _.pluck(pkg.license, "type").join(", ") %> */\n'
 
     source:
-      core: [
-        'src/quo.coffee'
-        'src/quo.*.coffee'
-      ]
-      gestures: []
-      ajax: []
-
+      core        : 'source/quo.coffee'
+      ajax        : 'source/quo.ajax.coffee'
+      element     : 'source/quo.element.coffee'
+      environment : 'source/quo.environment.coffee'
+      events      : 'source/quo.events.coffee'
+      gestures    : 'source/quo.gestures.coffee'
+      output      : 'source/quo.output.coffee'
+      query       : 'source/quo.query.coffee'
+      style       : 'source/quo.style.coffee'
 
     concat:
-      core    : files: '<%=meta.build%>/<%=pkg.name%>.debug.coffee'   : '<%= source.core %>'
+      core        : files: '<%=meta.build%>/<%=meta.file%>.coffee': '<%= source.core %>'
 
     coffee:
-      core: files: '<%= meta.bower %>/<%= meta.file %>.debug.js': '<%=meta.build%>/<%=pkg.name%>.debug.coffee'
+      core        : files: '<%= meta.build %>/<%= meta.file %>.js': '<%=meta.build%>/<%=meta.file%>.coffee'
+      ajax        : files: '<%= meta.build %>/<%= meta.file %>.ajax.js': '<%=source.ajax%>'
+      element     : files: '<%= meta.build %>/<%= meta.file %>.element.js': '<%=source.element%>'
+      environment : files: '<%= meta.build %>/<%= meta.file %>.environment.js': '<%=source.environment%>'
+      events      : files: '<%= meta.build %>/<%= meta.file %>.events.js': '<%=source.events%>'
+      gestures    : files: '<%= meta.build %>/<%= meta.file %>.gestures.js': '<%=source.gestures%>'
+      output      : files: '<%= meta.build %>/<%= meta.file %>.output.js': '<%=source.output%>'
+      query       : files: '<%= meta.build %>/<%= meta.file %>.query.js': '<%=source.query%>'
+      style       : files: '<%= meta.build %>/<%= meta.file %>.style.js': '<%=source.style%>'
 
     uglify:
       options: mangle: false, banner: "<%= meta.banner %>"#, report: "gzip"
-      core: files: '<%= meta.bower %>/<%= meta.file %>.js': '<%= meta.bower %>/<%= meta.file %>.debug.js'
+      core        : files: '<%= meta.bower %>/<%= meta.file %>.js': '<%= meta.build %>/<%= meta.file %>.js'
+      ajax        : files: '<%= meta.bower %>/<%= meta.file %>.ajax.js': '<%= meta.build %>/<%= meta.file %>.ajax.js'
+      element     : files: '<%= meta.bower %>/<%= meta.file %>.element.js': '<%= meta.build %>/<%= meta.file %>.element.js'
+      environment : files: '<%= meta.bower %>/<%= meta.file %>.environment.js': '<%= meta.build %>/<%= meta.file %>.environment.js'
+      events      : files: '<%= meta.bower %>/<%= meta.file %>.events.js': '<%= meta.build %>/<%= meta.file %>.events.js'
+      gestures    : files: '<%= meta.bower %>/<%= meta.file %>.gestures.js': '<%= meta.build %>/<%= meta.file %>.gestures.js'
+      output      : files: '<%= meta.bower %>/<%= meta.file %>.output.js': '<%= meta.build %>/<%= meta.file %>.output.js'
+      query       : files: '<%= meta.bower %>/<%= meta.file %>.query.js': '<%= meta.build %>/<%= meta.file %>.query.js'
+      style       : files: '<%= meta.bower %>/<%= meta.file %>.style.js': '<%= meta.build %>/<%= meta.file %>.style.js'
+
 
     watch:
-      app:
+      core:
         files: ['<%= source.core %>']
-        tasks: ["concat:core", "coffee:core"]
+        tasks: ["concat:core", "coffee:core", "uglify:core"]
+      ajax:
+        files: ['<%= source.ajax %>']
+        tasks: ["coffee:ajax", "uglify:ajax"]
+
 
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-coffee"
