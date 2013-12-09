@@ -57,7 +57,27 @@ module.exports = (grunt) ->
       ajax:
         files: ['<%= source.ajax %>']
         tasks: ["coffee:ajax", "uglify:ajax"]
-
+      element:
+        files: ['<%= source.element %>']
+        tasks: ["coffee:element", "uglify:element"]
+      environment:
+        files: ['<%= source.environment %>']
+        tasks: ["coffee:environment", "uglify:environment"]
+      events:
+        files: ['<%= source.events %>']
+        tasks: ["coffee:events", "uglify:events"]
+      gestures:
+        files: ['<%= source.gestures %>']
+        tasks: ["coffee:gestures", "uglify:gestures"]
+      output:
+        files: ['<%= source.output %>']
+        tasks: ["coffee:output", "uglify:output"]
+      query:
+        files: ['<%= source.query %>']
+        tasks: ["coffee:query", "uglify:query"]
+      style:
+        files: ['<%= source.style %>']
+        tasks: ["coffee:style", "uglify:style"]
 
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-coffee"
@@ -66,4 +86,3 @@ module.exports = (grunt) ->
 
   # Default task.
   grunt.registerTask 'default', ["concat", "coffee", "uglify"]
-
