@@ -55,13 +55,14 @@ module.exports = (grunt) ->
 
     jasmine:
       pivotal:
-        src: [
-          '<%=meta.bower%>/<%= meta.file %>.js']
+        src: '<%=meta.bower%>/<%= meta.file %>.js'
         options:
-          # vendor: 'spec/components/jquery/jquery.min.js'
           specs: '<%=meta.build%>/<%=meta.file%>.spec.js',
-          # outfile: 'spec.html'
-          # keepRunner: true
+
+    notify:
+      spec:
+        options: title: 'Quo Spec', message: 'Test 100% passed!'
+
 
     watch:
       core:
@@ -93,7 +94,7 @@ module.exports = (grunt) ->
         tasks: ["coffee:style", "uglify:style"]
       spec:
         files: ['<%= source.spec %>']
-        tasks: ["concat:spec", "coffee:spec", "jasmine"]
+        tasks: ["concat:spec", "coffee:spec", "jasmine", "notify:spec"]
 
 
 
@@ -101,6 +102,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-jasmine"
+  grunt.loadNpmTasks 'grunt-notify'
   grunt.loadNpmTasks "grunt-contrib-watch"
 
   # Default task.
