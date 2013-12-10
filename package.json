@@ -11,11 +11,11 @@
   "keywords": [ "mobile" ],
   "license": [{"type": "MIT"}],
   "devDependencies": {
-    "grunt-contrib-coffee": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-jasmine": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-notify": "~0.2.16"
+    "grunt-contrib-coffee"  : "*",
+    "grunt-contrib-concat"  : "*",
+    "grunt-contrib-uglify"  : "*",
+    "grunt-contrib-jasmine" : "*",
+    "grunt-contrib-watch"   : "*",
+    "grunt-notify"          : "*"
   }
 }
