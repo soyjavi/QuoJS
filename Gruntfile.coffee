@@ -60,6 +60,8 @@ module.exports = (grunt) ->
           specs: '<%=meta.build%>/<%=meta.file%>.spec.js',
 
     notify:
+      core:
+        options: title: 'Quo Core', message: 'Build!'
       spec:
         options: title: 'Quo Spec', message: 'Test 100% passed!'
 
@@ -67,7 +69,7 @@ module.exports = (grunt) ->
     watch:
       core:
         files: ['<%= source.core %>']
-        tasks: ["concat:core", "coffee:core", "uglify:core", "jasmine"]
+        tasks: ["concat:core", "coffee:core", "uglify:core", "jasmine", "notify:core"]
       ajax:
         files: ['<%= source.ajax %>']
         tasks: ["coffee:ajax", "uglify:ajax"]
