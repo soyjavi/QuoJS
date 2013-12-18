@@ -1,3 +1,14 @@
+###
+Basic Quo Module
+
+@namespace Quo
+@class css
+
+@author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
+###
+"use strict"
+
+
 do ($$ = Quo) ->
 
   VENDORS = [ "-webkit-", "-moz-", "-ms-", "-o-", "" ]
@@ -47,3 +58,32 @@ do ($$ = Quo) ->
   ###
   $$.fn.listClass = ->
     @[0].classList if @length > 0
+
+
+  ###
+  Set/Get a stylesheet property in a given instance element
+  @method style
+  @param  {string} Name of property
+  @param  {string} [OPTIONAL] Value for property
+  ###
+  $$.fn.style = $$.fn.css = (property, value) ->
+    if value?
+      @each -> @style[property] = value
+    else
+      el = @[0]
+      el.style[property] or _computedStyle(el, property)
+
+
+  ###
+  Set/Get a stylesheet vendor-prefix property in a given instance element
+  @method vendor
+  @param  {string} Name of property
+  @param  {string} Value for property
+  ###
+  $$.fn.vendor = (property, value) ->
+    @style("#{prefix}#{property}", value) for prefix in VENDORS
+
+
+  # Private Methods
+  _computedStyle = (element, property) ->
+    document.defaultView.getComputedStyle(element, "")[property]
