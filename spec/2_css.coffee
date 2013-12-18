@@ -30,3 +30,19 @@ describe "Style", ->
   it "returns a list of class styles", ->
     classList = '0': 'quo', length: 1
     expect(el.listClass()["0"]).toEqual classList["0"]
+
+
+  it "set a stylesheet property in a given element", ->
+    color = "blue"
+    el.style "background-color", color
+    expect(el.style("background-color")).toEqual color
+    font = "10px"
+    el.css "font-size", font
+    expect(el.style("font-size")).toEqual font
+
+
+  it "set a stylesheet vendor-prefix property in a given element", ->
+    value = "black 1em 1em"
+    el.vendor "box-shadow", value
+    expect(el.style("-webkit-box-shadow")).toEqual value
+
