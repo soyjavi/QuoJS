@@ -1,6 +1,6 @@
 module.exports = (grunt) ->
   grunt.initConfig
-    pkg: grunt.file.readJSON "package.json"
+    pkg: grunt.file.readJSON 'package.json'
 
     meta:
       build   : 'build',
@@ -14,6 +14,8 @@ module.exports = (grunt) ->
 
     source:
       core        : 'source/quo.coffee'
+      css         : 'source/quo.css.coffee'
+
       ajax        : 'source/quo.ajax.coffee'
       element     : 'source/quo.element.coffee'
       environment : 'source/quo.environment.coffee'
@@ -21,8 +23,10 @@ module.exports = (grunt) ->
       gestures    : 'source/quo.gestures.coffee'
       output      : 'source/quo.output.coffee'
       query       : 'source/quo.query.coffee'
-      style       : 'source/quo.style.coffee'
+
+      quojs       : 'source/*.coffee'
       spec        : 'spec/*.coffee'
+
 
     concat:
       core        : files: '<%=meta.build%>/<%=meta.file%>.coffee': '<%= source.core %>'
@@ -37,7 +41,7 @@ module.exports = (grunt) ->
       gestures    : files: '<%= meta.build %>/<%= meta.file %>.gestures.js': '<%=source.gestures%>'
       output      : files: '<%= meta.build %>/<%= meta.file %>.output.js': '<%=source.output%>'
       query       : files: '<%= meta.build %>/<%= meta.file %>.query.js': '<%=source.query%>'
-      style       : files: '<%= meta.build %>/<%= meta.file %>.style.js': '<%=source.style%>'
+      css         : files: '<%= meta.build %>/<%= meta.file %>.css.js': '<%=source.css%>'
       spec        : files: '<%= meta.build %>/<%= meta.file %>.spec.js': '<%=meta.build%>/<%=meta.file%>.spec.coffee'
 
     uglify:
@@ -50,12 +54,14 @@ module.exports = (grunt) ->
       gestures    : files: '<%= meta.bower %>/<%= meta.file %>.gestures.js': '<%= meta.build %>/<%= meta.file %>.gestures.js'
       output      : files: '<%= meta.bower %>/<%= meta.file %>.output.js': '<%= meta.build %>/<%= meta.file %>.output.js'
       query       : files: '<%= meta.bower %>/<%= meta.file %>.query.js': '<%= meta.build %>/<%= meta.file %>.query.js'
-      style       : files: '<%= meta.bower %>/<%= meta.file %>.style.js': '<%= meta.build %>/<%= meta.file %>.style.js'
+      css         : files: '<%= meta.bower %>/<%= meta.file %>.css.js': '<%= meta.build %>/<%= meta.file %>.css.js'
 
 
     jasmine:
       pivotal:
-        src: '<%=meta.bower%>/<%= meta.file %>.js'
+        src: [
+          '<%=meta.bower%>/<%= meta.file %>.js',
+          '<%=meta.bower%>/<%= meta.file %>.css.js']
         options:
           specs: '<%=meta.build%>/<%=meta.file%>.spec.js',
 
@@ -69,43 +75,46 @@ module.exports = (grunt) ->
     watch:
       core:
         files: ['<%= source.core %>']
-        tasks: ["concat:core", "coffee:core", "uglify:core", "jasmine", "notify:core"]
+        tasks: ['concat:core', 'coffee:core', 'uglify:core']
       ajax:
         files: ['<%= source.ajax %>']
-        tasks: ["coffee:ajax", "uglify:ajax"]
+        tasks: ['coffee:ajax', 'uglify:ajax']
       element:
         files: ['<%= source.element %>']
-        tasks: ["coffee:element", "uglify:element"]
+        tasks: ['coffee:element', 'uglify:element']
       environment:
         files: ['<%= source.environment %>']
-        tasks: ["coffee:environment", "uglify:environment"]
+        tasks: ['coffee:environment', 'uglify:environment']
       events:
         files: ['<%= source.events %>']
-        tasks: ["coffee:events", "uglify:events"]
+        tasks: ['coffee:events', 'uglify:events']
       gestures:
         files: ['<%= source.gestures %>']
-        tasks: ["coffee:gestures", "uglify:gestures"]
+        tasks: ['coffee:gestures', 'uglify:gestures']
       output:
         files: ['<%= source.output %>']
-        tasks: ["coffee:output", "uglify:output"]
+        tasks: ['coffee:output', 'uglify:output']
       query:
         files: ['<%= source.query %>']
-        tasks: ["coffee:query", "uglify:query"]
-      style:
-        files: ['<%= source.style %>']
-        tasks: ["coffee:style", "uglify:style"]
+        tasks: ['coffee:query', 'uglify:query']
+      css:
+        files: ['<%= source.css %>']
+        tasks: ['coffee:css', 'uglify:css']
+      quojs:
+        files: ['<%= source.quojs %>']
+        tasks: ['jasmine', 'notify:spec']
       spec:
         files: ['<%= source.spec %>']
-        tasks: ["concat:spec", "coffee:spec", "jasmine", "notify:spec"]
+        tasks: ['concat:spec', 'coffee:spec', 'jasmine', 'notify:spec']
 
 
 
-  grunt.loadNpmTasks "grunt-contrib-concat"
-  grunt.loadNpmTasks "grunt-contrib-coffee"
-  grunt.loadNpmTasks "grunt-contrib-uglify"
-  grunt.loadNpmTasks "grunt-contrib-jasmine"
+  grunt.loadNpmTasks 'grunt-contrib-concat'
+  grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-notify'
-  grunt.loadNpmTasks "grunt-contrib-watch"
+  grunt.loadNpmTasks 'grunt-contrib-watch'
 
   # Default task.
-  grunt.registerTask 'default', ["concat", "coffee", "uglify", "jasmine"]
+  grunt.registerTask 'default', ['concat', 'coffee', 'uglify', 'jasmine']

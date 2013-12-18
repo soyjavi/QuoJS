@@ -1,30 +1,44 @@
+###
+Basic Quo Module
+
+@namespace Quo
+@class Base
+
+@author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
+###
+"use strict"
+
 Quo = do ->
 
   EMPTY_ARRAY = []
   OBJECT_PROTOTYPE  = Object::
+
   IS_HTML_FRAGMENT  = /^\s*<(\w+|!)[^>]*>/
 
+  ELEMENT_TYPES     = [ 1, 9, 11 ]
   CLASS_SELECTOR    = /^\.([\w-]+)$/
   ID_SELECTOR       = /^#[\w\d-]+$/
   TAG_SELECTOR      = /^[\w-]+$/
 
+  # ---------------------------------------------------------------------------
+
+  ###
+  Basic Instance of QuoJS
+  @method $$
+  @param  {string/instance} [OPTIONAL] Selector for handler
+  @param  {string} [OPTIONAL] Children in selector
+  ###
   $$ = (selector, children) ->
     unless selector
-      Q()
+      _Quo()
     else if $$.toType(selector) is "function"
       $$(document).ready selector
     else
       dom = $$.getDOMObject(selector, children)
-      Q(dom, selector)
+      _Quo(dom, selector)
 
 
-  Q = (dom, selector) ->
-    dom = dom or EMPTY_ARRAY
-    dom.__proto__ = Q::
-    dom.selector = selector or ''
-    dom
-
-
+  # Static Methods
   $$.extend = (target) ->
     Array::slice.call(arguments, 1).forEach (source) ->
     target[key] = source[key] for key of source
@@ -37,8 +51,7 @@ Quo = do ->
 
   $$.getDOMObject = (selector, children) ->
     domain = null
-    elementTypes = [ 1, 9, 11 ]
-    type = $$.toType(selector)
+    type = $$.toType selector
 
     if type is "array"
       domain = _compact(selector)
@@ -48,22 +61,30 @@ Quo = do ->
       selector = null
 
     else if type is "string"
-      domain = $$.query(document, selector)
+      domain = _query(document, selector)
+
       if children
         if domain.length is 1
-          domain = $$.query(domain[0], children)
+          domain = _query(domain[0], children)
         else
           #@todo: BUG if selector count > 1
-          domain = $$.map(-> $$.query domain, children )
+          domain = $$.map(-> _query domain, children )
 
-    else if elementTypes.indexOf(selector.nodeType) >= 0 or selector is window
+    else if ELEMENT_TYPES.indexOf(selector.nodeType) >= 0 or selector is window
       domain = [selector]
       selector = null
 
     domain
 
 
-  $$.query = (domain, selector) ->
+  # Private Methods
+  # ---------------------------------------------------------------------------
+  _Quo = (dom = EMPTY_ARRAY, selector = "") ->
+    dom.__proto__ = _Quo::
+    dom.selector = selector
+    dom
+
+  _query = (domain, selector) ->
     selector = selector.trim()
 
     if CLASS_SELECTOR.test(selector)
@@ -79,12 +100,35 @@ Quo = do ->
     if elements.nodeType then [elements] else Array::slice.call(elements)
 
 
-  # Private Methods
   _compact = (array) ->
-    array.filter (item) ->
-      item isnt undefined and item isnt null
+    console.log array, [1..100]
+    # array = [1..10]
+    # array.filter (x) -> x > 5
+    array.filter (i) -> i?
+    # array.filter (item) -> item isnt undefined and item isnt null
 
-  Q:: = $$.fn = {}
+
+  # Instance Methods
+  _Quo::forEach = [].forEach
+
+  _Quo::indexOf = EMPTY_ARRAY.indexOf
+
+  _Quo::each = (callback) ->
+    @forEach (element, index) -> callback.call element, index, element
+
+  # Exports
+  # ---------------------------------------------------------------------------
+  _Quo:: = $$.fn = {}
+
+  # Instance Methods
+  $$.fn.forEach = [].forEach
+
+  $$.fn.indexOf = EMPTY_ARRAY.indexOf
+
+  $$.fn.each = (callback) ->
+    @forEach (element, index) -> callback.call element, index, element
+
   $$
+
 
 @Quo = @$$ = Quo
