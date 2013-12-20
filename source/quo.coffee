@@ -121,7 +121,7 @@ Quo = do ->
   _Quo:: = $$.fn = {}
 
   # Instance Methods
-  $$.fn.forEach = [].forEach
+  $$.fn.forEach = EMPTY_ARRAY.forEach
 
   $$.fn.indexOf = EMPTY_ARRAY.indexOf
 
