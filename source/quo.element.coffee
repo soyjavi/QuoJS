@@ -29,8 +29,25 @@ do ($$ = Quo) ->
   Remove attribute to a given instance element
   @method removeAttr
   @param  {string} Name of attribute
-  @param  {string} [OPTIONAL] Value of atribbute
   ###
   $$.fn.removeAttr = (name) ->
     @each -> @removeAttribute name
 
+
+  ###
+  Get/Set data attribute to a given instance element
+  @method data
+  @param  {string} Name of data attribute
+  @param  {string} [OPTIONAL] Value of data atribbute
+  ###
+  $$.fn.data = (name, value) ->
+    @attr "data-#{name}", value
+
+
+  ###
+  Remove data attribute to a given instance element
+  @method removeAttr
+  @param  {string} Name of data attribute
+  ###
+  $$.fn.removeData = (name) ->
+    @removeAttr "data-#{name}"
