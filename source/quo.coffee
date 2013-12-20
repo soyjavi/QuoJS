@@ -34,11 +34,13 @@ Quo = do ->
     else if $$.toType(selector) is "function"
       $$(document).ready selector
     else
-      dom = $$.getDOMObject(selector, children)
+      dom = _getDOMObject(selector, children)
       _Quo(dom, selector)
 
 
+  # ---------------------------------------------------------------------------
   # Static Methods
+  # ---------------------------------------------------------------------------
   $$.extend = (target) ->
     Array::slice.call(arguments, 1).forEach (source) ->
     target[key] = source[key] for key of source
@@ -49,12 +51,20 @@ Quo = do ->
     OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
 
 
-  $$.getDOMObject = (selector, children) ->
+  # ---------------------------------------------------------------------------
+  # Private Methods
+  # ---------------------------------------------------------------------------
+  _Quo = (dom = EMPTY_ARRAY, selector = "") ->
+    dom.__proto__ = _Quo::
+    dom
+
+  _getDOMObject = (selector, children) ->
     domain = null
     type = $$.toType selector
 
-    if type is "array"
-      domain = _compact(selector)
+    if selector instanceof _Quo and not children
+      #@TODO: If selector it's array, fails :/
+      domain = _compact selector
 
     else if type is "string" and IS_HTML_FRAGMENT.test(selector)
       domain = $$.fragment(selector.trim(), RegExp.$1)
@@ -67,8 +77,8 @@ Quo = do ->
         if domain.length is 1
           domain = _query(domain[0], children)
         else
-          #@todo: BUG if selector count > 1
-          domain = $$.map(-> _query domain, children )
+          #@TODO: BUG if selector count > 1
+          domain = $$.map(-> _query domain, children)
 
     else if ELEMENT_TYPES.indexOf(selector.nodeType) >= 0 or selector is window
       domain = [selector]
@@ -76,17 +86,7 @@ Quo = do ->
 
     domain
 
-
-  # Private Methods
-  # ---------------------------------------------------------------------------
-  _Quo = (dom = EMPTY_ARRAY, selector = "") ->
-    dom.__proto__ = _Quo::
-    dom.selector = selector
-    dom
-
   _query = (domain, selector) ->
-    selector = selector.trim()
-
     if CLASS_SELECTOR.test(selector)
       elements = domain.getElementsByClassName selector.replace(".", "")
     else if TAG_SELECTOR.test(selector)
@@ -96,37 +96,28 @@ Quo = do ->
       unless elements then elements = []
     else
       elements = domain.querySelectorAll selector
-
     if elements.nodeType then [elements] else Array::slice.call(elements)
 
 
-  _compact = (array) ->
-    console.log array, [1..100]
-    # array = [1..10]
-    # array.filter (x) -> x > 5
-    array.filter (i) -> i?
-    # array.filter (item) -> item isnt undefined and item isnt null
+  _compact = (items) ->
+    items.filter (item) -> item if item?
 
-
-  # Instance Methods
-  _Quo::forEach = [].forEach
-
-  _Quo::indexOf = EMPTY_ARRAY.indexOf
-
-  _Quo::each = (callback) ->
-    @forEach (element, index) -> callback.call element, index, element
-
+  # ---------------------------------------------------------------------------
   # Exports
   # ---------------------------------------------------------------------------
   _Quo:: = $$.fn = {}
 
-  # Instance Methods
+  $$.fn.each = (callback) ->
+    @forEach (element, index) -> callback.call element, index, element
+
+  $$.fn.filter = (selector) ->
+    console.log "selector", selector.length
+    $$ EMPTY_ARRAY.filter.call(@, (el) ->
+      el.parentNode and _query(el.parentNode, selector).indexOf(el) >= 0)
+
   $$.fn.forEach = EMPTY_ARRAY.forEach
 
   $$.fn.indexOf = EMPTY_ARRAY.indexOf
-
-  $$.fn.each = (callback) ->
-    @forEach (element, index) -> callback.call element, index, element
 
   $$
 
