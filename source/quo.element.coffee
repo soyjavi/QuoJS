@@ -68,7 +68,7 @@ do ($$ = Quo) ->
 
   ###
   Shows a given instance element
-  @method val
+  @method show
   ###
   $$.fn.show = ->
     @style "display", "block"
@@ -76,7 +76,7 @@ do ($$ = Quo) ->
 
   ###
   Hides a given instance element
-  @method val
+  @method hide
   ###
   $$.fn.hide = ->
     @style "display", "none"
@@ -84,7 +84,7 @@ do ($$ = Quo) ->
 
   ###
   Get a offset of a given instance element
-  @method val
+  @method offset
   ###
   $$.fn.offset = ->
     if @length > 0
