@@ -14,16 +14,15 @@ module.exports = (grunt) ->
 
     source:
       core        : 'source/quo.coffee'
-      css         : 'source/quo.css.coffee'
-
       ajax        : 'source/quo.ajax.coffee'
+      css         : 'source/quo.css.coffee'
       element     : 'source/quo.element.coffee'
       environment : 'source/quo.environment.coffee'
+
       events      : 'source/quo.events.coffee'
       gestures    : 'source/quo.gestures.coffee'
       output      : 'source/quo.output.coffee'
       query       : 'source/quo.query.coffee'
-
       quojs       : 'source/*.coffee'
       spec        : 'spec/*.coffee'
 
@@ -35,21 +34,23 @@ module.exports = (grunt) ->
     coffee:
       core        : files: '<%= meta.build %>/<%= meta.file %>.js': '<%=meta.build%>/<%=meta.file%>.coffee'
       ajax        : files: '<%= meta.build %>/<%= meta.file %>.ajax.js': '<%=source.ajax%>'
+      css         : files: '<%= meta.build %>/<%= meta.file %>.css.js': '<%=source.css%>'
       element     : files: '<%= meta.build %>/<%= meta.file %>.element.js': '<%=source.element%>'
       environment : files: '<%= meta.build %>/<%= meta.file %>.environment.js': '<%=source.environment%>'
+
       events      : files: '<%= meta.build %>/<%= meta.file %>.events.js': '<%=source.events%>'
       gestures    : files: '<%= meta.build %>/<%= meta.file %>.gestures.js': '<%=source.gestures%>'
       output      : files: '<%= meta.build %>/<%= meta.file %>.output.js': '<%=source.output%>'
       query       : files: '<%= meta.build %>/<%= meta.file %>.query.js': '<%=source.query%>'
-      css         : files: '<%= meta.build %>/<%= meta.file %>.css.js': '<%=source.css%>'
       spec        : files: '<%= meta.build %>/<%= meta.file %>.spec.js': '<%=meta.build%>/<%=meta.file%>.spec.coffee'
 
     uglify:
-      options: mangle: false, banner: "<%= meta.banner %>"#, report: "gzip"
+      options: mangle: false, banner: "<%= meta.banner %>", report: "gzip"
       core        : files: '<%= meta.bower %>/<%= meta.file %>.js': '<%= meta.build %>/<%= meta.file %>.js'
-      ajax        : files: '<%= meta.bower %>/<%= meta.file %>.ajax.js': '<%= meta.build %>/<%= meta.file %>.ajax.js'
       element     : files: '<%= meta.bower %>/<%= meta.file %>.element.js': '<%= meta.build %>/<%= meta.file %>.element.js'
       environment : files: '<%= meta.bower %>/<%= meta.file %>.environment.js': '<%= meta.build %>/<%= meta.file %>.environment.js'
+
+      ajax        : files: '<%= meta.bower %>/<%= meta.file %>.ajax.js': '<%= meta.build %>/<%= meta.file %>.ajax.js'
       events      : files: '<%= meta.bower %>/<%= meta.file %>.events.js': '<%= meta.build %>/<%= meta.file %>.events.js'
       gestures    : files: '<%= meta.bower %>/<%= meta.file %>.gestures.js': '<%= meta.build %>/<%= meta.file %>.gestures.js'
       output      : files: '<%= meta.bower %>/<%= meta.file %>.output.js': '<%= meta.build %>/<%= meta.file %>.output.js'
@@ -61,7 +62,9 @@ module.exports = (grunt) ->
       pivotal:
         src: [
           '<%=meta.bower%>/<%= meta.file %>.js',
-          '<%=meta.bower%>/<%= meta.file %>.css.js']
+          '<%=meta.bower%>/<%= meta.file %>.css.js',
+          '<%=meta.bower%>/<%= meta.file %>.element.js',
+          '<%=meta.bower%>/<%= meta.file %>.environment.js']
         options:
           specs: '<%=meta.build%>/<%=meta.file%>.spec.js',
 
@@ -79,12 +82,16 @@ module.exports = (grunt) ->
       ajax:
         files: ['<%= source.ajax %>']
         tasks: ['coffee:ajax', 'uglify:ajax']
+      css:
+        files: ['<%= source.css %>']
+        tasks: ['coffee:css', 'uglify:css']
       element:
         files: ['<%= source.element %>']
         tasks: ['coffee:element', 'uglify:element']
       environment:
         files: ['<%= source.environment %>']
         tasks: ['coffee:environment', 'uglify:environment']
+
       events:
         files: ['<%= source.events %>']
         tasks: ['coffee:events', 'uglify:events']
@@ -97,9 +104,6 @@ module.exports = (grunt) ->
       query:
         files: ['<%= source.query %>']
         tasks: ['coffee:query', 'uglify:query']
-      css:
-        files: ['<%= source.css %>']
-        tasks: ['coffee:css', 'uglify:css']
       quojs:
         files: ['<%= source.quojs %>']
         tasks: ['jasmine', 'notify:spec']
