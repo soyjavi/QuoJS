@@ -2,7 +2,7 @@
 Basic Quo Module
 
 @namespace Quo
-@class css
+@class Element
 
 @author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
 ###
