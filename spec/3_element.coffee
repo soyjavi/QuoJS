@@ -1,4 +1,4 @@
-describe "Style", ->
+describe "Element", ->
 
   el = undefined
 
