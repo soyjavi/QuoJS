@@ -48,8 +48,9 @@ do ($$ = Quo) ->
         os      : os
     _current
 
-
+  # ---------------------------------------------------------------------------
   # Private Methods
+  # ---------------------------------------------------------------------------
   _detectBrowser = (user_agent) ->
     webkit = user_agent.match(IS_WEBKIT)
     if webkit then webkit[0] else user_agent

@@ -83,7 +83,8 @@ do ($$ = Quo) ->
   $$.fn.vendor = (property, value) ->
     @style("#{prefix}#{property}", value) for prefix in VENDORS
 
-
+  # ---------------------------------------------------------------------------
   # Private Methods
+  # ---------------------------------------------------------------------------
   _computedStyle = (element, property) ->
     document.defaultView.getComputedStyle(element, "")[property]

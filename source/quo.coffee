@@ -20,7 +20,6 @@ Quo = do ->
   ID_SELECTOR       = /^#[\w\d-]+$/
   TAG_SELECTOR      = /^[\w-]+$/
 
-  # ---------------------------------------------------------------------------
 
   ###
   Basic Instance of QuoJS
@@ -37,7 +36,6 @@ Quo = do ->
       dom = _getDOMObject(selector, children)
       _Quo(dom, selector)
 
-
   # ---------------------------------------------------------------------------
   # Static Methods
   # ---------------------------------------------------------------------------
@@ -49,7 +47,6 @@ Quo = do ->
 
   $$.toType = (obj) ->
     OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
-
 
   # ---------------------------------------------------------------------------
   # Private Methods
@@ -120,6 +117,5 @@ Quo = do ->
   $$.fn.indexOf = EMPTY_ARRAY.indexOf
 
   $$
-
 
 @Quo = @$$ = Quo
