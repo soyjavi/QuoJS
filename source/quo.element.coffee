@@ -15,7 +15,7 @@ do ($$ = Quo) ->
   Get/Set attribute to a given instance element
   @method attr
   @param  {string} Name of attribute
-  @param  {string} [OPTIONAL] Value of atribbute
+  @param  {string} [OPTIONAL] Value of attribute
   ###
   $$.fn.attr = (name, value) ->
     if @length > 0 and $$.toType(name) is "string"
