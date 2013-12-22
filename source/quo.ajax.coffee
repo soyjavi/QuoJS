@@ -36,9 +36,9 @@ do ($$ = Quo) ->
     timeout     : 0
 
   ###
-  ...
+  Perform an asynchronous HTTP (Ajax) request.
   @method ajax
-  @param  {object}
+  @param  {object} A set of key/value pairs that configure the Ajax request
   ###
   $$.ajax = (options) ->
     settings = $$.mix($$.ajaxSettings, options)
@@ -71,12 +71,90 @@ do ($$ = Quo) ->
     (if (settings.async) then xhr else _parseResponse(xhr, settings))
 
 
+
   ###
-  ...
-  @method jsonp
+  Load data from the server using a HTTP GET request.
+  @method get
+  @param  {string} A string containing the URL to which the request is sent.
+  @param  {string} [OPTIONAL] A plain object or string that is sent to the server with the request.
+  @param  {string} [OPTIONAL] A callback function that is executed if the request succeeds.
+  @param  {string} [OPTIONAL] The type of data expected from the server
+  ###
+  $$.get = (url, data, success, dataType) ->
+    $$.ajax
+      url     : url
+      data    : data
+      success : success
+      dataType: dataType
+
+
+  ###
+  Load data from the server using a HTTP POST request.
+  @method post
+  @param  {string} A string containing the URL to which the request is sent.
+  @param  {string} [OPTIONAL] A plain object or string that is sent to the server with the request.
+  @param  {string} [OPTIONAL] A callback function that is executed if the request succeeds.
+  @param  {string} [OPTIONAL] The type of data expected from the server
+  ###
+  $$.post = (url, data, success, dataType) ->
+    _xhrForm("POST", url, data, success, dataType)
+
+
+  ###
+  Load data from the server using a HTTP PPUTOST request.
+  @method put
+  @param  {string} A string containing the URL to which the request is sent.
+  @param  {string} [OPTIONAL] A plain object or string that is sent to the server with the request.
+  @param  {string} [OPTIONAL] A callback function that is executed if the request succeeds.
+  @param  {string} [OPTIONAL] The type of data expected from the server
+  ###
+  $$.put = (url, data, success, dataType) ->
+    _xhrForm("PUT", url, data, success, dataType)
+
+
+  ###
+  Load data from the server using a HTTP DELETE request.
+  @method delete
+  @param  {string} A string containing the URL to which the request is sent.
+  @param  {string} [OPTIONAL] A plain object or string that is sent to the server with the request.
+  @param  {string} [OPTIONAL] A callback function that is executed if the request succeeds.
+  @param  {string} [OPTIONAL] The type of data expected from the server
+  ###
+  $$.delete = (url, data, success, dataType) ->
+    _xhrForm("DELETE", url, data, success, dataType)
+
+
+  ###
+  Load JSON-encoded data from the server using a GET HTTP request.
+  @method json
+  @param  {string} A string containing the URL to which the request is sent.
+  @param  {string} [OPTIONAL] A plain object or string that is sent to the server with the request.
+  @param  {string} [OPTIONAL] A callback function that is executed if the request succeeds.
+  ###
+  $$.json = (url, data, success) ->
+    $$.ajax
+      url: url
+      data: data
+      success: success
+
+
+  ###
+  Encode a set of form elements as a string for submission.
+  @method serialize
   @param  {object}
   ###
-  $$.jsonp = (settings) ->
+  $$.serialize = (parameters, character="") ->
+    serialize = character
+    for parameter of parameters
+      if parameters.hasOwnProperty(parameter)
+        serialize += "&" if serialize isnt character
+        serialize += "#{encodeURIComponent parameter}=#{encodeURIComponent parameters[parameter]}"
+    (if (serialize is character) then "" else serialize)
+
+  # ---------------------------------------------------------------------------
+  # Private Methods
+  # ---------------------------------------------------------------------------
+  _jsonp = (settings) ->
     if settings.async
       callbackName = "jsonp" + (++JSONP_ID)
       script = document.createElement("script")
@@ -101,74 +179,6 @@ do ($$ = Quo) ->
       console.error "QuoJS.ajax: Unable to make jsonp synchronous call."
 
 
-  ###
-  ...
-  @method get
-  @param  {object}
-  ###
-  $$.get = (url, data, success, dataType) ->
-    $$.ajax
-      url: url
-      data: data
-      success: success
-      dataType: dataType
-
-
-  ###
-  ...
-  @method post
-  @param  {object}
-  ###
-  $$.post = (url, data, success, dataType) ->
-    _xhrForm("POST", url, data, success, dataType)
-
-
-  ###
-  ...
-  @method put
-  @param  {object}
-  ###
-  $$.put = (url, data, success, dataType) ->
-    _xhrForm("PUT", url, data, success, dataType)
-
-
-  ###
-  ...
-  @method delete
-  @param  {object}
-  ###
-  $$.delete = (url, data, success, dataType) ->
-    _xhrForm("DELETE", url, data, success, dataType)
-
-
-  ###
-  ...
-  @method json
-  @param  {object}
-  ###
-  $$.json = (url, data, success) ->
-    $$.ajax
-      url: url
-      data: data
-      success: success
-
-
-  ###
-  ...
-  @method serializeParameters
-  @param  {object}
-  ###
-  $$.serializeParameters = (parameters, character="") ->
-    serialize = character
-    for parameter of parameters
-      if parameters.hasOwnProperty(parameter)
-        serialize += "&" if serialize isnt character
-        serialize += "#{encodeURIComponent parameter}=#{encodeURIComponent parameters[parameter]}"
-    (if (serialize is character) then "" else serialize)
-
-  # ---------------------------------------------------------------------------
-  # Private Methods
-  # ---------------------------------------------------------------------------
   _xhrStatus = (xhr, settings) ->
     if (xhr.status >= 200 and xhr.status < 300) or xhr.status is 0
       if settings.async

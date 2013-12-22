@@ -62,6 +62,7 @@ module.exports = (grunt) ->
       pivotal:
         src: [
           '<%=meta.bower%>/<%= meta.file %>.js',
+          '<%=meta.bower%>/<%= meta.file %>.ajax.js',
           '<%=meta.bower%>/<%= meta.file %>.css.js',
           '<%=meta.bower%>/<%= meta.file %>.element.js',
           '<%=meta.bower%>/<%= meta.file %>.environment.js']
