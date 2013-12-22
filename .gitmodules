@@ -1,0 +1,3 @@
+[submodule "components/quojs"]
+	path = components/quojs
+	url = https://github.com/soyjavi/package-quojs.git
