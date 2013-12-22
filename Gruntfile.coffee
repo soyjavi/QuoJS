@@ -65,7 +65,8 @@ module.exports = (grunt) ->
           '<%=meta.bower%>/<%= meta.file %>.ajax.js',
           '<%=meta.bower%>/<%= meta.file %>.css.js',
           '<%=meta.bower%>/<%= meta.file %>.element.js',
-          '<%=meta.bower%>/<%= meta.file %>.environment.js']
+          '<%=meta.bower%>/<%= meta.file %>.environment.js',
+          '<%=meta.bower%>/<%= meta.file %>.output.js']
         options:
           specs: '<%=meta.build%>/<%=meta.file%>.spec.js',
 
