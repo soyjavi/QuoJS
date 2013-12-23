@@ -32,7 +32,6 @@ do ($$ = Quo) ->
   ###
   $$.fn.parent = (selector) ->
     ancestors = if selector then _findAncestors(@) else @instance(PARENT_NODE)
-    console.log "ancestors"
     _filtered ancestors, selector
 
 
@@ -70,8 +69,40 @@ do ($$ = Quo) ->
     $$ @[@length - 1]
 
 
+  ###
+  Reduce the set of matched elements to the final one in the set.
+  @method closest
+  @param  {string} A string containing a selector expression to match elements against.
+  @param  {instance} [OPTIONAL] A DOM element within which a matching element may be found.
+  ###
+  $$.fn.closest = (selector, context) ->
+    node = @[0]
+    candidates = $$(selector)
+    node = null  unless candidates.length
+    while node and candidates.indexOf(node) < 0
+      node = node isnt context and node isnt document and node.parentNode
+    $$ node
+
+
+  ###
+  Get the immediately following sibling of each element in the instance.
+  @method next
+  ###
+  $$.fn.next = ->
+    _getSibling.call @, "nextSibling"
+
+
+  ###
+  Get the immediately preceding sibling of each element in the instance.
+  @method prev
+  ###
+  $$.fn.prev = ->
+    _getSibling.call @, "previousSibling"
+
+
   $$.fn.instance = (property) ->
     @map -> @[property]
+
 
   $$.fn.map = (callback) ->
     $$.map @, (el, i) -> callback.call el, i, el
@@ -92,3 +123,8 @@ do ($$ = Quo) ->
 
   _filtered = (nodes, selector) ->
     if selector? then $$(nodes).filter(selector) else $$(nodes)
+
+  _getSibling = (command) ->
+    element = @[0][command]
+    element = element[command] while element and element.nodeType isnt 1
+    $$ element

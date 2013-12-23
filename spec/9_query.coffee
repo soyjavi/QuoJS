@@ -48,3 +48,23 @@ describe "Output", ->
     last = el.children().last()
     expect(last.length).toEqual 1
     expect(last.text()).toEqual "quojs"
+
+
+  it "can get the first element that matches the selector by testing the element itself and traversing up through its ancestors", ->
+    header = $$ "section header"
+    dom = header.closest "section"
+    expect(dom).toEqual el
+
+
+  it "can get the immediately following sibling of each element in the instance", ->
+    el.append "<footer></footer>"
+    header = $$ "section header"
+    footer = $$ "section footer"
+    expect(header.next()).toEqual footer
+
+
+  it "can get the immediately preceding sibling of each element in the instance", ->
+    el.append "<footer></footer>"
+    header = $$ "section header"
+    footer = $$ "section footer"
+    expect(footer.prev()).toEqual header
