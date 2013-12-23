@@ -36,54 +36,13 @@ Quo = do ->
       dom = _getDOMObject(selector, children)
       _Quo(dom, selector)
 
-  # ---------------------------------------------------------------------------
-  # Static Methods
-  # ---------------------------------------------------------------------------
-  $$.extend = (target) ->
-    Array::slice.call(arguments, 1).forEach (source) ->
-    target[key] = source[key] for key of source
-    target
-
-
-  $$.toType = (obj) ->
-    OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
-
-  # ---------------------------------------------------------------------------
-  # Private Methods
-  # ---------------------------------------------------------------------------
-  _Quo = (dom = EMPTY_ARRAY, selector = "") ->
-    dom.__proto__ = _Quo::
-    dom
-
-  _getDOMObject = (selector, children) ->
-    domain = null
-    type = $$.toType selector
-
-    if selector instanceof _Quo and not children
-      #@TODO: If selector it's array, fails :/
-      domain = _compact selector
-
-    else if type is "string" and IS_HTML_FRAGMENT.test(selector)
-      domain = $$.fragment(selector.trim(), RegExp.$1)
-      selector = null
-
-    else if type is "string"
-      domain = _query(document, selector)
-
-      if children
-        if domain.length is 1
-          domain = _query(domain[0], children)
-        else
-          #@TODO: BUG if selector count > 1
-          domain = $$.map(-> _query domain, children)
-
-    else if ELEMENT_TYPES.indexOf(selector.nodeType) >= 0 or selector is window
-      domain = [selector]
-      selector = null
-
-    domain
-
-  _query = (domain, selector) ->
+  ###
+  Basic Instance of QuoJS
+  @method query
+  @param  {string/instance} [OPTIONAL] Selector for handler
+  @param  {string} [OPTIONAL] Children in selector
+  ###
+  $$.query = (domain, selector) ->
     if CLASS_SELECTOR.test(selector)
       elements = domain.getElementsByClassName selector.replace(".", "")
     else if TAG_SELECTOR.test(selector)
@@ -96,8 +55,77 @@ Quo = do ->
     if elements.nodeType then [elements] else Array::slice.call(elements)
 
 
+
+  # ---------------------------------------------------------------------------
+  # Static Methods
+  # ---------------------------------------------------------------------------
+  $$.extend = (target) ->
+    Array::slice.call(arguments, 1).forEach (source) ->
+    target[key] = source[key] for key of source
+    target
+
+
+  $$.toType = (obj) ->
+    OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
+
+
+  $$.map = (elements, callback) ->
+    values = []
+    i = undefined
+    key = undefined
+    if $$.toType(elements) is "array"
+      i = 0
+      while i < elements.length
+        value = callback(elements[i], i)
+        values.push value  if value?
+        i++
+    else
+      for key of elements
+        value = callback(elements[key], key)
+        values.push value if value?
+    _flatten values
+
+  # ---------------------------------------------------------------------------
+  # Private Methods
+  # ---------------------------------------------------------------------------
+  _Quo = (dom = EMPTY_ARRAY, selector = "") ->
+    dom = dom or EMPTY_ARRAY
+    dom.__proto__ = _Quo::
+    dom
+
+  _getDOMObject = (selector, children) ->
+    domain = null
+    type = $$.toType selector
+
+    if type is "array"
+      #@TODO: If selector it's array, fails :/
+      domain = _compact selector
+
+    else if type is "string" and IS_HTML_FRAGMENT.test(selector)
+      domain = $$.fragment(selector.trim(), RegExp.$1)
+      selector = null
+
+    else if type is "string"
+      domain = $$.query(document, selector)
+
+      if children
+        if domain.length is 1
+          domain = $$.query(domain[0], children)
+        else
+          #@TODO: BUG if selector count > 1
+          domain = $$.map(-> $$.query domain, children)
+
+    else if ELEMENT_TYPES.indexOf(selector.nodeType) >= 0 or selector is window
+      domain = [selector]
+      selector = null
+
+    domain
+
   _compact = (items) ->
     items.filter (item) -> item if item?
+
+  _flatten = (array) ->
+    if array.length > 0 then EMPTY_ARRAY.concat.apply(EMPTY_ARRAY, array) else array
 
   # ---------------------------------------------------------------------------
   # Exports
@@ -108,9 +136,8 @@ Quo = do ->
     @forEach (element, index) -> callback.call element, index, element
 
   $$.fn.filter = (selector) ->
-    console.log "selector", selector.length
     $$ EMPTY_ARRAY.filter.call(@, (el) ->
-      el.parentNode and _query(el.parentNode, selector).indexOf(el) >= 0)
+      el.parentNode and $$.query(el.parentNode, selector).indexOf(el) >= 0)
 
   $$.fn.forEach = EMPTY_ARRAY.forEach
 
