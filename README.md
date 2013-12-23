@@ -17,6 +17,6 @@ These libraries doesn't have a good support to touch events such as: touch, tap,
 
 ## Credits
 Created by [@soyjavi](http://twitter.com/soyjavi).
-Released under MIT license, https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt
+Released under MIT license,
 
-See LICENSE.txt for license.
+See [LICENSE.txt](https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt) for license.
