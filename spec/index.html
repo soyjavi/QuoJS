@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuoJS 3.0.0</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        section {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        article {
+            display: block;
+            background-color: rgba(0,0,0,0.25);
+            width: 100%;
+            height: 16.1%;
+            margin-bottom: 1%;
+            text-align: center;
+            font-size: 2rem;
+            line-height: 2rem
+        }
+        article:hover, article:active {
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <article class="basic">basic</article>
+        <article class="tap">tap</article>
+        <article class="swipe">swipe</article>
+        <article class="rotate">rotate</article>
+        <article class="pinch">pinch</article>
+        <article class="drag">drag</article>
+    </section>
+
+    <!--
+    <script src="quo.2.js"></script>
+    -->
+
+    <script src="../components/quojs/quo.js"></script>
+    <script src="../components/quojs/quo.ajax.js"></script>
+    <script src="../components/quojs/quo.css.js"></script>
+    <script src="../components/quojs/quo.element.js"></script>
+    <script src="../components/quojs/quo.environment.js"></script>
+    <script src="../components/quojs/quo.output.js"></script>
+    <script src="../components/quojs/quo.query.js"></script>
+    <script src="../components/quojs/quo.events.js"></script>
+    <script src="../components/quojs/quo.gestures.js"></script>
+
+    <script>
+        var EVENTS = {
+            BASIC   : ["touchstart", "touchmove", "touchend", "touch", "orientationchange"],
+            TAP     : ["touch", "tap", "singleTap", "doubleTap", "hold"],
+            SWIPE   : ["swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown"],
+            ROTATE  : ["rotate", "rotating", "rotateLeft", "rotateRight"],
+            PINCH   : ["pinch", "pinching", "pinchIn", "pinchOut"],
+            DRAG    : ["drag", "dragLeft", "dragRight", "dragUp", "dragDown"]
+        };
+
+        testEvent($$("article.basic"), EVENTS.BASIC);
+        testEvent($$("article.tap"), EVENTS.TAP);
+        testEvent($$("article.swipe"), EVENTS.SWIPE);
+        testEvent($$("article.rotate"), EVENTS.ROTATE);
+        testEvent($$("article.pinch"), EVENTS.PINCH);
+        testEvent($$("article.drag"), EVENTS.DRAG);
+
+        function testEvent(el, collection) {
+            for (_i = 0, _len = collection.length; _i < _len; _i++) {
+                onEvent(el, collection[_i]);
+            }
+        };
+
+        function onEvent(el, event_name) {
+            el.on(event_name, function(event) {
+                console.log("on >", event_name);
+            });
+        };
+    </script>
+</body>
+</html>
