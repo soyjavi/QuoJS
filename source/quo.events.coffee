@@ -21,7 +21,6 @@ do ($$ = Quo) ->
     touchmove         : "mousemove"
     touchend          : "mouseup"
     touch             : "click"
-    doubletap         : "dblclick"
     orientationchange : "resize"
 
   READY_EXPRESSION = /complete|loaded|interactive/
@@ -149,56 +148,52 @@ do ($$ = Quo) ->
     event
 
   _subscribe = (element, event, callback, selector, delegate_callback) ->
-      event = _environmentEvent(event)
-      element_id = _getElementId(element)
-      element_handlers = HANDLERS[element_id] or (HANDLERS[element_id] = [])
-      delegate = delegate_callback and delegate_callback(callback, event)
-      handler =
-          event: event
-          callback: callback
-          selector: selector
-          proxy: _createProxyCallback(delegate, callback, element)
-          delegate: delegate
-          index: element_handlers.length
+    event = _environmentEvent(event)
+    element_id = _getElementId(element)
+    element_handlers = HANDLERS[element_id] or (HANDLERS[element_id] = [])
+    delegate = delegate_callback and delegate_callback(callback, event)
+    handler =
+      event   : event
+      callback: callback
+      selector: selector
+      proxy   : _createProxyCallback(delegate, callback, element)
+      delegate: delegate
+      index   : element_handlers.length
 
-      element_handlers.push handler
-      $$.fn.addEvent element, handler.event, handler.proxy
+    element_handlers.push handler
+    $$.fn.addEvent element, handler.event, handler.proxy
 
   _unsubscribe = (element, event, callback, selector) ->
-      event = _environmentEvent(event)
-      element_id = _getElementId(element)
-      _findHandlers(element_id, event, callback, selector).forEach (handler) ->
-          delete HANDLERS[element_id][handler.index]
+    event = _environmentEvent(event)
+    element_id = _getElementId(element)
+    _findHandlers(element_id, event, callback, selector).forEach (handler) ->
+      delete HANDLERS[element_id][handler.index]
+      $$.fn.removeEvent element, handler.event, handler.proxy
 
-          $$.fn.removeEvent element, handler.event, handler.proxy
-
-  _getElementId = (element) -> element._id or (element._id = ELEMENT_ID++)
+  _getElementId = (element) ->
+    element._id or (element._id = ELEMENT_ID++)
 
   _environmentEvent = (event) ->
-      environment_event = (if ($$.isMobile()) then event else EVENTS_DESKTOP[event])
-      (environment_event) or event
+    environment_event = if $$.isMobile() then event else EVENTS_DESKTOP[event]
+    (environment_event) or event
 
   _createProxyCallback = (delegate, callback, element) ->
-      callback = delegate or callback
-      proxy = (event) ->
-          result = callback.apply(element, [ event ].concat(event.data))
-          event.preventDefault() if result is false
-          result
-      proxy
+    callback = delegate or callback
+    proxy = (event) ->
+      result = callback.apply(element, [ event ].concat(event.data))
+      event.preventDefault() if result is false
+      result
+    proxy
 
   _findHandlers = (element_id, event, fn, selector) ->
-      (HANDLERS[element_id] or []).filter (handler) ->
-          handler and (not event or handler.event is event) and (not fn or handler.callback is fn) and (not selector or handler.selector is selector)
+    (HANDLERS[element_id] or []).filter (handler) ->
+      handler and (not event or handler.event is event) and (not fn or handler.callback is fn) and (not selector or handler.selector is selector)
 
   _createProxy = (event) ->
-      proxy = $$.extend( originalEvent: event, event)
-      $$.each EVENT_METHODS, (name, method) ->
-          proxy[name] = ->
-              @[method] = ->
-                  true
-
-              event[name].apply event, arguments
-
-          proxy[method] = ->
-              false
-      proxy
+    proxy = $$.extend( originalEvent: event, event)
+    $$.each EVENT_METHODS, (name, method) ->
+      proxy[name] = ->
+        @[method] = -> true
+        event[name].apply event, arguments
+      proxy[method] = -> false
+    proxy
