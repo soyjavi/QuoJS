@@ -1,3 +1,3 @@
-[submodule "package"]
-	path = package
-	url = https://github.com/soyjavi/package-quojs
+[submodule "components/quojs"]
+	path = components/quojs
+	url = https://github.com/soyjavi/package-quojs.git

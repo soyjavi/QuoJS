@@ -1,4 +1,4 @@
-# QuoJS 2.3.1
+# QuoJS 3.0.0
 ### Micro #JavaScript Library for Mobile Devices
 
 ## QuoJS?
@@ -16,10 +16,7 @@ These libraries doesn't have a good support to touch events such as: touch, tap,
 - Visit QuoJS [Site](http://quojs.tapquo.com/)
 
 ## Credits
-Created by [Javier Jiménez](http://twitter.com/soyjavi).
-Copyright (c) 2011, 2013 by Tapquo Inc.
+Created by [@soyjavi](http://twitter.com/soyjavi).
+Released under MIT license,
 
-## Licensing Options
-Released under MIT license, https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt
-
-See LICENSE.txt for license.
+See [LICENSE.txt](https://raw.github.com/soyjavi/QuoJS/master/LICENSE.txt) for license.
