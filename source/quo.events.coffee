@@ -190,7 +190,7 @@ do ($$ = Quo) ->
       handler and (not event or handler.event is event) and (not fn or handler.callback is fn) and (not selector or handler.selector is selector)
 
   _createProxy = (event) ->
-    proxy = $$.extend( originalEvent: event, event)
+    proxy = $$.extend originalEvent: event, event
     $$.each EVENT_METHODS, (name, method) ->
       proxy[name] = ->
         @[method] = -> true
