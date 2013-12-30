@@ -31,7 +31,7 @@ describe "Output", ->
     expect(el.html()).toEqual markup
 
 
-  it "can ser html value to a given element", ->
+  it "can set html value to a given element", ->
     new_markup = "<aside></aside>"
     el.html new_markup
     expect(el.html()).toEqual new_markup

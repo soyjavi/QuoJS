@@ -17,17 +17,17 @@ describe "Output", ->
 
   it "can get the parent of each element in the current instance", ->
     children = el.find "header"
-    expect(children.parent()).toEqual el
+    expect(children.parent().html()).toEqual el.html()
 
 
   it "can get the children of each element in the current instance", ->
     children = el.children()
     header = $$ "section > header"
-    expect(children).toEqual header
+    expect(children.html()).toEqual header.html()
 
     el.append "<footer></footer>"
     children = el.children("header")
-    expect(children).toEqual header
+    expect(children.html()).toEqual header.html()
 
 
   it "can retrieve the DOM elements matched by the QuoJS object.", ->
@@ -53,18 +53,18 @@ describe "Output", ->
   it "can get the first element that matches the selector by testing the element itself and traversing up through its ancestors", ->
     header = $$ "section header"
     dom = header.closest "section"
-    expect(dom).toEqual el
+    expect(dom.html()).toEqual el.html()
 
 
   it "can get the immediately following sibling of each element in the instance", ->
     el.append "<footer></footer>"
     header = $$ "section header"
     footer = $$ "section footer"
-    expect(header.next()).toEqual footer
+    expect(header.next().html()).toEqual footer.html()
 
 
   it "can get the immediately preceding sibling of each element in the instance", ->
     el.append "<footer></footer>"
     header = $$ "section header"
     footer = $$ "section footer"
-    expect(footer.prev()).toEqual header
+    expect(footer.prev().html()).toEqual header.html()

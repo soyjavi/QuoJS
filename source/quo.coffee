@@ -99,8 +99,8 @@ Quo = do ->
   # ---------------------------------------------------------------------------
   _instance = (dom, selector = "") ->
     dom = dom or EMPTY_ARRAY
+    dom.selector = selector
     dom.__proto__ = _instance::
-    dom.__proto__.selector = selector or ""
     dom
 
   _getDOMObject = (selector, children) ->
