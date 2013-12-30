@@ -75,9 +75,7 @@ do ($$ = Quo) ->
       fingers = touches.length
       if fingers == GESTURE.fingers
         CURRENT_TOUCH = _fingersPosition(touches, fingers)
-        is_swipe = _isSwipe(event)
-        if is_swipe then GESTURE.prevSwipe = true
-        _trigger "swiping" if (is_swipe or GESTURE.prevSwipe is true)
+        _trigger "swiping" if _isSwipe(event)
         if fingers == 2
           _captureRotation()
           _capturePinch()
@@ -92,6 +90,7 @@ do ($$ = Quo) ->
       move_horizontal = Math.abs(FIRST_TOUCH[0].x - CURRENT_TOUCH[0].x) > 30
       move_vertical = Math.abs(FIRST_TOUCH[0].y - CURRENT_TOUCH[0].y) > 30
       it_is = GESTURE.el and (move_horizontal or move_vertical)
+      GESTURE.prevSwipe = it_is
     it_is
 
   _onTouchEnd = (event) ->
