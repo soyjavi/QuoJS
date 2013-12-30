@@ -19,7 +19,7 @@
             background-color: rgba(0,0,0,0.25);
             width: 100%;
             height: 16.1%;
-            margin-bottom: 1%;
+            margin-bottom: .5%;
             text-align: center;
             font-size: 2rem;
             line-height: 2rem
@@ -39,10 +39,6 @@
         <article class="pinch">pinch</article>
         <article class="drag">drag</article>
     </section>
-
-    <!--
-    <script src="quo.2.js"></script>
-    -->
 
     <script src="../components/quojs/quo.js"></script>
     <script src="../components/quojs/quo.ajax.js"></script>
@@ -65,23 +61,30 @@
         };
 
         testEvent($$("article.basic"), EVENTS.BASIC);
-        testEvent($$("article.tap"), EVENTS.TAP);
-        testEvent($$("article.swipe"), EVENTS.SWIPE);
-        testEvent($$("article.rotate"), EVENTS.ROTATE);
-        testEvent($$("article.pinch"), EVENTS.PINCH);
-        testEvent($$("article.drag"), EVENTS.DRAG);
+        testEvent($$("article.tap"), EVENTS.TAP, true);
+        testEvent($$("article.swipe"), EVENTS.SWIPE, true);
+        testEvent($$("article.rotate"), EVENTS.ROTATE, true);
+        testEvent($$("article.pinch"), EVENTS.PINCH, true);
+        testEvent($$("article.drag"), EVENTS.DRAG, true);
 
-        function testEvent(el, collection) {
+        function testEvent(el, collection, delegate) {
             for (_i = 0, _len = collection.length; _i < _len; _i++) {
                 onEvent(el, collection[_i]);
+                if (delegate) delegateEvent(el, collection[_i]);
             }
         };
 
         function onEvent(el, event_name) {
             el.on(event_name, function(event) {
-                console.log("on >", event_name);
+                console.log("on      :", event_name);
             });
         };
+
+        function delegateEvent(el, event_name) {
+            el[event_name](function(event) {
+                console.info("delegate:", event_name);
+            });
+        }
     </script>
 </body>
 </html>
