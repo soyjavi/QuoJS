@@ -204,5 +204,5 @@ do ($$ = Quo) ->
 
   _hold = ->
     if GESTURE.last and (Date.now() - GESTURE.last >= HOLD_DELAY)
-      if not _isSwipe then _trigger "hold"
+      if not _isSwipe() then _trigger "hold"
       GESTURE.taps = 0
