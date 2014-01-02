@@ -20,6 +20,16 @@ Quo = do ->
   ID_SELECTOR       = /^#[\w\d-]+$/
   TAG_SELECTOR      = /^[\w-]+$/
 
+  TABLE = document.createElement('table')
+  TABLE_ROW = document.createElement('tr')
+  HTML_CONTAINERS =
+    "tr"    : document.createElement("tbody")
+    "tbody" : TABLE
+    "thead" : TABLE
+    "tfoot" : TABLE
+    "td"    : TABLE_ROW
+    "th"    : TABLE_ROW
+    "*"     : document.createElement("div")
 
   ###
   Basic Instance of QuoJS
@@ -93,6 +103,17 @@ Quo = do ->
         values.push value if value?
     _flatten values
 
+  $$.mix = ->
+    child = {}
+    arg = 0
+    len = arguments.length
+
+    while arg < len
+      argument = arguments[arg]
+      for prop of argument
+        child[prop] = argument[prop] if _isOwnProperty(argument, prop) and argument[prop] isnt `undefined`
+      arg++
+    child
 
   # ---------------------------------------------------------------------------
   # Private Methods
@@ -111,7 +132,7 @@ Quo = do ->
       domain = _compact selector
 
     else if type is "string" and IS_HTML_FRAGMENT.test(selector)
-      domain = $$.fragment(selector.trim(), RegExp.$1)
+      domain = _fragment(selector.trim(), RegExp.$1)
       selector = null
 
     else if type is "string"
@@ -129,12 +150,21 @@ Quo = do ->
 
     domain
 
+  _fragment = (markup, tag = "*") ->
+    tag = "*" unless tag of HTML_CONTAINERS
+    container = HTML_CONTAINERS[tag]
+    container.innerHTML = "" + markup
+    $$.each Array::slice.call(container.childNodes), ->
+      container.removeChild @
+
   _compact = (items) ->
     items.filter (item) -> item if item?
 
   _flatten = (array) ->
     if array.length > 0 then EMPTY_ARRAY.concat.apply(EMPTY_ARRAY, array) else array
 
+  _isOwnProperty = (object, property) ->
+    OBJECT_PROTOTYPE.hasOwnProperty.call object, property
 
   # ---------------------------------------------------------------------------
   # Exports
@@ -143,6 +173,7 @@ Quo = do ->
 
   $$.fn.each = (callback) ->
     @forEach (element, index) -> callback.call element, index, element
+    @
 
   $$.fn.filter = (selector) ->
     $$ EMPTY_ARRAY.filter.call(@, (el) ->
@@ -155,4 +186,3 @@ Quo = do ->
   $$
 
 @Quo = @$$ = Quo
-
