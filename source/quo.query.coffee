@@ -44,6 +44,20 @@ do ($$ = Quo) ->
     elements = @map -> Array::slice.call @children
     _filtered elements, selector
 
+
+  ###
+  Get the siblings of each element in the current instance
+  @method siblings
+  @param  {string} A string containing a selector expression to match elements against.
+  ###
+  $$.fn.siblings = (selector) ->
+    elements = @map((index, element) ->
+      Array::slice.call(element.parentNode.children).filter (child) ->
+        child isnt element
+    )
+    _filtered elements, selector
+
+
   ###
   Retrieve the DOM elements matched by the QuoJS object.
   @method get
