@@ -174,8 +174,8 @@ do ($$ = Quo) ->
     element._id or (element._id = ELEMENT_ID++)
 
   _environmentEvent = (event) ->
-    environment_event = if $$.isMobile() then event else EVENTS_DESKTOP[event]
-    (environment_event) or event
+    environment_event = if $$.isMobile?() then event else EVENTS_DESKTOP[event]
+    environment_event or event
 
   _createProxyCallback = (delegate, callback, element) ->
     callback = delegate or callback
