@@ -44,11 +44,11 @@ do ($$ = Quo) ->
     settings = $$.mix($$.ajaxSettings, options)
 
     if settings.type is DEFAULT.TYPE
-      settings.url += $$.serializeParameters(settings.data, "?")
+      settings.url += $$.serialize(settings.data, "?")
     else
-      settings.data = $$.serializeParameters(settings.data)
+      settings.data = $$.serialize(settings.data)
 
-    return $$.jsonp(settings) if _isJsonP(settings.url)
+    return _jsonp(settings) if _isJsonP(settings.url)
 
     xhr = settings.xhr()
     xhr.onreadystatechange = ->
@@ -67,9 +67,7 @@ do ($$ = Quo) ->
     catch error
       xhr = error
       _xhrError "Resource not found", xhr, settings
-
-    (if (settings.async) then xhr else _parseResponse(xhr, settings))
-
+    xhr
 
 
   ###
@@ -168,7 +166,7 @@ do ($$ = Quo) ->
         $$(script).remove()
         delete window[callbackName]
 
-        _xhrSuccess response, xhr, settings
+        _xhrSuccess response, settings
 
       script.src = settings.url.replace(RegExp("=\\?"), "=" + callbackName)
       $$("head").append script
@@ -182,14 +180,14 @@ do ($$ = Quo) ->
   _xhrStatus = (xhr, settings) ->
     if (xhr.status >= 200 and xhr.status < 300) or xhr.status is 0
       if settings.async
-        _xhrSuccess _parseResponse(xhr, settings), xhr, settings
+        _xhrSuccess xhr, settings
         return
     else
       _xhrError "QuoJS.ajax: Unsuccesful request", xhr, settings
       return
 
-  _xhrSuccess = (response, xhr, settings) ->
-    settings.success.call settings.context, response, xhr
+  _xhrSuccess = (xhr, settings) ->
+    settings.success.call settings.context, xhr
     return
 
   _xhrError = (type, xhr, settings) ->
@@ -211,24 +209,12 @@ do ($$ = Quo) ->
 
   _xhrForm = (method, url, data, success, dataType) ->
     $$.ajax
-      type: method
-      url: url
-      data: data
-      success: success
-      dataType: dataType
-      contentType: "application/x-www-form-urlencoded"
-
-  _parseResponse = (xhr, settings) ->
-    response = xhr.responseText
-    if response
-      if settings.dataType is DEFAULT.MIME
-          try
-            response = JSON.parse(response)
-          catch error
-            response = error
-            _xhrError "QuoJS.ajax: Parse Error", xhr, settings
-      else response = xhr.responseXML    if settings.dataType is "xml"
-    response
+      type        : method
+      url         : url
+      data        : data
+      success     : success
+      dataType    : dataType
+      contentType : "application/x-www-form-urlencoded"
 
   _isJsonP = (url) ->
     RegExp("=\\?").test url
