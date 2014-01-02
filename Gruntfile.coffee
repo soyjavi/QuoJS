@@ -42,7 +42,7 @@ module.exports = (grunt) ->
       spec        : files: '<%= meta.build %>/<%= meta.file %>.spec.js'       : '<%=meta.build%>/<%=meta.file%>.spec.coffee'
 
     uglify:
-      options: mangle: false, banner: "<%= meta.banner %>", report: "gzip"
+      options: mangle: true, banner: "<%= meta.banner %>", report: "gzip"
       core        : files: '<%= meta.bower %>/<%= meta.file %>.js'            : '<%= meta.build %>/<%= meta.file %>.js'
       ajax        : files: '<%= meta.bower %>/<%= meta.file %>.ajax.js'       : '<%= meta.build %>/<%= meta.file %>.ajax.js'
       css         : files: '<%= meta.bower %>/<%= meta.file %>.css.js'        : '<%= meta.build %>/<%= meta.file %>.css.js'
