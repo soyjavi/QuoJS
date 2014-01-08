@@ -8,7 +8,7 @@ Quo Basic Gestures: tap, hold, singleTap, doubleTap
 
 Quo.gesture.add
   name    : "basic"
-  events  : ["tap", "hold", "singleTap", "doubleTap"]
+  events  : "tap,hold,singleTap,doubleTap,touch".split(",")
   handler : do (gm = Quo.gesture) ->
 
     ALLOWED_MOVE_PIXELS = 15
@@ -40,6 +40,7 @@ Quo.gesture.add
           do cancel
 
     end = (target, data) ->
+      gm.trigger(target, "touch", data[0])
       return unless _start
       clearTimeout _hold_timeout
       now = new Date()

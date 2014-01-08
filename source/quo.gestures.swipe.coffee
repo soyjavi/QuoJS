@@ -1,6 +1,6 @@
 ###
-Quo Swipe Gestures: swipe, swiping, swipeLeft, swipeRight, swipeUp, swipeDown,
-swipingHorizontal, swipingVertical
+Quo Swipe Gestures: swipe, swiping, swipeLeft, swipeRight, swipeUp, swipeDown
+New gestures added: swipingHorizontal, swipingVertical
 
 @author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
 ###
@@ -9,7 +9,7 @@ swipingHorizontal, swipingVertical
 
 Quo.gesture.add
   name    : "swipe"
-  events  : ["swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown", "swipingHorizontal", "swipingVertical"]
+  events  : "swipe,swiping,swipeLeft,swipeRight,swipeUp,swipeDown,swipingHorizontal,swipingVertical".split(",")
   handler : do (gm = Quo.gesture) ->
 
     TRIGGER_PIXELS  = 20

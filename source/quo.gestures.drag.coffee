@@ -8,7 +8,7 @@ Quo Drag Gestures: drag, dragging
 
 Quo.gesture.add
   name    : "drag"
-  events  : ["drag", "dragging"]
+  events  : "drag,dragging".split(",")
   handler : do (gm = Quo.gesture) ->
 
     MIN_PX = 20

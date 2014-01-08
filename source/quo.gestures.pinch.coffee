@@ -8,7 +8,7 @@ Quo Pinch Gestures: pinch, pinching, pinchIn, pinchOut
 
 Quo.gesture.add
   name    : "pinch"
-  events  : ["pinch", "pinching", "pinchIn", "pinchOut"]
+  events  : "pinch,pinching,pinchIn,pinchOut".split(",")
   handler : do (gm = Quo.gesture) ->
 
     TRIGGER_PIXELS = 20

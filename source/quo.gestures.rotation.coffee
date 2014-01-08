@@ -8,7 +8,7 @@ Quo Rotation Gestures: rotate, rotating, rotateLeft, rotateRight
 
 Quo.gesture.add
   name    : "rotation"
-  events  : ["rotate", "rotating", "rotateLeft", "rotateRight"]
+  events  : "rotate,rotating,rotateLeft,rotateRight".split(",")
   handler : do (gm = Quo.gesture) ->
 
     TRIGGER_ANGLE             = 5

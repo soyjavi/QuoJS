@@ -10,7 +10,7 @@ Quo Gestures manager
 "use strict"
 
 
-Quo.gesture = do ($$ = Quo) ->
+Quo.gesture = $$.gesture = do ($$ = Quo) ->
 
   STARTED         = false
   HANDLERS        = {}
@@ -56,9 +56,8 @@ Quo.gesture = do ($$ = Quo) ->
     _handle "cancel"
 
   _addDelegations = (events) ->
-    events.forEach (event) ->
-      $$.fn[event] = (callback) ->
-        event_name = if event is "touch" then "touchend" else event
+    events.forEach (event_name) ->
+      $$.fn[event_name] = (callback) ->
         $$(document.body).delegate @selector, event_name, callback
 
   _handle = (eventName, target, data) ->
