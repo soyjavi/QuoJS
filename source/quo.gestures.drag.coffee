@@ -6,10 +6,10 @@ Quo Drag Gestures: drag, dragging
 "use strict"
 
 
-Quo.gesture.add
+Quo.Gestures.add
   name    : "drag"
   events  : "drag,dragging".split(",")
-  handler : do (gm = Quo.gesture) ->
+  handler : do (gm = Quo.Gestures) ->
 
     MIN_PX = 20
 

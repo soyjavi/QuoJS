@@ -10,7 +10,7 @@ Quo Gestures manager
 "use strict"
 
 
-Quo.gesture = $$.gesture = do ($$ = Quo) ->
+Quo.Gestures = do ($$ = Quo) ->
 
   STARTED         = false
   HANDLERS        = {}

@@ -7,10 +7,10 @@ New gestures added: swipingHorizontal, swipingVertical
 "use strict"
 
 
-Quo.gesture.add
+Quo.Gestures.add
   name    : "swipe"
   events  : "swipe,swiping,swipeLeft,swipeRight,swipeUp,swipeDown,swipingHorizontal,swipingVertical".split(",")
-  handler : do (gm = Quo.gesture) ->
+  handler : do (gm = Quo.Gestures) ->
 
     TRIGGER_PIXELS  = 20
 

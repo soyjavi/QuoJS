@@ -6,10 +6,10 @@ Quo Rotation Gestures: rotate, rotating, rotateLeft, rotateRight
 "use strict"
 
 
-Quo.gesture.add
+Quo.Gestures.add
   name    : "rotation"
   events  : "rotate,rotating,rotateLeft,rotateRight".split(",")
-  handler : do (gm = Quo.gesture) ->
+  handler : do (gm = Quo.Gestures) ->
 
     TRIGGER_ANGLE             = 5
     IMPOSIBLE_ROTATION_FACTOR = 20

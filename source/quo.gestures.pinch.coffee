@@ -6,10 +6,10 @@ Quo Pinch Gestures: pinch, pinching, pinchIn, pinchOut
 "use strict"
 
 
-Quo.gesture.add
+Quo.Gestures.add
   name    : "pinch"
   events  : "pinch,pinching,pinchIn,pinchOut".split(",")
-  handler : do (gm = Quo.gesture) ->
+  handler : do (gm = Quo.Gestures) ->
 
     TRIGGER_PIXELS = 20
 

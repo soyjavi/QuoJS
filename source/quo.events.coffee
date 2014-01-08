@@ -116,8 +116,6 @@ do ($$ = Quo) ->
   @method trigger
   ###
   $$.fn.trigger = (event, touch, originalEvent) ->
-    # console.log "touch EV", touch
-    # console.log "EV::", event
     event = _event(event, touch) if $$.toType(event) is "string"
     event.originalEvent = originalEvent if originalEvent?
     @each -> @dispatchEvent event

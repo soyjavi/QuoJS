@@ -6,10 +6,10 @@ Quo Basic Gestures: tap, hold, singleTap, doubleTap
 "use strict"
 
 
-Quo.gesture.add
+Quo.Gestures.add
   name    : "basic"
   events  : "tap,hold,singleTap,doubleTap,touch".split(",")
-  handler : do (gm = Quo.gesture) ->
+  handler : do (gm = Quo.Gestures) ->
 
     ALLOWED_MOVE_PIXELS = 15
     TAP                 = 250
