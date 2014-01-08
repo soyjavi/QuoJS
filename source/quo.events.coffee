@@ -8,6 +8,7 @@ Basic Quo Module
 ###
 "use strict"
 
+
 do ($$ = Quo) ->
 
   ELEMENT_ID = 1
@@ -115,6 +116,8 @@ do ($$ = Quo) ->
   @method trigger
   ###
   $$.fn.trigger = (event, touch, originalEvent) ->
+    # console.log "touch EV", touch
+    # console.log "EV::", event
     event = _event(event, touch) if $$.toType(event) is "string"
     event.originalEvent = originalEvent if originalEvent?
     @each -> @dispatchEvent event
@@ -143,8 +146,8 @@ do ($$ = Quo) ->
   _event = (type, touch) ->
     event = document.createEvent("Events")
     event.initEvent type, true, true, null, null, null, null, null, null, null, null, null, null, null, null
-    if touch
-      event[property] = touch[property] for property of touch
+    if touch then event.quoData = touch
+    # event[property] = touch[property] for property of touch
     event
 
   _subscribe = (element, event, callback, selector, delegate_callback) ->

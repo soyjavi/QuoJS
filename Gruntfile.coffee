@@ -19,7 +19,7 @@ module.exports = (grunt) ->
       element     : 'source/quo.element.coffee'
       environment : 'source/quo.environment.coffee'
       events      : 'source/quo.events.coffee'
-      gestures    : 'source/quo.gestures.coffee'
+      gestures    : ['source/quo.gestures.coffee', 'source/quo.gestures.*.coffee']
       output      : 'source/quo.output.coffee'
       query       : 'source/quo.query.coffee'
       quojs       : 'source/*.coffee'

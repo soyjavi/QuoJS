@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>QuoJS 3.0.0</title>
     <style>
         body {
@@ -11,6 +12,7 @@
         section {
             display: block;
             position: absolute;
+            margin-top: 100px;
             width: 100%;
             height: 100%;
         }
@@ -18,26 +20,36 @@
             display: block;
             background-color: rgba(0,0,0,0.25);
             width: 100%;
-            height: 16.1%;
+            height: 45%;
             margin-bottom: .5%;
             text-align: center;
-            font-size: 2rem;
-            line-height: 2rem
+            font-size: 0.7rem;
         }
+        div.logger {
+            position: fixed;
+            background-color: rgba(0,0,255,0.1);
+            top: 0;
+            font-size: 0.5em;
+            width: 100%;
+            height: 100px;
+        }
+        /*
         article:hover, article:active {
             background-color: rgba(0,0,0,0.5);
             color: white;
-        }
+        }*/
     </style>
 </head>
 <body>
+    <div class="logger"></div>
     <section>
-        <article class="basic">basic</article>
-        <article class="tap">tap</article>
-        <article class="swipe">swipe</article>
-        <article class="rotate">rotate</article>
-        <article class="pinch">pinch</article>
-        <article class="drag">drag</article>
+
+        <article class="basic"><h1>basic</h1></article>
+        <article class="tap"><h1>tap</h1></article>
+        <article class="swipe"><h1>swipe</h1></article>
+        <article class="rotate"><h1>rotate</h1></article>
+        <article class="pinch"><h1>pinch</h1></article>
+        <article class="drag"><h1>drag</h1></article>
     </section>
 
     <script src="../components/quojs/quo.js"></script>
@@ -51,38 +63,52 @@
     <script src="../components/quojs/quo.gestures.js"></script>
 
     <script>
+
+        window.log = function(t) {
+            $$(".logger").append($$("<span>" + t + "; </span>"));
+        }
+
         var EVENTS = {
             BASIC   : ["touchstart", "touchmove", "touchend", "touch", "orientationchange"],
-            TAP     : ["touch", "tap", "singleTap", "doubleTap", "hold"],
+            // TAP     : ["touch", "tap", "singleTap", "doubleTap", "hold"],
+            TAP     : ["tap", "singleTap", "doubleTap", "hold"],
             SWIPE   : ["swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown"],
             ROTATE  : ["rotate", "rotating", "rotateLeft", "rotateRight"],
             PINCH   : ["pinch", "pinching", "pinchIn", "pinchOut"],
-            DRAG    : ["drag", "dragLeft", "dragRight", "dragUp", "dragDown"]
+            DRAG    : ["dragging", "drag"]
         };
 
         testEvent($$("article.basic"), EVENTS.BASIC);
         testEvent($$("article.tap"), EVENTS.TAP, true);
-        testEvent($$("article.swipe"), EVENTS.SWIPE, true);
-        testEvent($$("article.rotate"), EVENTS.ROTATE, true);
-        testEvent($$("article.pinch"), EVENTS.PINCH, true);
-        testEvent($$("article.drag"), EVENTS.DRAG, true);
+        testEvent($$("article.swipe"), EVENTS.SWIPE, true, true);
+        testEvent($$("article.rotate"), EVENTS.ROTATE, true, true);
+        testEvent($$("article.pinch"), EVENTS.PINCH, true, true);
+        testEvent($$("article.drag"), EVENTS.DRAG, true, true);
 
-        function testEvent(el, collection, delegate) {
-            for (_i = 0, _len = collection.length; _i < _len; _i++) {
-                onEvent(el, collection[_i]);
+        function testEvent(el, collection, delegate, preventDefault) {
+            for (var _i = 0, _len = collection.length; _i < _len; _i++) {
+                onEvent(el, collection[_i], preventDefault);
                 if (delegate) delegateEvent(el, collection[_i]);
             }
         };
 
-        function onEvent(el, event_name) {
+        function onEvent(el, event_name, preventDefault) {
             el.on(event_name, function(event) {
-                console.log("on      :", event_name);
+                label = event.type
+                if (label === "swiping") label = event.quoData.delta.x + "-" + event.quoData.delta.y;
+                if (label === "pinching") label = parseInt(event.quoData.delta);
+                if (label === "rotating") label = parseInt(event.quoData.delta) + "º";
+                if (label === "dragging") label = "[" + parseInt(event.quoData.delta.x) + "," + parseInt(event.quoData.delta.y) + "]";
+                el.append($$("<span>" + label + "; </span>"));
+                if(preventDefault === true) {
+                    event.originalEvent.preventDefault();
+                }
             });
         };
 
         function delegateEvent(el, event_name) {
             el[event_name](function(event) {
-                console.info("delegate:", event_name);
+                console.info("delegate :", event_name, event.quoData);
             });
         }
     </script>
