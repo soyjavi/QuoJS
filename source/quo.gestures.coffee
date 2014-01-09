@@ -59,6 +59,7 @@ Quo.Gestures = do ($$ = Quo) ->
     events.forEach (event_name) ->
       $$.fn[event_name] = (callback) ->
         $$(document.body).delegate @selector, event_name, callback
+    @
 
   _handle = (eventName, target, data) ->
     for name, handler of HANDLERS when handler[eventName]
