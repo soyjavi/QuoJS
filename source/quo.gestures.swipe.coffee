@@ -2,6 +2,9 @@
 Quo Swipe Gestures: swipe, swiping, swipeLeft, swipeRight, swipeUp, swipeDown
 New gestures added: swipingHorizontal, swipingVertical
 
+@namespace Quo.Gestures
+@class Swipe
+
 @author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
 ###
 "use strict"
@@ -9,15 +12,16 @@ New gestures added: swipingHorizontal, swipingVertical
 
 Quo.Gestures.add
   name    : "swipe"
-  events  : "swipe,swiping,swipeLeft,swipeRight,swipeUp,swipeDown,swipingHorizontal,swipingVertical".split(",")
-  handler : do (gm = Quo.Gestures) ->
+  events  : ["swipe",
+             "swipeLeft", "swipeRight", "swipeUp", "swipeDown",
+             "swiping", "swipingHorizontal", "swipingVertical"]
 
-    TRIGGER_PIXELS  = 20
-
-    _target         = null
-    _start          = null
-    _start_axis     = null
-    _last           = null
+  handler : do (base = Quo.Gestures) ->
+    GAP = 20
+    _target = null
+    _start = null
+    _start_axis = null
+    _last = null
 
     start = (target, data) ->
       if data.length is 1
@@ -38,21 +42,21 @@ Quo.Gestures.add
         _check(false)
         _last = null
 
-    _check = (is_moving, first_move = false) ->
-      if is_moving
+    _check = (moving, first_move = false) ->
+      if moving
         if first_move then _start_axis = _getInitialAxis(_last.delta.x, _last.delta.y)
         if _start_axis isnt null
-          gm.trigger(_target, "swiping#{_start_axis}", _last)
-        gm.trigger(_target, "swiping", _last)
+          base.trigger(_target, "swiping#{_start_axis}", _last)
+        base.trigger(_target, "swiping", _last)
       else
         directions = []
-        if Math.abs(_last.delta.y) > TRIGGER_PIXELS
+        if Math.abs(_last.delta.y) > GAP
           directions.push(if _last.delta.y < 0 then "Up" else "Down")
-        if Math.abs(_last.delta.x) > TRIGGER_PIXELS
+        if Math.abs(_last.delta.x) > GAP
           directions.push(if _last.delta.x < 0 then "Left" else "Right")
         if directions.length
-          gm.trigger(_target, "swipe", _last)
-          gm.trigger(_target, "swipe#{direction}", _last) for direction in directions
+          base.trigger(_target, "swipe", _last)
+          base.trigger(_target, "swipe#{direction}", _last) for direction in directions
 
     _getInitialAxis = (x, y) ->
       axis = null
@@ -63,4 +67,3 @@ Quo.Gestures.add
     start: start
     move: move
     end: end
-

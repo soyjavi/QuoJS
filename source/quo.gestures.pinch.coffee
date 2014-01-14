@@ -1,6 +1,9 @@
 ###
 Quo Pinch Gestures: pinch, pinching, pinchIn, pinchOut
 
+@namespace Quo.Gestures
+@class Pinch
+
 @author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
 ###
 "use strict"
@@ -8,11 +11,10 @@ Quo Pinch Gestures: pinch, pinching, pinchIn, pinchOut
 
 Quo.Gestures.add
   name    : "pinch"
-  events  : "pinch,pinching,pinchIn,pinchOut".split(",")
-  handler : do (gm = Quo.Gestures) ->
+  events  : ["pinch", "pinching", "pinchIn", "pinchOut"]
 
-    TRIGGER_PIXELS = 20
-
+  handler : do (base = Quo.Gestures) ->
+    GAP = 20
     _target = null
     _start = null
     _last = null
@@ -37,13 +39,12 @@ Quo.Gestures.add
     _distance = (A, B) ->
       Math.sqrt((B.x-A.x)*(B.x-A.x)+(B.y-A.y)*(B.y-A.y))
 
-    _check = (is_moving) ->
-      if is_moving then gm.trigger(_target, "pinching", _last)
-      else if Math.abs(_last.delta) > TRIGGER_PIXELS
-        gm.trigger _target, "pinch", _last
+    _check = (moving) ->
+      if moving then base.trigger(_target, "pinching", _last)
+      else if Math.abs(_last.delta) > GAP
+        base.trigger _target, "pinch", _last
         ev = if _last.delta > 0 then "pinchOut" else "pinchIn"
-        gm.trigger _target, ev, _last
-
+        base.trigger _target, ev, _last
 
     start: start
     move: move

@@ -1,6 +1,9 @@
 ###
 Quo Rotation Gestures: rotate, rotating, rotateLeft, rotateRight
 
+@namespace Quo.Gestures
+@class Rotation
+
 @author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
 ###
 "use strict"
@@ -8,16 +11,16 @@ Quo Rotation Gestures: rotate, rotating, rotateLeft, rotateRight
 
 Quo.Gestures.add
   name    : "rotation"
-  events  : "rotate,rotating,rotateLeft,rotateRight".split(",")
-  handler : do (gm = Quo.Gestures) ->
+  events  : ["rotate", "rotating", "rotateLeft", "rotateRight"]
 
-    TRIGGER_ANGLE             = 5
-    IMPOSIBLE_ROTATION_FACTOR = 20
+  handler : do (base = Quo.Gestures) ->
+    GAP = 5
+    ROTATION_LIMIT = 20
 
-    _target         = null
-    _num_rotations  = 0
-    _start          = null
-    _last           = null
+    _target = null
+    _num_rotations = 0
+    _start = null
+    _last = null
 
     start = (target, data) ->
       if data.length is 2
@@ -28,7 +31,7 @@ Quo.Gestures.add
     move = (target, data) ->
       if _start and data.length is 2
         delta = _rotation(data[0], data[1]) - _start
-        if _last and Math.abs(_last.delta - delta) > IMPOSIBLE_ROTATION_FACTOR
+        if _last and Math.abs(_last.delta - delta) > ROTATION_LIMIT
           delta += (360 * _sign(_last.delta))
         if Math.abs(delta) > 360
           _num_rotations++
@@ -51,12 +54,12 @@ Quo.Gestures.add
       theta = Math.atan2(A.y-B.y, A.x-B.x)
       (if theta < 0 then theta + 2 * Math.PI else theta) * 180 / Math.PI
 
-    _check = (is_moving) ->
-      if is_moving then gm.trigger _target, "rotating", _last
-      else if Math.abs(_last.delta) > TRIGGER_ANGLE
-        gm.trigger _target, "rotate", _last
+    _check = (moving) ->
+      if moving then base.trigger _target, "rotating", _last
+      else if Math.abs(_last.delta) > GAP
+        base.trigger _target, "rotate", _last
         ev = if _last.delta > 0 then "rotateRight" else "rotateLeft"
-        gm.trigger _target, ev, _last
+        base.trigger _target, ev, _last
 
     start: start
     move: move

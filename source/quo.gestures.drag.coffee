@@ -1,6 +1,9 @@
 ###
 Quo Drag Gestures: drag, dragging
 
+@namespace Quo.Gestures
+@class Drag
+
 @author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
 ###
 "use strict"
@@ -8,15 +11,14 @@ Quo Drag Gestures: drag, dragging
 
 Quo.Gestures.add
   name    : "drag"
-  events  : "drag,dragging".split(",")
-  handler : do (gm = Quo.Gestures) ->
+  events  : ["drag" ,"dragging"]
 
-    MIN_PX = 20
-
-    _target       = null
-    _num_fingers  = null
-    _start        = null
-    _last         = null
+  handler : do (base = Quo.Gestures) ->
+    GAP = 20
+    _target = null
+    _num_fingers = null
+    _start = null
+    _last = null
 
     start = (target, data) ->
       if data.length >= 2
@@ -49,11 +51,10 @@ Quo.Gestures.add
         y += parseInt(touch.y)
       return x: (x / touches.length), y: (y / touches.length)
 
-    _check = (is_moving) ->
-      if is_moving then gm.trigger _target, "dragging", _last
-      else if Math.abs(_last.delta.x) > MIN_PX or Math.abs(_last.delta.y) > MIN_PX
-          gm.trigger _target, "drag", _last
-
+    _check = (moving) ->
+      if moving then base.trigger _target, "dragging", _last
+      else if Math.abs(_last.delta.x) > GAP or Math.abs(_last.delta.y) > GAP
+          base.trigger _target, "drag", _last
 
     start: start
     move: move
