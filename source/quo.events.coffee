@@ -73,7 +73,7 @@ do ($$ = Quo) ->
   @param  {function} A function to execute when the event is triggered
   ###
   $$.fn.bind = (event, callback) ->
-    @each -> _subscribe @, event, callback
+    @forEach (element) -> _subscribe element, event, callback
 
 
   ###
