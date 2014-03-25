@@ -60,7 +60,7 @@ do ($$ = Quo) ->
   @param  {string} Name of data attribute
   ###
   $$.fn.val = (value) ->
-    if value
+    if value?
       @each -> @value = value.toString()
     else
       if @length > 0 then @[0].value else null
