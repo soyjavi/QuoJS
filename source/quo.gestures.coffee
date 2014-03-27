@@ -16,13 +16,6 @@ Quo.Gestures = do ($$ = Quo) ->
   _data           = null
   _originalEvent  = null
 
-  $$(document).ready ->
-    environment = $$ document.body
-    environment.bind "touchstart", _start
-    environment.bind "touchmove", _move
-    environment.bind "touchend", _end
-    environment.bind "touchcancel", _cancel
-
   add = (gesture) ->
     _handlers[gesture.name] = gesture.handler
     _addDelegations gesture.events
@@ -66,6 +59,13 @@ Quo.Gestures = do ($$ = Quo) ->
   _getFingersData = (event) ->
     touches = if $$.isMobile() then event.touches else [event]
     return ({x: t.pageX, y: t.pageY} for t in touches)
+
+  $$(document).ready ->
+    environment = $$ document.body
+    environment.bind "touchstart", _start
+    environment.bind "touchmove", _move
+    environment.bind "touchend", _end
+    environment.bind "touchcancel", _cancel
 
   add         : add
   trigger     : trigger
