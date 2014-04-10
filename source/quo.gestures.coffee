@@ -15,6 +15,7 @@ Quo.Gestures = do ($$ = Quo) ->
   _handlers       = {}
   _data           = null
   _originalEvent  = null
+  _disabled_tags  = ["input", "select", "textarea"]
 
   $$(document).ready ->
     environment = $$ document.body
@@ -32,6 +33,7 @@ Quo.Gestures = do ($$ = Quo) ->
 
   # Private methods
   _start = (ev) ->
+    return if ev.srcElement.tagName.toLowerCase() in _disabled_tags
     _started = true
     _originalEvent = ev or event
     _data = _getFingersData(ev)
