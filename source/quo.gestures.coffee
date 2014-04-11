@@ -15,7 +15,7 @@ Quo.Gestures = do ($$ = Quo) ->
   _handlers       = {}
   _data           = null
   _originalEvent  = null
-  _disabled_tags  = ["input", "select", "textarea"]
+  _disabled_tags  = ["input", "select", "textarea", "button"]
 
   $$(document).ready ->
     environment = $$ document.body
