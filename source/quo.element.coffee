@@ -81,6 +81,19 @@ do ($$ = Quo) ->
   $$.fn.hide = ->
     @style "display", "none"
 
+  ###
+  Trigger that event on an element
+  @method focus
+  ###
+  $$.fn.focus = ->
+    do @[0].focus
+
+  ###
+  Trigger that event on an element
+  @method blur
+  ###
+  $$.fn.blur = ->
+    do @[0].blur
 
   ###
   Get a offset of a given instance element
