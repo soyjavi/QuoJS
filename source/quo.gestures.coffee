@@ -4,7 +4,6 @@ Quo Gestures manager
 @namespace Quo
 @class Gestures
 
-@author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
 @author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
 ###
 "use strict"
@@ -13,7 +12,7 @@ Quo.Gestures = do ($$ = Quo) ->
 
   _started        = false
   _handlers       = {}
-  _data           = null
+  _fingers        = null
   _originalEvent  = null
   _disabled_tags  = ["input", "select", "textarea"]
 
@@ -36,19 +35,20 @@ Quo.Gestures = do ($$ = Quo) ->
     return ev.stopPropagation() if ev.srcElement.tagName.toLowerCase() in _disabled_tags
     _started = true
     _originalEvent = ev or event
-    _data = _getFingersData(ev)
-    _handle "start", ev.target, _data
+    _fingers = _getFingers(ev)
+    _handle "start", ev.target, _fingers
 
   _move = (ev) ->
     return unless _started
     _originalEvent = ev or event
-    _data = _getFingersData(ev)
-    _handle "move", ev.target, _data
+    _fingers = _getFingers(ev)
+    _originalEvent.preventDefault() if _fingers.length > 1
+    _handle "move", ev.target, _fingers
 
   _end = (ev) ->
     return unless _started
     _originalEvent = ev or event
-    _handle "end", ev.target, _data
+    _handle "end", ev.target, _fingers
     _started = false
 
   _cancel = (ev) ->
@@ -61,13 +61,12 @@ Quo.Gestures = do ($$ = Quo) ->
         $$(document.body).delegate @selector, event_name, callback
     @
 
-  _handle = (eventName, target, data) ->
-    for name, handler of _handlers when handler[eventName]
-      handler[eventName].call(handler, target, data)
+  _handle = (event, target, data) ->
+    for name, handler of _handlers when handler[event]
+      handler[event].call(handler, target, data)
 
-  _getFingersData = (event) ->
-    touches = if $$.isMobile() then event.touches else [event]
-    return ({x: t.pageX, y: t.pageY} for t in touches)
+  _getFingers = (event) ->
+    ({x: t.pageX, y: t.pageY} for t in event.touches or [event])
 
   add         : add
   trigger     : trigger

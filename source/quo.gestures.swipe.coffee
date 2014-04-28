@@ -5,7 +5,7 @@ New gestures added: swipingHorizontal, swipingVertical
 @namespace Quo.Gestures
 @class Swipe
 
-@author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
+@author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
 ###
 "use strict"
 
@@ -31,11 +31,13 @@ Quo.Gestures.add
 
     move = (target, data) ->
       if data.length is 1
+        console.log target
         delta = x: (data[0].x - _start.x), y: (data[0].y - _start.y)
         is_first = _last is null
         _last = x: data[0].x, y: data[0].y, delta: delta
         _check(true, is_first)
-      else _last = null
+      else
+        _last = null
 
     end = (target, data) ->
       if _last

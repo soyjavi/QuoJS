@@ -4,7 +4,7 @@ Quo Pinch Gestures: pinch, pinching, pinchIn, pinchOut
 @namespace Quo.Gestures
 @class Pinch
 
-@author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
+@author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
 ###
 "use strict"
 
@@ -40,7 +40,8 @@ Quo.Gestures.add
       Math.sqrt((B.x-A.x)*(B.x-A.x)+(B.y-A.y)*(B.y-A.y))
 
     _check = (moving) ->
-      if moving then base.trigger(_target, "pinching", _last)
+      if moving
+        base.trigger(_target, "pinching", _last)
       else if Math.abs(_last.delta) > GAP
         base.trigger _target, "pinch", _last
         ev = if _last.delta > 0 then "pinchOut" else "pinchIn"

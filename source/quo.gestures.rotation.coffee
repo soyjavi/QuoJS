@@ -4,7 +4,7 @@ Quo Rotation Gestures: rotate, rotating, rotateLeft, rotateRight
 @namespace Quo.Gestures
 @class Rotation
 
-@author Ignacio Olalde Ramos <ina@tapquo.com> || @piniphone
+@author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
 ###
 "use strict"
 
@@ -55,7 +55,8 @@ Quo.Gestures.add
       (if theta < 0 then theta + 2 * Math.PI else theta) * 180 / Math.PI
 
     _check = (moving) ->
-      if moving then base.trigger _target, "rotating", _last
+      if moving
+        base.trigger _target, "rotating", _last
       else if Math.abs(_last.delta) > GAP
         base.trigger _target, "rotate", _last
         ev = if _last.delta > 0 then "rotateRight" else "rotateLeft"
