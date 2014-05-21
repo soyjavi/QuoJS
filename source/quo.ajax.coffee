@@ -166,7 +166,7 @@ do ($$ = Quo) ->
         $$(script).remove()
         delete window[callbackName]
 
-        _xhrSuccess response, settings
+        _xhrSuccess response, xhr, settings
 
       script.src = settings.url.replace(RegExp("=\\?"), "=" + callbackName)
       $$("head").append script
@@ -180,14 +180,14 @@ do ($$ = Quo) ->
   _xhrStatus = (xhr, settings) ->
     if (xhr.status >= 200 and xhr.status < 300) or xhr.status is 0
       if settings.async
-        _xhrSuccess xhr, settings
+        _xhrSuccess _parseResponse(xhr, settings), xhr, settings
         return
     else
       _xhrError "QuoJS.ajax: Unsuccesful request", xhr, settings
       return
 
-  _xhrSuccess = (xhr, settings) ->
-    settings.success.call settings.context, xhr
+  _xhrSuccess = (response, xhr, settings) ->
+    settings.success.call settings.context, response, xhr
     return
 
   _xhrError = (type, xhr, settings) ->
@@ -218,3 +218,15 @@ do ($$ = Quo) ->
 
   _isJsonP = (url) ->
     RegExp("=\\?").test url
+
+  _parseResponse = (xhr, settings) ->
+    response = xhr
+    if xhr.responseText
+      if settings.dataType is DEFAULT.MIME
+        try
+          response = JSON.parse xhr.responseText
+        catch error
+          response = error
+          _xhrError "QuoJS.ajax: Parse Error", xhr, settings
+      response = xhr.responseXML if settings.dataType is "xml"
+    response
