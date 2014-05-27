@@ -17,7 +17,7 @@ Quo.Gestures.add
              "swiping", "swipingHorizontal", "swipingVertical"]
 
   handler : do (base = Quo.Gestures) ->
-    GAP = 20
+    GAP = (if window.devicePixelRatio >= 2 then 15 else 20)
     _target = null
     _start = null
     _start_axis = null
