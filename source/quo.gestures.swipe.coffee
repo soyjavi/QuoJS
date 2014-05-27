@@ -38,7 +38,7 @@ Quo.Gestures.add
       else
         _last = null
 
-    end = (target, data) ->
+    cancel = end = (target, data) ->
       if _last
         _check(false)
         _last = null
