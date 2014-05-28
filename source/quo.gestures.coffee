@@ -32,7 +32,7 @@ Quo.Gestures = do ($$ = Quo) ->
 
   # Private methods
   _start = (ev) ->
-    return ev.stopPropagation() if ev.srcElement.tagName.toLowerCase() in _disabled_tags
+    return ev.stopPropagation() if (ev.srcElement || ev.target).tagName.toLowerCase() in _disabled_tags
     _started = true
     _originalEvent = ev or event
     _fingers = _getFingers(ev)
