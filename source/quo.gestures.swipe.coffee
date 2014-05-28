@@ -18,10 +18,14 @@ Quo.Gestures.add
 
   handler : do (base = Quo.Gestures) ->
     GAP = (if window.devicePixelRatio >= 2 then 15 else 20)
+    VELOCITY_SMOOTHING = .5
     _target = null
     _start = null
     _start_axis = null
     _last = null
+    is_first = _last is null
+    _timeStamp = new Date().getTime()
+    dt = (if is_first then 1 else _timeStamp - _last.timeStamp)
 
     start = (target, data) ->
       if data.length is 1
@@ -31,9 +35,10 @@ Quo.Gestures.add
 
     move = (target, data) ->
       if data.length is 1
-        delta = x: (data[0].x - _start.x), y: (data[0].y - _start.y)
-        is_first = _last is null
-        _last = x: data[0].x, y: data[0].y, delta: delta
+        delta = x: (data[0].x - _start.x), y: (data[0].y - _start.y),
+          vx: (if is_first then (data[0].x - _start.x) / dt else _last.delta.vx * VELOCITY_SMOOTHING + ((data[0].x - _last.x) / dt) * (1 - VELOCITY_SMOOTHING)),
+          vy: (if is_first then (data[0].x - _start.y) / dt else _last.delta.vy * VELOCITY_SMOOTHING + ((data[0].y - _last.y) / dt) * (1 - VELOCITY_SMOOTHING))
+        _last = x: data[0].x, y: data[0].y, timeStamp: _timeStamp, delta: delta
         _check(true, is_first)
       else
         _last = null
