@@ -14,7 +14,7 @@ Quo.Gestures.add
   events  : ["pinch", "pinching", "pinchIn", "pinchOut"]
 
   handler : do (base = Quo.Gestures) ->
-    GAP = 20
+    GAP = (if window.devicePixelRatio >= 2 then 15 else 20)
     _target = null
     _start = null
     _last = null
@@ -30,7 +30,7 @@ Quo.Gestures.add
         _last = touches: data, delta: (distance - _start)
         _check(true)
 
-    end = (target, data) ->
+    cancel = end = (target, data) ->
       if _start and _last
         _check(false)
         _start = null
