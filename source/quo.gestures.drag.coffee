@@ -14,7 +14,7 @@ Quo.Gestures.add
   events  : ["drag" ,"dragging"]
 
   handler : do (base = Quo.Gestures) ->
-    GAP = 20
+    GAP = (if window.devicePixelRatio >= 2 then 15 else 20)
     _target = null
     _num_fingers = null
     _start = null
@@ -32,7 +32,7 @@ Quo.Gestures.add
         _last = touches: data, delta: delta
         _check(true)
 
-    end = (target, data) ->
+    cancel = end = (target, data) ->
       if _start and _last
         _check(false)
         _num_fingers = null
