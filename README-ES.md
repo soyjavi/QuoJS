@@ -18,7 +18,7 @@ QuoJS es opensource por lo que el código esta disponible para nos ayudes a mejo
 
 
 ### Licencia
-QuoJS utiliza una licencia GPLv3. Para mas información [LICENSE](https://github.com/soyjavi/QuoJS/blob/master/LICENSE.txt) for more information.
+QuoJS utiliza una licencia MIT. Para mas información [LICENSE](https://github.com/soyjavi/QuoJS/blob/master/LICENSE.txt) for more information.
 
 Eventos táctiles
 ------------
@@ -44,12 +44,12 @@ QuoJS da soporte para los siguientes eventos táctiles:
 * **Fingers**
 
 Así que es perfecto para utilizarlo en aplicaciones móviles.
-		
+
 Como utilizar Quo
 -----------------
 El namespace reservado para utilizar QuoJS es $$, así que si lo necesitas podrías instanciar otras librerías JavaScript como JQuery o Zepto que utilizan el symbolo $.
 
-``` 
+```
 // Encuentra todos los elementos <span> dentro de los elementos <p>
 $$('span', 'p');
 
@@ -65,7 +65,7 @@ $$('p > span').html('tapquo').style('color', 'blue');
 #### Métodos de Consulta
 QuoJS utiliza un motor de consultas para elementos del DOM muy similar al usado en otras librerías famosas de JavaScript. Muchos de los métodos que utilizas en JQuery tienen su versión en Quo:
 
-``` 
+```
 // Métodos compatibles con JQuery
 .get(index)
 .find('selector')
@@ -80,7 +80,7 @@ QuoJS utiliza un motor de consultas para elementos del DOM muy similar al usado 
 #### Métodos para los elementos
 QuoJS también dispone una versión de los métodos para manejar a los elementos del DOM mas utilizados:
 
-``` 
+```
 // Get/Set de los atributos de un elemento
 .attr('attribute')
 .attr('attribute', 'value')
@@ -116,7 +116,7 @@ Con QuoJS puedes manejar facilmente los estilso CSS de cualquier elemento de DOM
 // Set de un estilo con los prefijos de los vendor mas comunes
 .vendor('transform', 'translate3d(50%, 0, 0)');
 ```
-``` 
+```
 $$('article').style('height', '128px');
 $$('article input').addClass('hide');
 
@@ -128,7 +128,7 @@ if (houses.hasClass('ghost')) {
 #### Métodos para manipular el DOM
 Los siguientes métodos te permitiran insertar o actualizar el contenido de un elemento.
 
-``` 
+```
 // Obten el .innerHTML del primer elemento
 .html()
 // Set de los contenidos de un elemento
@@ -137,7 +137,7 @@ Los siguientes métodos te permitiran insertar o actualizar el contenido de un e
 .text()
 // Set del contenido text de los elementos
 .text('new text')
-// Añade HTML o un elemento del DOM 
+// Añade HTML o un elemento del DOM
 .append(), prepend()
 // Remplazar un elemento con otro
 .replaceWith()
@@ -146,12 +146,12 @@ Los siguientes métodos te permitiran insertar o actualizar el contenido de un e
 ```
 ```
 $$('article').html('tapquo');
-var content = $$('article').html(); //content is 'tapquo' 
+var content = $$('article').html(); //content is 'tapquo'
 ```
 #### Gestor de eventos
 Todo proyecto frontend necesita un gestor de eventos que sea eficiente, con Quo puedes crear tus propios eventos a la vez que suscribirte a los ya existentes.
 
-``` 
+```
 // Añade un event listener a los elementos
 .on(type, [selector,] function);
 // Elimina un  event listener a los elementos
@@ -174,7 +174,7 @@ $$.ready(function() {
 #### Eventos táctiles
 Dispones de los eventos táctiles mas utilizados para ayudarte a proporcionar mayor usabilidad a tu aplicación
 
-``` 
+```
 //Evento Tap
 .tap(function);
 //Evento Tap prolongado (650 milisegundos)
@@ -188,7 +188,7 @@ Dispones de los eventos táctiles mas utilizados para ayudarte a proporcionar ma
 Not only have the basic swipe, you have more control over this gesture as used in the common native Apps.
 Además del swipe básico, dispone de mas control añadido a este gesto como en las Apps nativas mas comunes.
 
-``` 
+```
 .swipe(function);
 //Detectar si se está efectuando un swipe
 .swiping(function);
@@ -207,7 +207,7 @@ Como en el caso del Swipe, QuoJS implementa variaciones sobre este gesto.
 .pinching(function);
 //Pinch zoom
 .pinchIn(function);
-.pinchOut(function); 
+.pinchOut(function);
 ```
 #### Métodos para Rotación
 De la misma manera que en los casos anteriores QuoJS dispone de los gestos de rotación mas habitualuas y algunas variantes.
@@ -218,7 +218,7 @@ De la misma manera que en los casos anteriores QuoJS dispone de los gestos de ro
 .rotating(function);
 //Dirección de las rotaciones
 .rotateLeft(function);
-.rotateRight(function); 
+.rotateRight(function);
 ```
 #### Métodos Ajax
 La meta principal de Quo con Ajax es convertir las llamadas en algo sencillo y divertido.
@@ -230,10 +230,10 @@ $$.put(url, [parameters], [callback], [mime-type]);
 $$.delete(url, [parameters], [callback], [mime-type]);
 $$.json(url, [parameters], [callback]);
 ```
-``` 
+```
 $$.json(url, {id: 1980, user: 'dan'}, function(data){ ... });
 ```
-``` 
+```
 $$.ajax({
     type: 'POST', // defaults to 'GET'
     url: 'http://rest',
@@ -247,7 +247,7 @@ $$.ajax({
 #### Configuración de las llamadas Ajax
 Puedes establecer la configuración de las peticiones Ajax definiendo los timeouts y los callbacks en caso de éxito o error.
 
-``` 
+```
 //Configuración por defecto
 $$.ajaxSettings = {
     async: true,
@@ -260,11 +260,11 @@ $$.ajaxSettings.timeout = 1000;
 
 //Cambiar el callbac de error por defecto
 $.ajaxSettings.error = function(){ ... };
-``` 
-``` 
+```
+```
 $$.ajaxSettings.async = false;
 var response = $$.json('http://', {id: 1980, user: 'dan'});
-``` 
+```
 
 
 

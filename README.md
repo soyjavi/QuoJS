@@ -18,7 +18,7 @@ QuoJS only is not only a touch event manager, is an extensive library that requi
 This is opensource, so feel free to fork this project to help us improve Quo. All source code is developed with CoffeeScript.
 
 ### Licensing
-QuoJS is licensed under GPLv3 licensed and a Commercial License for OEM uses. See [LICENSE](https://github.com/soyjavi/QuoJS/blob/master/LICENSE.txt) for more information.
+QuoJS is licensed under MIT licensed. See [LICENSE](https://github.com/soyjavi/QuoJS/blob/master/LICENSE.txt) for more information.
 
 Touch events
 ------------
@@ -44,12 +44,12 @@ QuoJS supports the following gestures:
 * **Fingers**
 
 So you can also use QuoJS for mobile applicatios.
-		
+
 How to use
 ----------
 The namespace to use QuoJS is the symbol $$, so (if you needed) you can instantiate other JavaScript libraries (such jQuery, Zepto...) that use the common symbol $.
 
-``` 
+```
 // Find all <span> elements in <p> elements
 $$('span', 'p');
 
@@ -65,7 +65,7 @@ $$('p > span').html('tapquo').style('color', 'blue');
 #### Query Methods
 QuoJS has a query engine for DOM Elements very similar to that already use in other famous libraries. Many of the methods already you use in jQuery have their version here:
 
-``` 
+```
 // jQuery Compatible Query methods
 .get(index)
 .find('selector')
@@ -80,7 +80,7 @@ QuoJS has a query engine for DOM Elements very similar to that already use in ot
 #### Element Methods
 QuoJS has DOM Elements query engine very similar to that already use in other famous libraries. Many of the methods already you use in jQuery have their version here:
 
-``` 
+```
 // Get/Set element attribute
 .attr('attribute')
 .attr('attribute', 'value')
@@ -116,7 +116,7 @@ With QuoJS you can easily manage CSS styles of any DOM element of your project. 
 // Set a style with common vendor prefixes
 .vendor('transform', 'translate3d(50%, 0, 0)');
 ```
-``` 
+```
 $$('article').style('height', '128px');
 $$('article input').addClass('hide');
 
@@ -128,7 +128,7 @@ if (houses.hasClass('ghost')) {
 #### DOM Manipulation methods
 These methods allow us to insert/update content inside an existing element.
 
-``` 
+```
 // get first element's .innerHTML
 .html()
 // set the contents of the element(s)
@@ -146,12 +146,12 @@ These methods allow us to insert/update content inside an existing element.
 ```
 ```
 $$('article').html('tapquo');
-var content = $$('article').html(); //content is 'tapquo' 
+var content = $$('article').html(); //content is 'tapquo'
 ```
 #### Events handler
 Every frontend project needs a event management efficient, you can create your own events as well as subscribe to existing ones.
 
-``` 
+```
 // add event listener to elements
 .on(type, [selector,] function);
 // remove event listener from elements
@@ -174,7 +174,7 @@ $$.ready(function() {
 #### Gestures Events
 Although browsers only support touch events with QuoJS you have numerous events and gestures to help you make a usable project.
 
-``` 
+```
 //Tap event, common event
 .tap(function);
 //Long tap event (650 miliseconds)
@@ -187,7 +187,7 @@ Although browsers only support touch events with QuoJS you have numerous events 
 #### Swipe methods
 Not only have the basic swipe, you have more control over this gesture as used in the common native Apps.
 
-``` 
+```
 .swipe(function);
 //Detect if is swipping
 .swiping(function);
@@ -206,7 +206,7 @@ As with the previous gesture, QuoJS have easy control over this gesture and its 
 .pinching(function);
 //Pinch zoom
 .pinchIn(function);
-.pinchOut(function); 
+.pinchOut(function);
 ```
 #### Rotate methods
 As with the previous gesture, QuoJS have easy control over this gesture and its variations.
@@ -217,7 +217,7 @@ As with the previous gesture, QuoJS have easy control over this gesture and its 
 .rotating(function);
 //Rotate directions
 .rotateLeft(function);
-.rotateRight(function); 
+.rotateRight(function);
 ```
 #### Ajax Methods
 The main premise is to create ajax calls simple and fun.
@@ -229,10 +229,10 @@ $$.put(url, [parameters], [callback], [mime-type]);
 $$.delete(url, [parameters], [callback], [mime-type]);
 $$.json(url, [parameters], [callback]);
 ```
-``` 
+```
 $$.json(url, {id: 1980, user: 'dan'}, function(data){ ... });
 ```
-``` 
+```
 $$.ajax({
     type: 'POST', // defaults to 'GET'
     url: 'http://rest',
@@ -246,7 +246,7 @@ $$.ajax({
 #### Settings in Ajax Requests
 You can establishing a common configuration for all ajax requests, defining timeouts, callbacks for success or error response.
 
-``` 
+```
 //Default Settings
 $$.ajaxSettings = {
     async: true,
@@ -259,11 +259,11 @@ $$.ajaxSettings.timeout = 1000;
 
 //Set de default callback when ajax request failed
 $.ajaxSettings.error = function(){ ... };
-``` 
-``` 
+```
+```
 $$.ajaxSettings.async = false;
 var response = $$.json('http://', {id: 1980, user: 'dan'});
-``` 
+```
 
 
 
