@@ -52,9 +52,8 @@ Quo.Gestures.add
       else
         directions = []
         if Math.abs(_last.delta.y) > GAP
-          directions.push(if _last.delta.y < 0 then "Up" else "Down")
-        if Math.abs(_last.delta.x) > GAP
-          directions.push(if _last.delta.x < 0 then "Left" else "Right")
+            directions.push (if _last.delta.y < 0 then "Up" else "Down")
+          else directions.push (if _last.delta.x < 0 then "Left" else "Right") if Math.abs(_last.delta.x) > GAP 
         if directions.length
           base.trigger(_target, "swipe", _last)
           base.trigger(_target, "swipe#{direction}", _last) for direction in directions
