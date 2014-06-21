@@ -39,6 +39,16 @@ Quo.Gestures.add
         _last = null
 
     cancel = end = (target, data) ->
+     unless _last?
+        if data.length >= 1
+          delta =
+            x: data[0].x - _start.x
+            y: data[0].y - _start.y
+
+          _last =
+            x: data[0].x
+            y: data[0].y
+            delta: delta
       if _last
         _check(false)
         _last = null
