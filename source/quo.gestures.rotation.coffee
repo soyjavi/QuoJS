@@ -39,7 +39,7 @@ Quo.Gestures.add
         _last = {touches: data, delta: delta, rotationsCount: _num_rotations}
         _check(true)
 
-    end = (target, data) ->
+    cancel = end = (target, data) ->
       if _start and _last
         _check(false)
         _target = null
