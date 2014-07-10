@@ -183,6 +183,8 @@ Quo = do ->
 
   $$.fn.indexOf = EMPTY_ARRAY.indexOf
 
+  $$.version = "3.0.4"
+
   $$
 
 @Quo = @$$ = Quo
