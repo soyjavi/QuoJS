@@ -77,7 +77,6 @@ gulp.task('init', function() {
 });
 
 gulp.task('default', function() {
-  gulp.run(['webserver'])
   gulp.watch(path.modules, ['source', 'spec']);
   gulp.watch(path.gestures, ['gestures', 'spec']);
   gulp.watch(path.spec, ['spec']);
