@@ -9,13 +9,14 @@
   },
   "main": ["quo.js"],
   "keywords": [ "mobile" ],
-  "license": [{"type": "MIT"}],
+  "license": "MIT",
   "devDependencies": {
-    "grunt-contrib-coffee"  : "*",
-    "grunt-contrib-concat"  : "*",
-    "grunt-contrib-uglify"  : "*",
-    "grunt-contrib-jasmine" : "*",
-    "grunt-contrib-watch"   : "*",
-    "grunt-notify"          : "*"
+    "gulp"        : "*",
+    "gulp-coffee" : "*",
+    "gulp-concat" : "*",
+    "gulp-connect": "*",
+    "gulp-header" : "*",
+    "gulp-jasmine": "*",
+    "gulp-uglify" : "*"
   }
 }
