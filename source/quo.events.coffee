@@ -144,8 +144,7 @@ do ($$ = Quo) ->
   _event = (type, touch) ->
     event = document.createEvent("Events")
     event.initEvent type, true, true, null, null, null, null, null, null, null, null, null, null, null, null
-    if touch then event.quoData = touch
-    # event[property] = touch[property] for property of touch
+    if touch then event.touch = touch
     event
 
   _subscribe = (element, event, callback, selector, delegate_callback) ->
