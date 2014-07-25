@@ -183,7 +183,7 @@ Quo = do ->
 
   $$.fn.indexOf = EMPTY_ARRAY.indexOf
 
-  $$.version = "3.0.5"
+  $$.version = "3.0.6"
 
   $$
 

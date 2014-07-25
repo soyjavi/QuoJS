@@ -19,7 +19,7 @@ do ($$ = Quo) ->
   ###
   $$.fn.attr = (name, value) ->
     if @length > 0 and $$.toType(name) is "string"
-      if value
+      if value?
         @each -> @setAttribute name, value
       else
         @[0].getAttribute name
