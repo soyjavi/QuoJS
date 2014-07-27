@@ -7,6 +7,7 @@ var concat  = require('gulp-concat');
 var header  = require('gulp-header');
 var jasmine = require('gulp-jasmine');
 var uglify  = require('gulp-uglify');
+var gutil   = require('gulp-util');
 var pkg     = require('./package.json');
 
 
@@ -41,7 +42,7 @@ var banner = ['/**',
 // -- TASKS --------------------------------------------------------------------
 gulp.task('modules', function() {
   gulp.src(path.modules)
-    .pipe(coffee())
+    .pipe(coffee().on('error', gutil.log))
     .pipe(gulp.dest(path.temp))
     .pipe(uglify({mangle: true}))
     .pipe(header(banner, {pkg: pkg}))
@@ -51,7 +52,17 @@ gulp.task('modules', function() {
 gulp.task('gestures', function() {
   gulp.src(path.gestures)
     .pipe(concat('quo.gestures.coffee'))
-    .pipe(coffee())
+    .pipe(coffee().on('error', gutil.log))
+    .pipe(gulp.dest(path.temp))
+    .pipe(uglify({mangle: true}))
+    .pipe(header(banner, {pkg: pkg}))
+    .pipe(gulp.dest(path.bower))
+});
+
+gulp.task('standalone', function() {
+  gulp.src(path.modules.concat(path.gestures))
+    .pipe(concat('quo.standalone.coffee'))
+    .pipe(coffee().on('error', gutil.log))
     .pipe(gulp.dest(path.temp))
     .pipe(uglify({mangle: true}))
     .pipe(header(banner, {pkg: pkg}))
@@ -61,7 +72,7 @@ gulp.task('gestures', function() {
 gulp.task('spec', function() {
   gulp.src(path.spec)
     .pipe(concat('spec.coffee'))
-    .pipe(coffee())
+    .pipe(coffee().on('error', gutil.log))
     .pipe(gulp.dest(path.temp))
 
   var spec = [
@@ -73,11 +84,11 @@ gulp.task('spec', function() {
 });
 
 gulp.task('init', function() {
-  gulp.run(['modules', 'gestures', 'spec']);
+  gulp.run(['modules', 'gestures', 'standalone', 'spec']);
 });
 
 gulp.task('default', function() {
-  gulp.watch(path.modules, ['source', 'spec']);
-  gulp.watch(path.gestures, ['gestures', 'spec']);
+  gulp.watch(path.modules, ['modules', 'standalone', 'spec']);
+  gulp.watch(path.gestures, ['gestures', 'standalone', 'spec']);
   gulp.watch(path.spec, ['spec']);
 });

@@ -17,6 +17,7 @@
     "gulp-connect": "*",
     "gulp-header" : "*",
     "gulp-jasmine": "*",
-    "gulp-uglify" : "*"
+    "gulp-uglify" : "*",
+    "gulp-util"   : "*"
   }
 }
