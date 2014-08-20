@@ -258,7 +258,7 @@ $$.ajaxSettings = {
 $$.ajaxSettings.timeout = 1000;
 
 //Set de default callback when ajax request failed
-$.ajaxSettings.error = function(){ ... };
+$$.ajaxSettings.error = function(){ ... };
 ```
 ```
 $$.ajaxSettings.async = false;
