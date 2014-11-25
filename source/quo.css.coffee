@@ -18,8 +18,8 @@ do ($$ = Quo) ->
   @method addClass
   @param  {string} Name of stylesheet class
   ###
-  $$.fn.addClass = (name) ->
-    @each -> @classList.add name
+  $$.fn.addClass = (values) ->
+    @each -> @classList.add value for value in values.split " "
 
 
   ###
@@ -27,8 +27,8 @@ do ($$ = Quo) ->
   @method addClass
   @param  {string} Name of stylesheet class
   ###
-  $$.fn.removeClass = (name) ->
-    @each -> @classList.remove name
+  $$.fn.removeClass = (values) ->
+    @each -> @classList.remove value for value in values.split " "
 
 
   ###
@@ -36,10 +36,8 @@ do ($$ = Quo) ->
   @method addClass
   @param  {string} Name of stylesheet class
   ###
-  $$.fn.toggleClass = (name) ->
-    @each ->
-      method = if @.classList.contains(name) then "remove" else "add"
-      @classList[method] name
+  $$.fn.toggleClass = (values) ->
+    @each -> @classList.toggle value for value in values.split " "
 
 
   ###
