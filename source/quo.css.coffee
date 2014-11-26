@@ -19,7 +19,8 @@ do ($$ = Quo) ->
   @param  {string} Name of stylesheet class
   ###
   $$.fn.addClass = (values) ->
-    @each -> @classList.add value for value in values.split " "
+    @each ->
+      @classList.add value for value in _arrayOf values
 
 
   ###
@@ -28,7 +29,8 @@ do ($$ = Quo) ->
   @param  {string} Name of stylesheet class
   ###
   $$.fn.removeClass = (values) ->
-    @each -> @classList.remove value for value in values.split " "
+    @each ->
+gi      @classList.remove value for value in _arrayOf values
 
 
   ###
@@ -37,7 +39,8 @@ do ($$ = Quo) ->
   @param  {string} Name of stylesheet class
   ###
   $$.fn.toggleClass = (values) ->
-    @each -> @classList.toggle value for value in values.split " "
+    @each ->
+      @classList.toggle value for value in _arrayOf values
 
 
   ###
@@ -86,3 +89,7 @@ do ($$ = Quo) ->
   # ---------------------------------------------------------------------------
   _computedStyle = (element, property) ->
     document.defaultView.getComputedStyle(element, "")[property]
+
+  _arrayOf = (values) ->
+    values = [values] unless Array.isArray(values)
+    values
