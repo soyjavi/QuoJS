@@ -1,5 +1,5 @@
 ###
-Basic Quo Module
+EVENTS Quo Module
 
 @namespace Quo
 @class Events

@@ -1,5 +1,5 @@
 ###
-Basic Quo Module
+OUTPUT Quo Module
 
 @namespace Quo
 @class Output

@@ -1,5 +1,5 @@
 ###
-Basic Quo Module
+QUERY Quo Module
 
 @namespace Quo
 @class Query

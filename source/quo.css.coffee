@@ -1,5 +1,5 @@
 ###
-Basic Quo Module
+CSS Quo Module
 
 @namespace Quo
 @class css
@@ -30,7 +30,7 @@ do ($$ = Quo) ->
   ###
   $$.fn.removeClass = (values) ->
     @each ->
-gi      @classList.remove value for value in _arrayOf values
+      @classList.remove value for value in _arrayOf values
 
 
   ###

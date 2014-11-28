@@ -1,5 +1,5 @@
 ###
-Basic Quo Module
+ELEMENT Quo Module
 
 @namespace Quo
 @class Element

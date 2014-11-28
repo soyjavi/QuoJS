@@ -1,5 +1,5 @@
 ###
-Basic Quo Module
+ENVIRONMENT Quo Module
 
 @namespace Quo
 @class Environment

@@ -1,5 +1,5 @@
 ###
-Basic Quo Module
+AJAX Quo Module
 
 @namespace Quo
 @class Ajax
