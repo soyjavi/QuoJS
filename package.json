@@ -11,13 +11,16 @@
   "keywords": [ "mobile" ],
   "license": "MIT",
   "devDependencies": {
-    "gulp"        : "*",
-    "gulp-coffee" : "*",
-    "gulp-concat" : "*",
-    "gulp-connect": "*",
-    "gulp-header" : "*",
-    "gulp-jasmine": "*",
-    "gulp-uglify" : "*",
-    "gulp-util"   : "*"
+    "gulp"                      : "*",
+    "gulp-coffee"               : "*",
+    "gulp-concat"               : "*",
+    "gulp-connect"              : "*",
+    "gulp-header"               : "*",
+    "gulp-jasmine"              : "*",
+    "gulp-uglify"               : "*",
+    "gulp-util"                 : "*",
+    "karma"                     : "*",
+    "karma-jasmine"             : "*",
+    "karma-phantomjs-launcher"  : "*"
   }
 }
