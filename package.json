@@ -22,5 +22,8 @@
     "karma"                     : "*",
     "karma-jasmine"             : "*",
     "karma-phantomjs-launcher"  : "*"
+  },
+  "scripts"         : {
+    "postinstall" : "bower install"
   }
 }
