@@ -1,6 +1,8 @@
 QuoJS
 =====
 
+[![Build Status](https://travis-ci.org/soyjavi/QuoJS.svg?branch=master)](https://travis-ci.org/soyjavi/QuoJS)
+
 Is a micro, modular, Object-Oriented and concise JavaScript Library that simplifies HTML document traversing, event handling, and Ajax interactions for rapid mobile web development. It allows you to write powerful, flexible and cross-browser code with its elegant, well documented and micro coherent API.
 
 Designed to change the way that you write JavaScript with the small size goal: a 5-6k gzipped library that handles most basic drudge work with a nice API so you can concentrate on getting stuff done. Released under the Open Source MIT license, which gives you the possibility to use it and modify it in every circumstance.
