@@ -1,6 +1,5 @@
 QuoJS
 =====
-
 [![Build Status](https://travis-ci.org/soyjavi/QuoJS.svg?branch=master)](https://travis-ci.org/soyjavi/QuoJS)
 
 Is a micro, modular, Object-Oriented and concise JavaScript Library that simplifies HTML document traversing, event handling, and Ajax interactions for rapid mobile web development. It allows you to write powerful, flexible and cross-browser code with its elegant, well documented and micro coherent API.
@@ -9,12 +8,16 @@ Designed to change the way that you write JavaScript with the small size goal: a
 
 Current JavaScript libraries hate mobile, they are very big libraries that were built based on requirements of desktop devices, so mobile performance isn't optimal. Doesn't have a good support to touch events or a semantic API that would help the developer to create a good & cool JavaScript
 
-*Current version: [3.0.2]()*
+*Current version: [3.0.6]()*
 
 
 Getting Started
 ---------------
 QuoJS only is not only a touch event manager, is an extensive library that requires no third-party JavaScript libraries (such as jQuery, Prototype, Kendo ...) to create complex projects and browser-based applications.
+
+### Browser compatibility
+Mobile Browsers: Android Navigator 4+, Chrome for Android, Safari, FirefoxOS & Blackberry
+Desktop Browsers (no gestures available): Chrome 30+, Safari 4+, Firefox 24+ & Opera.
 
 ### GitHub
 This is opensource, so feel free to fork this project to help us improve Quo. All source code is developed with CoffeeScript.
@@ -260,12 +263,9 @@ $$.ajaxSettings = {
 $$.ajaxSettings.timeout = 1000;
 
 //Set de default callback when ajax request failed
-$$.ajaxSettings.error = function(){ ... };
+$.ajaxSettings.error = function(){ ... };
 ```
 ```
 $$.ajaxSettings.async = false;
 var response = $$.json('http://', {id: 1980, user: 'dan'});
 ```
-
-
-
