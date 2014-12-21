@@ -16,8 +16,8 @@ Getting Started
 QuoJS only is not only a touch event manager, is an extensive library that requires no third-party JavaScript libraries (such as jQuery, Prototype, Kendo ...) to create complex projects and browser-based applications.
 
 ### Browser compatibility
-Mobile Browsers: Android Navigator 4+, Chrome for Android, Safari, FirefoxOS & Blackberry
-Desktop Browsers (no gestures available): Chrome 30+, Safari 4+, Firefox 24+ & Opera.
+- Mobile Browsers: Android Navigator 4+, Chrome for Android, Safari, FirefoxOS & Blackberry
+- Desktop Browsers (no gestures available): Chrome 30+, Safari 4+, Firefox 24+ & Opera.
 
 ### GitHub
 This is opensource, so feel free to fork this project to help us improve Quo. All source code is developed with CoffeeScript.
