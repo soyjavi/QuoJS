@@ -1,5 +1,7 @@
 QuoJS
 =====
+
+[![Join the chat at https://gitter.im/soyjavi/QuoJS](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/soyjavi/QuoJS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/soyjavi/QuoJS.svg?branch=master)](https://travis-ci.org/soyjavi/QuoJS)
 
 Is a micro, modular, Object-Oriented and concise JavaScript Library that simplifies HTML document traversing, event handling, and Ajax interactions for rapid mobile web development. It allows you to write powerful, flexible and cross-browser code with its elegant, well documented and micro coherent API.
