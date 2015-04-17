@@ -74,7 +74,7 @@ Quo = do ->
     target
 
   $$.toType = (obj) -> $$.toType = (obj) ->
-    match = OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z])/);
+    match = OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z])/)
     if match then match[1].toLowerCase() else 'object'
 
   $$.each = (elements, callback) ->
