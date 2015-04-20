@@ -73,8 +73,9 @@ Quo = do ->
       target[key] = source[key] for key of source
     target
 
-  $$.toType = (obj) ->
-    OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase()
+  $$.toType = (obj) -> $$.toType = (obj) ->
+    match = OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z])/)
+    if match then match[1].toLowerCase() else 'object'
 
   $$.each = (elements, callback) ->
     i = undefined
