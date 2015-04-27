@@ -73,9 +73,9 @@ Quo = do ->
       target[key] = source[key] for key of source
     target
 
-  $$.toType = (obj) -> $$.toType = (obj) ->
-    match = OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z])/)
-    if match then match[1].toLowerCase() else 'object'
+  $$.toType = (obj) ->
+    match = OBJECT_PROTOTYPE.toString.call(obj).match(/\s([a-z|A-Z]+)/)
+    if match.length > 1 then match[1].toLowerCase() else "object"
 
   $$.each = (elements, callback) ->
     i = undefined
@@ -184,8 +184,10 @@ Quo = do ->
 
   $$.fn.indexOf = EMPTY_ARRAY.indexOf
 
-  $$.version = "3.0.6"
+  $$.version = "3.0.7"
 
   $$
 
 @Quo = @$$ = Quo
+
+module?.exports = Quo
