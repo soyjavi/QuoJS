@@ -52,15 +52,15 @@
         <article class="drag"><h1>drag</h1></article>
     </section>
 
-    <script src="../components/quojs/quo.js"></script>
-    <script src="../components/quojs/quo.ajax.js"></script>
-    <script src="../components/quojs/quo.css.js"></script>
-    <script src="../components/quojs/quo.element.js"></script>
-    <script src="../components/quojs/quo.environment.js"></script>
-    <script src="../components/quojs/quo.output.js"></script>
-    <script src="../components/quojs/quo.query.js"></script>
-    <script src="../components/quojs/quo.events.js"></script>
-    <script src="../components/quojs/quo.gestures.js"></script>
+    <script src="../bower/quo.js"></script>
+    <script src="../bower/quo.ajax.js"></script>
+    <script src="../bower/quo.css.js"></script>
+    <script src="../bower/quo.element.js"></script>
+    <script src="../bower/quo.environment.js"></script>
+    <script src="../bower/quo.output.js"></script>
+    <script src="../bower/quo.query.js"></script>
+    <script src="../bower/quo.events.js"></script>
+    <script src="../bower/quo.gestures.js"></script>
 
     <script>
 
@@ -70,8 +70,7 @@
 
         var EVENTS = {
             BASIC   : ["touchstart", "touchmove", "touchend", "touch", "orientationchange"],
-            // TAP     : ["touch", "tap", "singleTap", "doubleTap", "hold"],
-            TAP     : ["tap", "singleTap", "doubleTap", "hold"],
+            TAP     : ["doubleTap", "hold"],
             SWIPE   : ["swipe", "swiping", "swipeLeft", "swipeRight", "swipeUp", "swipeDown"],
             ROTATE  : ["rotate", "rotating", "rotateLeft", "rotateRight"],
             PINCH   : ["pinch", "pinching", "pinchIn", "pinchOut"],
@@ -101,7 +100,9 @@
                 if (label === "dragging") label = "[" + parseInt(event.quoData.delta.x) + "," + parseInt(event.quoData.delta.y) + "]";
                 el.append($$("<span>" + label + "; </span>"));
                 if(preventDefault === true) {
-                    event.originalEvent.preventDefault();
+                    console.log("event", event);
+                    event.preventDefault();
+                    // event.originalEvent.preventDefault();
                 }
             });
         };

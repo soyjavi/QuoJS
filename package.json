@@ -1,16 +1,19 @@
 {
-  "name": "QuoJS",
-  "version": "3.0.6",
-  "description": "Micro #JavaScript Library for Mobile Devices.",
-  "homepage": "http://quojs.tapquo.com",
-  "author": {
-    "name": "Javi Jimenez Villar (@soyjavi)",
-    "site": "https://twitter.com/soyjavi"
-  },
-  "main": ["quo.js"],
-  "keywords": [ "mobile" ],
-  "license": "MIT",
-  "devDependencies": {
+  "name"                        : "QuoJS",
+  "version"                     : "3.0.7",
+  "description"                 : "Micro #JavaScript Library for Mobile Devices.",
+  "homepage"                    : "http://quojs.tapquo.com",
+  "author"                      : {
+    "name"                      : "Javi Jimenez Villar",
+    "mail"                      : "javi.jimenez.villar@gmail.com",
+    "twitter"                   : "@soyjavi",
+    "site"                      : "http://soyjavi.com" },
+  "main"                        : ["quo.js"],
+  "keywords"                    : [ "mobile" ],
+  "license"                     : "MIT",
+  "dependencies"                : {
+    "coffee-script"             : "^1.8.0" },
+  "devDependencies"             : {
     "gulp"                      : "*",
     "gulp-coffee"               : "*",
     "gulp-concat"               : "*",
@@ -21,9 +24,6 @@
     "gulp-util"                 : "*",
     "karma"                     : "*",
     "karma-jasmine"             : "*",
-    "karma-phantomjs-launcher"  : "*"
-  },
-  "scripts"         : {
-    "postinstall" : "bower install"
-  }
+    "karma-phantomjs-launcher"  : "*" },
+  "scripts"                     : {}
 }
