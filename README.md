@@ -10,7 +10,7 @@ Designed to change the way that you write JavaScript with the small size goal: a
 
 Current JavaScript libraries hate mobile, they are very big libraries that were built based on requirements of desktop devices, so mobile performance isn't optimal. Doesn't have a good support to touch events or a semantic API that would help the developer to create a good & cool JavaScript
 
-*Current version: [3.0.6]()*
+*Current version: [3.0.7]()*
 
 
 Getting Started
@@ -31,8 +31,7 @@ Touch events
 ------------
 QuoJS supports the following gestures:
 
-* **Tap**
-* **Single Tap**
+* **Touch**
 * **Double-Tap**
 * **Hold**
 * **2xFingers Tap**
@@ -182,12 +181,10 @@ $$.ready(function() {
 Although browsers only support touch events with QuoJS you have numerous events and gestures to help you make a usable project.
 
 ```
-//Tap event, common event
-.tap(function);
+//Touch event, common event
+.touch(function);
 //Long tap event (650 miliseconds)
 .hold(function);
-//A tap-delay event to combine with others events
-.singleTap(function);
 //If you send two singleTap
 .doubleTap(function);
 ```
