@@ -1,0 +1,63 @@
+body
+  font-size                       : FONT_SIZE_NORMAL
+  color                           : COLOR
+  background-color                : BACKGROUND
+
+  a
+    text-decoration               : none
+
+
+  > header, > footer
+    z-index                       : 1
+    padding                       : (SPACE / 1.25) (SPACE * 2)
+
+  // -- <header/> --------------------------------------------------------------
+  > header
+    height                        : HEIGHT = U
+    line-height                   : HEIGHT
+    > a
+      font-size                   : (2 * FONT_SIZE_NORMAL)
+      > span
+        font-size                 : FONT_WEIGHT_THIN
+        opacity                   : 0.25
+        color                     : COLOR
+    > nav
+      text-align                  : right
+      > a
+        display                   : inline-block
+        margin-left               : SPACE
+    // -- Common
+    a
+      color                       : WHITE
+      font-weight                 : FONT_WEIGHT_BOLD
+
+  // -- <article/> -------------------------------------------------------------
+
+  // -- <footer/> --------------------------------------------------------------
+  > footer
+    position                      : absolute
+    left                          : 0
+    right                         : 0
+    bottom                        : 0
+    text-align                    : center
+
+
+  // -- BUTTON -------------------------------------------------------------------
+  .button, button, input[type="submit"], input[type="reset"], input[type="button"]
+    font-weight               : bold
+    text-transform            : uppercase
+    letter-spacing            : .1rem
+    color                     : COLOR = darken(BACKGROUND, 50%)
+    border                    : 1px solid COLOR
+    border-radius             : BORDER_RADIUS
+    &:hover, &:focus
+      color                   : darken(BACKGROUND, 75%)
+      border-color            : darken(BACKGROUND, 75%)
+    &.primary
+      color                   : WHITE
+      background-color        : THEME
+      border-color            : darken(THEME, 5%)
+      &:hover, &:focus
+        color                 : WHITE
+        background-color      : darken(THEME, 10%)
+        border-color          : darken(THEME, 15%)

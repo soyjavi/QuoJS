@@ -6,14 +6,31 @@
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Micro JavaScript Library that simplifies your mobile projects...">
     <link rel="canonical" href="/">
-    <link rel="icon" href="/assets/img/favicon.ico">
-    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="icon" href="./assets/img/favicon.ico">
+    <link rel="stylesheet" href="./assets/css/quojs-site.css">
   </head>
 
-  <body class="homepage">
+  <body data-page="home">
+    <header data-flex="horizontal grow">
+      <a href="/" class="logo">quo<span>.js</span></a>
+      <nav data-flex-grow="max">
+        <button>Download</button>
+        <a href="/docs">Docs</a>
+        <a href="https://github.com/soyjavi/quojs">Github</a>
+        <a href="https://gitter.im/soyjavi/QuoJS">Community</a>
+      </nav>
+    </header>
 
-    <script async="" src="//www.google-analytics.com/analytics.js"></script>
-    <script src="/dist/quo.js"></script>
-    <script src="/assets/js/index.js"></script>
+    <article data-flex="vertical center">
+      <!-- <h1>Simplify your mobile devices</h1> -->
+      <section data-device="tablet" data-flex="horizontal center center">
+        <div data-flex="vertical center"><abbr>swipping</abbr></div>
+      </section>
+    </article>
+    <footer>
+      copyright
+    </footer>
+    <script src="./assets/js/quo.standalone.js"></script>
+    <script src="./assets/js/site.js"></script>
   </body>
 </html>

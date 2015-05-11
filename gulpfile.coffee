@@ -6,28 +6,22 @@ coffee  = require 'gulp-coffee'
 concat  = require 'gulp-concat'
 header  = require 'gulp-header'
 connect = require "gulp-connect"
-jasmine = require 'gulp-jasmine'
 uglify  = require 'gulp-uglify'
-karma   = require('karma').server
+stylus  = require 'gulp-stylus'
 gutil   = require 'gulp-util'
 pkg     = require './package.json'
 # -- FILES ---------------------------------------------------------------------
 path =
-  bower   : './bower'
-  temp    : './build'
-  coffee  : ['./source/*.coffee'
-             './spec/*.coffee']
-  modules : ['./source/quo.coffee'
-             './source/quo.ajax.coffee'
-             './source/quo.css.coffee'
-             './source/quo.element.coffee'
-             './source/quo.environment.coffee'
-             './source/quo.events.coffee'
-             './source/quo.output.coffee'
-             './source/quo.query.coffee']
-  gestures: ['./source/quo.gestures.coffee'
-             './source/quo.gestures.*.coffee']
-  spec    : ['./spec/*.coffee']
+  assets  :   './assets'
+  coffee  : [ './source/*.coffee']
+  stylus  : [ './bower_components/flexo/source/normalize.styl'
+              './bower_components/flexo/source/flexo.styl'
+              './bower_components/flexo/source/flexo.button.styl'
+              './bower_components/flexo/source/flexo.flex.styl'
+              './bower_components/flexo/source/flexo.typography.styl'
+              './source/style/constants.styl'
+              './source/style/site.styl'
+              './source/style/site.*.styl']
 # -- BANNER --------------------------------------------------------------------
 banner = [
   "/**"
@@ -45,56 +39,29 @@ gulp.task "server", ->
   connect.server
     port      : 8000
     livereload: true
-    root      : path.dist
 
-gulp.task 'modules', ->
-  gulp.src path.modules
-    .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
+gulp.task "coffee", ->
+  gulp.src path.coffee
+    .pipe concat "site.coffee"
+    .pipe coffee().on "error", gutil.log
     .pipe uglify mangle: true
     .pipe header banner, pkg: pkg
-    .pipe gulp.dest path.bower
+    .pipe gulp.dest "#{path.assets}/js/"
     .pipe connect.reload()
 
-gulp.task 'gestures', ->
-  gulp.src path.gestures
-    .pipe concat 'quo.gestures.coffee'
-    .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
-    .pipe uglify mangle: true
+gulp.task "stylus", ->
+  gulp.src path.stylus
+    .pipe concat "#{pkg.name}.styl"
+    .pipe stylus
+      compress: true
+      errors  : true
     .pipe header banner, pkg: pkg
-    .pipe gulp.dest path.bower
+    .pipe gulp.dest "#{path.assets}/css/"
     .pipe connect.reload()
 
-gulp.task 'standalone', ->
-  gulp.src path.modules.concat path.gestures
-    .pipe concat 'quo.standalone.coffee'
-    .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
-    .pipe uglify mangle: true
-    .pipe header banner, pkg: pkg
-    .pipe gulp.dest path.bower
-    .pipe connect.reload()
-
-gulp.task 'spec', ->
-  gulp.src path.spec
-    .pipe concat 'spec.coffee'
-    .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
-
-gulp.task 'karma', ['modules', 'spec'], (done) ->
-  karma.start
-    configFile: __dirname + '/karma.js',
-    files     : [ './build/quo.standalone.js',
-                  './build/spec.js']
-    singleRun : false
-  , done
-
-gulp.task 'init', ['modules', 'gestures', 'standalone', 'spec', 'karma']
+gulp.task 'init', ['coffee', 'stylus']
 
 gulp.task 'default', ->
-  gulp.watch path.coffee, ['karma']
-  gulp.watch path.modules, ['modules', 'standalone']
-  gulp.watch path.gestures, ['gestures', 'standalone']
-  gulp.watch path.spec, ['spec']
+  gulp.watch path.coffee, ['coffee']
+  gulp.watch path.stylus, ['stylus']
   gulp.run ["server"]

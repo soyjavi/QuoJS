@@ -1,0 +1,8 @@
+/**
+ * QuoJS - Micro #JavaScript Library for Mobile Devices.
+ * @version v3.0.7
+ * @link    http://quojs.tapquo.com
+ * @author  Javi Jimenez Villar (@soyjavi) (https://twitter.com/soyjavi)
+ * @license MIT
+ */
+(function(){"use strict";!function(n){var t,r,i,e;return t="parentNode",n.fn.find=function(t){var r;return r=1===this.length?Quo.query(this[0],t):this.map(function(){return Quo.query(this,t)}),n(r)},n.fn.parent=function(n){var e;return e=n?i(this):this.instance(t),r(e,n)},n.fn.children=function(n){var t;return t=this.map(function(){return Array.prototype.slice.call(this.children)}),r(t,n)},n.fn.siblings=function(n){var t;return t=this.map(function(n,t){return Array.prototype.slice.call(t.parentNode.children).filter(function(n){return n!==t})}),r(t,n)},n.fn.get=function(n){return this[n]||null},n.fn.first=function(){return n(this[0])},n.fn.last=function(){return n(this[this.length-1])},n.fn.closest=function(t,r){var i,e;for(e=this[0],i=n(t),i.length||(e=null);e&&i.indexOf(e)<0;)e=e!==r&&e!==document&&e.parentNode;return n(e)},n.fn.next=function(){return e.call(this,"nextSibling")},n.fn.prev=function(){return e.call(this,"previousSibling")},n.fn.instance=function(n){return this.map(function(){return this[n]})},n.fn.map=function(t){return n.map(this,function(n,r){return t.call(n,r,n)})},i=function(t){var r;for(r=[];t.length>0;)t=n.map(t,function(n){return n=n.parentNode,n!==document&&r.indexOf(n)<0?(r.push(n),n):void 0});return r},r=function(t,r){return null!=r?n(t).filter(r):n(t)},e=function(t){var r;for(r=this[0][t];r&&1!==r.nodeType;)r=r[t];return n(r)}}(Quo)}).call(this);

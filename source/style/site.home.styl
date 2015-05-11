@@ -1,0 +1,77 @@
+[data-page="home"]
+
+  > article
+    position                      : absolute
+    top                           : 0
+    width                         : 100vw
+    height                        : 100vh
+    > h1
+      margin-top                  : SPACE
+    > button
+      margin-bottom               : SPACE
+
+    // -- Device
+    [data-device]
+      position                    : relative
+      background-color            : DEVICE
+      > div
+        position                  : relative
+        width                     : SIZE = (6 * UNIT)
+        height                    : SIZE
+        font-size                 : FONT_SIZE_SMALL
+        color                     : darken(YELLOW, 50%)
+        background-color          : YELLOW
+        border-radius             : SIZE
+        opacity                     0.75
+        transition                  all ANIMATION_DURATION ANIMATION_EASE
+        & , & > *
+          -webkit-touch-callout   : none
+          -webkit-user-select     : none
+          -khtml-user-select      : none
+          -moz-user-select        : none
+          -ms-user-select         : none
+          user-select             : none
+        > abbr
+          opacity                 : 0
+          transform                 scale(0)
+          transition                all ANIMATION_DURATION  ANIMATION_EASE
+        // -- Classes
+        &.touch
+          transform                 scale(1.25)
+          opacity                   1
+          transition-property       background
+          > abbr
+            opacity               : 1
+            transform               scale(1)
+        &.swipping
+          background-color        : blue
+
+
+    [data-device="tablet"]
+      width                       : 50vw
+      height                      : 60vh
+      border-radius                 BORDER_RADIUS
+      // box-shadow                    inset 0 0 0 (2 * UNIT) darken(DEVICE, 25%)
+      margin-top                  : GAP = 2.75 * UNIT
+      &:before, &:after
+        content                   : ""
+        position                  : absolute
+        display                   : block
+      &:before
+        z-index                   : -1
+        left                      : -(GAP)
+        right                     : -(GAP)
+        top                       : -(GAP / 1.25)
+        bottom                    : -(GAP / 1.25)
+        background-color          : darken(DEVICE, 25%)
+        border-radius             : (GAP / 4)
+      &:after
+        left                      : auto
+        right                     : -(GAP / 1.2)
+        GAP = (GAP / 1.75)
+        top                       : 50%
+        margin-top                : -(GAP / 2)
+        width                     : GAP
+        height                    : GAP
+        border-radius             : GAP
+        border                    : solid 2px lighten(DEVICE, 5%)

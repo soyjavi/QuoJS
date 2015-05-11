@@ -1,5 +1,5 @@
 {
-  "name"                        : "QuoJS",
+  "name"                        : "quojs-site",
   "version"                     : "3.0.7",
   "description"                 : "Micro #JavaScript Library for Mobile Devices.",
   "homepage"                    : "http://quojs.tapquo.com",
@@ -19,11 +19,8 @@
     "gulp-concat"               : "*",
     "gulp-connect"              : "*",
     "gulp-header"               : "*",
-    "gulp-jasmine"              : "*",
     "gulp-uglify"               : "*",
     "gulp-util"                 : "*",
-    "karma"                     : "*",
-    "karma-jasmine"             : "*",
-    "karma-phantomjs-launcher"  : "*" },
+    "gulp-stylus"               : "*"},
   "scripts"                     : {}
 }

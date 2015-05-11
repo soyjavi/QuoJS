@@ -1,0 +1,16 @@
+{
+  "name"            : "quojs-page",
+  "version"         : "0.5.10",
+  "homepage"        : "http://quojs.tapquo.com",
+  "author"          : {
+    "name"          : "Javi Jimenez Villar",
+    "mail"          : "javi.jimenez.villar@gmail.com",
+    "twitter"       : "@soyjavi",
+    "site"          : "http://soyjavi.com" },
+  "license"         : "MIT",
+  "main"            : "quo.js",
+  "ignore"          : [ "build", "node_modules"],
+  "dependencies"    : {
+      "flexo"       : "*",
+      "stylmethods" : "*"}
+}
