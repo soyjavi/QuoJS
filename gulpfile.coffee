@@ -13,8 +13,8 @@ gutil   = require 'gulp-util'
 pkg     = require './package.json'
 # -- FILES ---------------------------------------------------------------------
 path =
-  bower   : './bower'
-  temp    : './build'
+  dist    : './dist'
+  build    : './build'
   coffee  : ['./source/*.coffee'
              './spec/*.coffee']
   modules : ['./source/quo.coffee'
@@ -50,37 +50,37 @@ gulp.task "server", ->
 gulp.task 'modules', ->
   gulp.src path.modules
     .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
+    .pipe gulp.dest path.build
     .pipe uglify mangle: true
     .pipe header banner, pkg: pkg
-    .pipe gulp.dest path.bower
+    .pipe gulp.dest path.dist
     .pipe connect.reload()
 
 gulp.task 'gestures', ->
   gulp.src path.gestures
     .pipe concat 'quo.gestures.coffee'
     .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
+    .pipe gulp.dest path.build
     .pipe uglify mangle: true
     .pipe header banner, pkg: pkg
-    .pipe gulp.dest path.bower
+    .pipe gulp.dest path.dist
     .pipe connect.reload()
 
 gulp.task 'standalone', ->
   gulp.src path.modules.concat path.gestures
     .pipe concat 'quo.standalone.coffee'
     .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
+    .pipe gulp.dest path.build
     .pipe uglify mangle: true
     .pipe header banner, pkg: pkg
-    .pipe gulp.dest path.bower
+    .pipe gulp.dest path.dist
     .pipe connect.reload()
 
 gulp.task 'spec', ->
   gulp.src path.spec
     .pipe concat 'spec.coffee'
     .pipe coffee().on 'error', gutil.log
-    .pipe gulp.dest path.temp
+    .pipe gulp.dest path.build
 
 gulp.task 'karma', ['modules', 'spec'], (done) ->
   karma.start
