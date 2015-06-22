@@ -74,6 +74,7 @@ gulp.task 'standalone', ->
     .pipe uglify mangle: true
     .pipe header banner, pkg: pkg
     .pipe gulp.dest path.dist
+    .pipe gulp.dest './'
     .pipe connect.reload()
 
 gulp.task 'spec', ->

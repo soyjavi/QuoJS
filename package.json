@@ -8,7 +8,7 @@
     "mail"                      : "javi.jimenez.villar@gmail.com",
     "twitter"                   : "@soyjavi",
     "site"                      : "http://soyjavi.com" },
-  "main"                        : "dist/quo.standalone.js",
+  "main"                        : "quo.standalone.js",
   "keywords"                    : [ "mobile" ],
   "license"                     : "MIT",
   "dependencies"                : {
@@ -25,6 +25,5 @@
     "karma"                     : "*",
     "karma-jasmine"             : "*",
     "karma-phantomjs-launcher"  : "*" },
-  "scripts"                     : {
-    "postinstall"               : "git submodule init;git submodule update" }
+  "scripts"                     : {}
 }
