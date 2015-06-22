@@ -8,7 +8,7 @@
     "mail"                      : "javi.jimenez.villar@gmail.com",
     "twitter"                   : "@soyjavi",
     "site"                      : "http://soyjavi.com" },
-  "main"                        : ["dist/quo.standalone.js"],
+  "main"                        : "dist/quo.standalone.js",
   "keywords"                    : [ "mobile" ],
   "license"                     : "MIT",
   "dependencies"                : {
