@@ -12,7 +12,7 @@
   "keywords"                    : [ "mobile" ],
   "license"                     : "MIT",
   "dependencies"                : {
-    "coffee-script"             : "^1.8.0" },
+    "coffee-script"             : "^1.12.4" },
   "devDependencies"             : {
     "gulp"                      : "*",
     "gulp-coffee"               : "*",
